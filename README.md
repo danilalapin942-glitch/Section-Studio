@@ -16,6 +16,10 @@
 
 Python: https://www.python.org/downloads/windows/ · OpenVSP: https://openvsp.org/
 
+## Документация RepairMach
+
+[Математический аппарат RepairMach — DOCX от 19 октября 2026 года](docs/RepairMach_Mathematical_Framework_2026-10-19.docx). Документ добавлен по запросу владельца и сохранён без изменений; он описывает математическую основу RepairMach. Возможности Section Studio 1.0 и ограничения программы описаны отдельно ниже.
+
 ## Что входит в 1.0
 
 - Библиотека 75 шаблонов, редактор сечений и работа с проектами JSON/VSP3.
