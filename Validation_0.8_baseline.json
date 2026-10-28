@@ -1,0 +1,347 @@
+{
+  "program": "Section Studio 0.8.0",
+  "date_utc": "2026-10-09",
+  "browser": "Chromium 131",
+  "openvsp": "3.51.0",
+  "aerodynamic_solver_run": false,
+  "wing_fit_ui": {
+    "previewDoesNotChangeModel": true,
+    "applyWithUndo": true,
+    "otherBodyUnchanged": true,
+    "sourceAndWingDataUnchanged": true,
+    "JSONRoundtrip": true,
+    "foreignDataBlocked": true,
+    "invalidSettingsBlocked": true,
+    "pageErrors": [],
+    "responsive": [
+      {
+        "width": 850,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  },
+  "wing_fit_core": {
+    "syntheticPlacementCases": [
+      {
+        "mode": "high",
+        "gapFt": 0,
+        "added": 21,
+        "previewMinimumGapYFt": -8.881784197001252e-16,
+        "unchangedOppositeContour": true
+      },
+      {
+        "mode": "high",
+        "gapFt": 0.05,
+        "added": 21,
+        "previewMinimumGapYFt": 0.049999999999998934,
+        "unchangedOppositeContour": true
+      },
+      {
+        "mode": "mid",
+        "gapFt": 0,
+        "added": 21,
+        "previewMinimumGapYFt": -1.3322676295501878e-15,
+        "unchangedOppositeContour": true
+      },
+      {
+        "mode": "mid",
+        "gapFt": 0.05,
+        "added": 21,
+        "previewMinimumGapYFt": 0.04999999999999849,
+        "unchangedOppositeContour": true
+      },
+      {
+        "mode": "low",
+        "gapFt": 0,
+        "added": 21,
+        "previewMinimumGapYFt": -8.881784197001252e-16,
+        "unchangedOppositeContour": true
+      },
+      {
+        "mode": "low",
+        "gapFt": 0.05,
+        "added": 21,
+        "previewMinimumGapYFt": 0.04999999999999938,
+        "unchangedOppositeContour": true
+      }
+    ],
+    "unchangedContourMaxErrorFt": 4.440892098500626e-16,
+    "contactMaxErrorFt": 6.342923343242401e-16,
+    "zeroGapSupported": true,
+    "originalProjectNotMutated": true,
+    "malformedDataAndInvalidSettingsBlocked": true,
+    "sourceUnitMismatchBlocked": true
+  },
+  "native_modes": {
+    "nativeVersion": "OpenVSP 3.51.0",
+    "cases": [
+      {
+        "mode": "high",
+        "body": "fuselage",
+        "nativeContactPoints": 32,
+        "nativeContactMaxErrorFt": 6.280369834735101e-16,
+        "nativeControlMaxError": 8.326672684688674e-17,
+        "nativeAxialFolds": 0,
+        "otherComponentsUnchanged": true
+      },
+      {
+        "mode": "mid",
+        "body": "fuselage",
+        "nativeContactPoints": 64,
+        "nativeContactMaxErrorFt": 4.518280359883027e-16,
+        "nativeControlMaxError": 0,
+        "nativeAxialFolds": 0,
+        "otherComponentsUnchanged": true
+      },
+      {
+        "mode": "mid",
+        "body": "gondola",
+        "nativeContactPoints": 64,
+        "nativeContactMaxErrorFt": 8.882868333007365e-16,
+        "nativeControlMaxError": 0,
+        "nativeAxialFolds": 0,
+        "otherComponentsUnchanged": true
+      },
+      {
+        "mode": "low",
+        "body": "fuselage",
+        "nativeContactPoints": 32,
+        "nativeContactMaxErrorFt": 4.440892098500626e-16,
+        "nativeControlMaxError": 8.326672684688674e-17,
+        "nativeAxialFolds": 0,
+        "otherComponentsUnchanged": true
+      }
+    ],
+    "actualNativeWingSamplingMaxErrorFt": 9.930136612989092e-16,
+    "profiles": "Native cambered NACA 4-series, root and tip",
+    "wingRotationsDegrees": {
+      "X": 3,
+      "Z": 7
+    },
+    "apiErrors": [],
+    "aerodynamicSolverRun": false
+  },
+  "native_MQ28": {
+    "nativeVersion": "OpenVSP 3.51.0",
+    "sampledContactPoints": 34,
+    "nativeControlMaxError": 6.245004513516506e-17,
+    "nativeContactMaxErrorFt": 4.440892098500626e-16,
+    "otherComponentsByteEquivalentXML": true,
+    "wingPositionSpanAndGeometryUnchanged": true,
+    "nativeAxialFolds": 0,
+    "apiErrors": [],
+    "aerodynamicSolverRun": false
+  },
+  "units_and_source_identity": {
+    "nativeExporterUTF8Name": true,
+    "CRLFSourceFingerprint": true,
+    "nativeMetresToFeet": true,
+    "maxUnitConversionErrorFt": 7.105427357601002e-15,
+    "metresProjectPreview": true
+  },
+  "library_ui_regression": {
+    "templates": 75,
+    "models": 7,
+    "tested": [
+      "same_app_tab",
+      "catalog_filters",
+      "normalized_contour_preview",
+      "apply_preserves_target_dimensions",
+      "other_stations_unchanged",
+      "undo",
+      "standalone_export",
+      "empty_search_disables_apply",
+      "hyphen_free_search",
+      "source_dimensions_ft",
+      "point_requires_source_dimensions",
+      "native_source_identity_and_rotations_preserved",
+      "native_export",
+      "JSON_roundtrip",
+      "catalog_download",
+      "responsive"
+    ],
+    "pageErrors": [],
+    "responsive": [
+      {
+        "width": 850,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  },
+  "imports_regression": {
+    "program": "Section Studio 0.8",
+    "models": [
+      {
+        "model": "SAAB",
+        "loaded": true,
+        "exact_noop": true,
+        "edited_export": true,
+        "JSON_roundtrip": true,
+        "audit_summary": {
+          "bodies": 2,
+          "instances": 2,
+          "tiltedBodiesSkipped": 0,
+          "engineModesIgnored": 2,
+          "planes": 132,
+          "contourSegments": 96,
+          "minGap": 0.015183621133946557,
+          "minGapX": 14.050166318280628,
+          "errors": 0,
+          "warnings": 0,
+          "otherComponents": 2
+        }
+      },
+      {
+        "model": "MQ20",
+        "loaded": true,
+        "exact_noop": true,
+        "edited_export": true,
+        "JSON_roundtrip": true,
+        "audit_summary": {
+          "bodies": 2,
+          "instances": 2,
+          "tiltedBodiesSkipped": 1,
+          "engineModesIgnored": 1,
+          "planes": 135,
+          "contourSegments": 96,
+          "minGap": null,
+          "minGapX": null,
+          "errors": 0,
+          "warnings": 0,
+          "otherComponents": 2
+        }
+      },
+      {
+        "model": "OKRUG",
+        "loaded": true,
+        "exact_noop": true,
+        "edited_export": true,
+        "JSON_roundtrip": true,
+        "audit_summary": {
+          "bodies": 2,
+          "instances": 3,
+          "tiltedBodiesSkipped": 0,
+          "engineModesIgnored": 0,
+          "planes": 144,
+          "contourSegments": 96,
+          "minGap": 0,
+          "minGapX": 9.400897168405365,
+          "errors": 4,
+          "warnings": 1,
+          "otherComponents": 3
+        }
+      }
+    ],
+    "tested": [
+      "actual_model_import",
+      "exact_noop",
+      "width_edit",
+      "native_export",
+      "JSON_roundtrip",
+      "PCHIP_preparation_route",
+      "malformed_JSON_XML_keeps_project",
+      "bad_source_identity",
+      "live_selection_diagnostics",
+      "mirrored_preview",
+      "tilted_geometry_scope",
+      "responsive_layout"
+    ],
+    "page_errors": [],
+    "responsive": [
+      {
+        "width": 850,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  },
+  "live_diagnostics_regression": {
+    "tested": [
+      "initial_full_check",
+      "numeric_edit_before_blur",
+      "risk_correction_before_blur",
+      "invalid_partial_numeric_input",
+      "single_undo_per_field",
+      "drag_warning_before_pointerup",
+      "self_intersection_export_rejection",
+      "close_stations",
+      "small_section",
+      "user_gap_threshold",
+      "issue_navigation",
+      "manual_check_with_auto_off",
+      "JSON_report",
+      "unchanged_VSP3_export",
+      "unexamined_components_label",
+      "VSP3_edit_download",
+      "JSON_roundtrip",
+      "responsive_layout"
+    ],
+    "latencies": {
+      "numeric_overlap_ms": 151,
+      "corrected_risk_ms": 97,
+      "drag_self_intersection_ms": 259
+    },
+    "page_errors": [],
+    "responsive": [
+      {
+        "width": 850,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "overflow": false
+      }
+    ]
+  },
+  "library_geometry_baseline": {
+    "release": "0.7.0",
+    "unchanged_catalog": true,
+    "evidence": {
+      "nativeVersion": "OpenVSP 3.51.0",
+      "templatesRebuilt": 75,
+      "sampledContourPoints": 4875,
+      "sourceNativeContourMaxDeltaFt": 1.790180836524724e-15,
+      "nativeControlMaxDelta": 5.699284050778589e-17,
+      "browserBezierPreviewMaxDeltaFt": 5.5219990413178405e-05,
+      "standaloneScriptExport": true,
+      "nativeVSP3Export": true,
+      "engineSymmetryAndRotationsPreserved": true,
+      "otherComponentsUnchanged": true,
+      "apiErrors": [],
+      "aerodynamicSolverRun": false
+    }
+  },
+  "limits": [
+    "Wing data are discrete native samples: 33 U stations and 513 curve points.",
+    "Native contact errors compare body station points against the sampled foil envelope, not an analytic factory profile.",
+    "Fitting requires mirrored wing surfaces about XZ and a centered body with no station pitch/yaw or body mirror.",
+    "Preview minimum gap is a Y clearance across a sampled root zone, not a global 3D minimum distance.",
+    "Preview and native skinning differ between stations; final mesh must be inspected.",
+    "Engine cuts/channels are preserved but excluded from preview diagnostics.",
+    "Windows BAT was not executed; native scripts were tested in Linux.",
+    "No aerodynamic solver or MachLine mesh certification was performed."
+  ],
+  "module_sha256": {
+    "app.js": "7c3f50df1cebaad4cdfd8f086202f5fd7914c97f798f4da338563ee6fe2aa1e2",
+    "audit.js": "1f0d2afe9d4c63e7651a729ce9ace1c0720e8ed77207a0c979fb86670e8f6126",
+    "build.py": "a9377b2668a75971070b66ca18aa12a68d4bad1950fc965fc1c4824e77f30aa1",
+    "core.js": "eef105883edfca7bfda00c6836c3756945541ca698f046dc68b05ad2589e4db7",
+    "sections.json": "bb7ca9d365454722e73a9e5299f7e937809ea19ac05afb5232cc1c1aa369564d",
+    "template.html": "e37c5fd07911315ee8cbb2c05ddc891e295be1e762d5e6b5b1b9576cf1b13952",
+    "templates.js": "85deb154d4ff9cb2d8aa32a593ae4e554dc69cd09670d251a7f921694d83a0cd",
+    "vsp.js": "a0eac03ca324fc24bddaac9c2965ca262822fd187f037e8b58168e6ee43a738a",
+    "wingfit.js": "119c57abc96934098c2a80a5be455ef89597acc550ac832803375b082d290211",
+    "wingui.js": "06e6dd608e255a576933960de4199aff2d9c1cb26d8c21e9c4093780d3e3bec7"
+  }
+}

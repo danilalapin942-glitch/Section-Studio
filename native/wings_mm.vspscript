@@ -1,0 +1,32 @@
+// Section Studio 0.8. World coordinates, actual airfoils, no aerodynamic solve.
+int main(){
+ file input; if(input.open("Source.vsp3","r")<0){Print("SECTION_STUDIO_ERROR: Source.vsp3 not found");return 1;}
+ string xml=input.readString(input.getSize()); input.close();
+ uint hash=2166136261;uint sourceBytes=0;for(uint i=0;i<xml.length();i++){if(xml[i]==13)continue;hash=(hash^uint(xml[i]))*16777619;sourceBytes++;}
+ ClearVSPModel(); ReadVSPFile("Source.vsp3"); Update();
+ array<string> ids=FindGeoms();file wingFile;
+ if(wingFile.open("WingData.json","w")<0){Print("SECTION_STUDIO_ERROR: Cannot write WingData.json");return 1;}
+ wingFile.writeString("{\"format\":\"section-studio-wing-data\",\"schema\":1,\"units\":\"ft\",\"surfaceSet\":\"uncapped\",\"sourceUnits\":\"mm\",\"sourceHash\":\""+hash+"\",\"sourceBytes\":"+sourceBytes+",\"wings\":[");
+ bool first=true;int count=0;
+ for(uint k=0;k<ids.length();k++){
+  string g=ids[k];if(GetGeomTypeName(g)!="Wing")continue;
+  // End caps are omitted only in memory. The input VSP3 is never written.
+  SetParmVal(g,"CapUMinOption","EndCap",NO_END_CAP);SetParmVal(g,"CapUMaxOption","EndCap",NO_END_CAP);Update();
+  if(!first)wingFile.writeString(",");first=false;count++;
+  wingFile.writeString("{\"id\":\""+g+"\",\"surfaces\":[");
+  for(int s=0;s<GetTotalNumSurfs(g);s++){
+   if(s>0)wingFile.writeString(",");wingFile.writeString("{\"index\":"+s+",\"rings\":[");
+   for(int i=0;i<=32;i++){
+    if(i>0)wingFile.writeString(",");wingFile.writeString("[");
+    for(int j=0;j<=512;j++){
+     if(j>0)wingFile.writeString(",");vec3d p=CompPnt01(g,s,double(i)/32.0,double(j)/512.0);
+     if(p.x()!=p.x()||p.y()!=p.y()||p.z()!=p.z()||abs(p.x()*0.0032808398950131233)>1e5||abs(p.y()*0.0032808398950131233)>1e5||abs(p.z()*0.0032808398950131233)>1e5){wingFile.close();Print("SECTION_STUDIO_ERROR: Non-finite or excessive wing coordinates");return 1;}
+     wingFile.writeString("["+formatFloat(p.x()*0.0032808398950131233,"",0,15)+","+formatFloat(p.y()*0.0032808398950131233,"",0,15)+","+formatFloat(p.z()*0.0032808398950131233,"",0,15)+"]");
+    }wingFile.writeString("]");
+   }wingFile.writeString("]}");
+  }wingFile.writeString("]}");
+ }wingFile.writeString("]}");wingFile.close();
+ if(GetNumTotalErrors()>0){while(GetNumTotalErrors()>0){ErrorObj e=PopLastError();Print(e.GetErrorString());}Print("SECTION_STUDIO_ERROR");return 1;}
+ if(count==0){Print("SECTION_STUDIO_ERROR: No Wing components");return 1;}
+ Print("SECTION_STUDIO_SAVED: WingData.json");return 0;
+}

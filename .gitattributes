@@ -1,0 +1,2 @@
+# Preserve the supplied release files byte for byte on every platform.
+* -text

@@ -1,0 +1,17 @@
+// Diagnostic closed/thick Cart3D triangles, full geometry, no flow solve.
+int main(){
+ ClearVSPModel();ReadVSPFile("Source.vsp3");SetVSP3FileName("Source.vsp3");Update();
+ if(GetVSPVersionMajor()!=3||GetVSPVersionMinor()!=51){Print("SECTION_STUDIO_ERROR: Requires OpenVSP 3.51.x.");return 1;}
+ int diagnostic=GetNumSets()-1;array<string> ids=FindGeoms();
+ for(uint k=0;k<ids.length();k++){
+  string kind=GetGeomTypeName(ids[k]);
+  bool included=kind=="Fuselage"||kind=="Pod"||kind=="Stack"||kind=="Ellipsoid"||kind=="BOR"||kind=="Wing";
+  SetSetFlag(ids[k],diagnostic,included);
+  // Stable tkey association; names are changed in memory only, never in the VSP3.
+  if(included)SetGeomName(ids[k],ids[k]);
+ }
+ Update();ExportFile("MachMesh.tri",diagnostic,EXPORT_CART3D);
+ if(GetNumTotalErrors()>0){while(GetNumTotalErrors()>0){ErrorObj e=PopLastError();Print(e.GetErrorString());}Print("SECTION_STUDIO_ERROR");return 1;}
+ file info;info.open("MachInfo.txt","w");info.writeString(GetVSPVersion()+"\n");info.close();
+ Print("SECTION_STUDIO_SAVED: MachInfo.txt");return 0;
+}

@@ -1,0 +1,481 @@
+{
+  "program": "Section Studio 0.9",
+  "date_utc": "2026-10-11",
+  "native_runtime": "OpenVSP 3.51.0 Linux",
+  "browser": "Chromium 131",
+  "flowSolverRun": false,
+  "checks": {
+    "portablePythonTests": {
+      "passed": 22,
+      "command": "python -m unittest discover -s tests -v"
+    },
+    "pressureRepairContractNode": {
+      "passed": true,
+      "command": "node tests/test_pressure_repair.js"
+    },
+    "repairAndMeshUI": {
+      "version": "0.9",
+      "nativeOpenVSP": "3.51.0 Linux",
+      "boundedRepairPreview": true,
+      "previewDoesNotMutateProject": true,
+      "nativeRepairVerified": true,
+      "nativeMaxMoveFt": 0.045084610968596235,
+      "outsideZoneMoveFt": 0,
+      "applyUndoExact": true,
+      "unselectedWingXMLUnchanged": true,
+      "protectedStationBlocksRepair": true,
+      "stalePreviewBlocksApply": true,
+      "staleNativeResponseDiscarded": true,
+      "actualMQ28Mesh": {
+        "nodes": 1752,
+        "panels": 1696,
+        "parts": 7,
+        "thickParts": 3,
+        "thinParts": 4,
+        "minAreaFt2": 0.006419892066052764,
+        "maxAspect": 89.33378714606923,
+        "refinementLevels": 1,
+        "errors": 0,
+        "warnings": 3,
+        "info": 0,
+        "proximityPairsTested": 4068,
+        "proximityCandidateVisits": 27358,
+        "proximityLimited": false
+      },
+      "offlineVSPApplyBlocked": true,
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ],
+      "pageErrors": []
+    },
+    "nativeModels": [
+      {
+        "model": "MQ28_body_B.vsp3",
+        "summary": {
+          "nodes": 1752,
+          "panels": 1696,
+          "parts": 7,
+          "thickParts": 3,
+          "thinParts": 4,
+          "minAreaFt2": 0.006419892066052764,
+          "maxAspect": 89.33378714606923,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 3,
+          "info": 0,
+          "proximityPairsTested": 4068,
+          "proximityCandidateVisits": 27358,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_normal_jump",
+          "mesh_normal_jump",
+          "mesh_normal_jump"
+        ],
+        "cpCalculated": false
+      },
+      {
+        "model": "MQ20_repaired_v01.vsp3",
+        "summary": {
+          "nodes": 1314,
+          "panels": 1236,
+          "parts": 6,
+          "thickParts": 2,
+          "thinParts": 4,
+          "minAreaFt2": 8.647000321009039e-05,
+          "maxAspect": 183.1384131290322,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 5,
+          "info": 0,
+          "proximityPairsTested": 5736,
+          "proximityCandidateVisits": 19148,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_normal_jump",
+          "mesh_near_centers",
+          "mesh_area_jump",
+          "mesh_normal_jump",
+          "mesh_sliver"
+        ],
+        "cpCalculated": false
+      },
+      {
+        "model": "SAAB_FCAS_checked_v02.vsp3",
+        "summary": {
+          "nodes": 1344,
+          "panels": 1264,
+          "parts": 6,
+          "thickParts": 2,
+          "thinParts": 4,
+          "minAreaFt2": 0.03792223250137768,
+          "maxAspect": 36.82592554623086,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 3,
+          "info": 0,
+          "proximityPairsTested": 1124,
+          "proximityCandidateVisits": 13928,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_normal_jump",
+          "mesh_near_centers",
+          "mesh_normal_jump"
+        ],
+        "cpCalculated": false
+      },
+      {
+        "model": "YFQ44_repaired_v01.vsp3",
+        "summary": {
+          "nodes": 1126,
+          "panels": 1034,
+          "parts": 7,
+          "thickParts": 2,
+          "thinParts": 5,
+          "minAreaFt2": 0.006461296732540355,
+          "maxAspect": 27.61989807720105,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 2,
+          "info": 0,
+          "proximityPairsTested": 2906,
+          "proximityCandidateVisits": 14638,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_normal_jump",
+          "mesh_normal_jump"
+        ],
+        "cpCalculated": false
+      },
+      {
+        "model": "Spirit_Mosquito_wingfit_v02.vsp3",
+        "summary": {
+          "nodes": 18906,
+          "panels": 18928,
+          "parts": 6,
+          "thickParts": 2,
+          "thinParts": 4,
+          "minAreaFt2": 7.632832108513974e-05,
+          "maxAspect": 174.80574436306523,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 7,
+          "info": 0,
+          "proximityPairsTested": 28124,
+          "proximityCandidateVisits": 505474,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_near_centers",
+          "mesh_area_jump",
+          "mesh_normal_jump",
+          "mesh_normal_jump",
+          "mesh_area_jump",
+          "mesh_sliver",
+          "mesh_sliver"
+        ],
+        "cpCalculated": false
+      },
+      {
+        "model": "OKRUG_prepared.vsp3",
+        "summary": {
+          "nodes": 2980,
+          "panels": 2734,
+          "parts": 9,
+          "thickParts": 3,
+          "thinParts": 6,
+          "minAreaFt2": 0.0002864823817467397,
+          "maxAspect": 582.0610220656804,
+          "refinementLevels": 1,
+          "errors": 0,
+          "warnings": 16,
+          "info": 0,
+          "proximityPairsTested": 8456,
+          "proximityCandidateVisits": 37606,
+          "proximityLimited": false
+        },
+        "sourceUnchanged": true,
+        "codes": [
+          "mesh_area_jump",
+          "mesh_sliver",
+          "mesh_sliver",
+          "mesh_area_jump",
+          "mesh_area_jump",
+          "mesh_area_jump",
+          "mesh_area_jump",
+          "mesh_near_centers",
+          "mesh_near_centers",
+          "mesh_sliver",
+          "mesh_sliver",
+          "mesh_area_jump",
+          "mesh_area_jump",
+          "mesh_normal_jump",
+          "mesh_normal_jump",
+          "mesh_normal_jump"
+        ],
+        "cpCalculated": false
+      }
+    ],
+    "localBridgeRegression": {
+      "suite": "0.8.1 bridge suite rerun against 0.9",
+      "result": {
+        "version": "0.8.1",
+        "nativeOpenVSP": "3.51 Linux",
+        "autoSections": true,
+        "unselectedGeomXMLUnchanged": true,
+        "autoWingData": true,
+        "fitApplyUndo": true,
+        "realPCHIPPrepared": true,
+        "cancelPreventsAsyncReplacement": true,
+        "invalidPathPreservesProject": true,
+        "invalidUnitsPreserveProject": true,
+        "APIRequiresSessionToken": true,
+        "sourceFilesNotServed": true,
+        "offlineFallback": true,
+        "responsive": [
+          {
+            "width": 850,
+            "overflow": false
+          },
+          {
+            "width": 390,
+            "overflow": false
+          }
+        ],
+        "pageErrors": []
+      }
+    },
+    "nativePreparation": {
+      "nativeVersion": "OpenVSP 3.51.0",
+      "sourceGeometryPreservedDuringPreparation": [
+        {
+          "model": "MQ28",
+          "nativeContourMaxDeltaSourceUnits": 8.881784197001252e-16,
+          "stations": 14,
+          "samplesPerStation": 129,
+          "apiErrors": []
+        },
+        {
+          "model": "OKRUG_PCHIP",
+          "nativeContourMaxDeltaSourceUnits": 9.930136612989092e-16,
+          "stations": 17,
+          "samplesPerStation": 129,
+          "apiErrors": []
+        }
+      ]
+    },
+    "nativeWingFit": {
+      "nativeVersion": "OpenVSP 3.51.0",
+      "sampledContactPoints": 34,
+      "nativeControlMaxError": 6.245004513516506e-17,
+      "nativeContactMaxErrorFt": 4.440892098500626e-16,
+      "otherComponentsByteEquivalentXML": true,
+      "wingPositionSpanAndGeometryUnchanged": true,
+      "nativeAxialFolds": 0,
+      "apiErrors": [],
+      "aerodynamicSolverRun": false
+    },
+    "import": {
+      "program": "Section Studio 0.7",
+      "models": [
+        {
+          "model": "SAAB",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 2,
+            "tiltedBodiesSkipped": 0,
+            "engineModesIgnored": 2,
+            "planes": 132,
+            "contourSegments": 96,
+            "minGap": 0.015183621133946557,
+            "minGapX": 14.050166318280628,
+            "errors": 0,
+            "warnings": 0,
+            "otherComponents": 2
+          }
+        },
+        {
+          "model": "MQ20",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 2,
+            "tiltedBodiesSkipped": 1,
+            "engineModesIgnored": 1,
+            "planes": 135,
+            "contourSegments": 96,
+            "minGap": null,
+            "minGapX": null,
+            "errors": 0,
+            "warnings": 1,
+            "otherComponents": 2
+          }
+        },
+        {
+          "model": "OKRUG",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 3,
+            "tiltedBodiesSkipped": 0,
+            "engineModesIgnored": 0,
+            "planes": 144,
+            "contourSegments": 96,
+            "minGap": 0,
+            "minGapX": 9.400897168405365,
+            "errors": 4,
+            "warnings": 10,
+            "otherComponents": 3
+          }
+        }
+      ],
+      "tested": [
+        "actual_model_import",
+        "exact_noop",
+        "width_edit",
+        "native_export",
+        "JSON_roundtrip",
+        "PCHIP_preparation_route",
+        "malformed_JSON_XML_keeps_project",
+        "bad_source_identity",
+        "live_selection_diagnostics",
+        "mirrored_preview",
+        "tilted_geometry_scope",
+        "responsive_layout"
+      ],
+      "page_errors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "templateLibrary": {
+      "templates": 75,
+      "models": 7,
+      "tested": [
+        "same_app_tab",
+        "catalog_filters",
+        "normalized_contour_preview",
+        "apply_preserves_target_dimensions",
+        "other_stations_unchanged",
+        "undo",
+        "standalone_export",
+        "empty_search_disables_apply",
+        "hyphen_free_search",
+        "source_dimensions_ft",
+        "point_requires_source_dimensions",
+        "native_source_identity_and_rotations_preserved",
+        "native_export",
+        "JSON_roundtrip",
+        "catalog_download",
+        "responsive"
+      ],
+      "pageErrors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "wingFitUI": {
+      "previewDoesNotChangeModel": true,
+      "applyWithUndo": true,
+      "otherBodyUnchanged": true,
+      "sourceAndWingDataUnchanged": true,
+      "JSONRoundtrip": true,
+      "foreignDataBlocked": true,
+      "invalidSettingsBlocked": true,
+      "pageErrors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "liveDiagnostics": {
+      "tested": [
+        "initial_full_check",
+        "numeric_edit_before_blur",
+        "risk_correction_before_blur",
+        "invalid_partial_numeric_input",
+        "single_undo_per_field",
+        "drag_warning_before_pointerup",
+        "self_intersection_export_rejection",
+        "close_stations",
+        "small_section",
+        "user_gap_threshold",
+        "issue_navigation",
+        "manual_check_with_auto_off",
+        "JSON_report",
+        "unchanged_VSP3_export",
+        "unexamined_components_label",
+        "VSP3_edit_download",
+        "JSON_roundtrip",
+        "responsive_layout"
+      ],
+      "latencies": {
+        "numeric_overlap_ms": 141,
+        "corrected_risk_ms": 105,
+        "drag_self_intersection_ms": 233
+      },
+      "page_errors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    }
+  },
+  "limits": [
+    "Windows launcher prepared but not executed in this Linux environment.",
+    "No pressure or aerodynamic coefficient calculation was performed.",
+    "Heuristic preflight is not aerodynamic certification or a calibrated probability predictor.",
+    "Native checks cover the first VSPAERO input mesh and finite surface samples."
+  ]
+}

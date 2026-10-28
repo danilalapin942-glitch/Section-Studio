@@ -1,0 +1,278 @@
+{
+  "program": "Section Studio 0.8.1",
+  "date_utc": "2026-10-11",
+  "native_runtime": "OpenVSP 3.51.0 Linux",
+  "browser": "Chromium 131",
+  "checks": {
+    "local_integration": {
+      "version": "0.8.1",
+      "nativeOpenVSP": "3.51 Linux",
+      "autoSections": true,
+      "unselectedGeomXMLUnchanged": true,
+      "autoWingData": true,
+      "fitApplyUndo": true,
+      "realPCHIPPrepared": true,
+      "cancelPreventsAsyncReplacement": true,
+      "invalidPathPreservesProject": true,
+      "invalidUnitsPreserveProject": true,
+      "APIRequiresSessionToken": true,
+      "sourceFilesNotServed": true,
+      "offlineFallback": true,
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ],
+      "pageErrors": []
+    },
+    "native_preparation": {
+      "nativeVersion": "OpenVSP 3.51.0",
+      "sourceGeometryPreservedDuringPreparation": [
+        {
+          "model": "MQ28",
+          "nativeContourMaxDeltaSourceUnits": 8.881784197001252e-16,
+          "stations": 14,
+          "samplesPerStation": 129,
+          "apiErrors": []
+        },
+        {
+          "model": "OKRUG_PCHIP",
+          "nativeContourMaxDeltaSourceUnits": 9.930136612989092e-16,
+          "stations": 17,
+          "samplesPerStation": 129,
+          "apiErrors": []
+        }
+      ]
+    },
+    "native_export_MQ28": {
+      "nativeVersion": "OpenVSP 3.51.0",
+      "sampledContactPoints": 34,
+      "nativeControlMaxError": 6.245004513516506e-17,
+      "nativeContactMaxErrorFt": 4.440892098500626e-16,
+      "otherComponentsByteEquivalentXML": true,
+      "wingPositionSpanAndGeometryUnchanged": true,
+      "nativeAxialFolds": 0,
+      "apiErrors": [],
+      "aerodynamicSolverRun": false
+    },
+    "wing_fitting_ui": {
+      "previewDoesNotChangeModel": true,
+      "applyWithUndo": true,
+      "otherBodyUnchanged": true,
+      "sourceAndWingDataUnchanged": true,
+      "JSONRoundtrip": true,
+      "foreignDataBlocked": true,
+      "invalidSettingsBlocked": true,
+      "pageErrors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "imports": {
+      "program": "Section Studio 0.7",
+      "models": [
+        {
+          "model": "SAAB",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 2,
+            "tiltedBodiesSkipped": 0,
+            "engineModesIgnored": 2,
+            "planes": 132,
+            "contourSegments": 96,
+            "minGap": 0.015183621133946557,
+            "minGapX": 14.050166318280628,
+            "errors": 0,
+            "warnings": 0,
+            "otherComponents": 2
+          }
+        },
+        {
+          "model": "MQ20",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 2,
+            "tiltedBodiesSkipped": 1,
+            "engineModesIgnored": 1,
+            "planes": 135,
+            "contourSegments": 96,
+            "minGap": null,
+            "minGapX": null,
+            "errors": 0,
+            "warnings": 0,
+            "otherComponents": 2
+          }
+        },
+        {
+          "model": "OKRUG",
+          "loaded": true,
+          "exact_noop": true,
+          "edited_export": true,
+          "JSON_roundtrip": true,
+          "audit_summary": {
+            "bodies": 2,
+            "instances": 3,
+            "tiltedBodiesSkipped": 0,
+            "engineModesIgnored": 0,
+            "planes": 144,
+            "contourSegments": 96,
+            "minGap": 0,
+            "minGapX": 9.400897168405365,
+            "errors": 4,
+            "warnings": 1,
+            "otherComponents": 3
+          }
+        }
+      ],
+      "tested": [
+        "actual_model_import",
+        "exact_noop",
+        "width_edit",
+        "native_export",
+        "JSON_roundtrip",
+        "PCHIP_preparation_route",
+        "malformed_JSON_XML_keeps_project",
+        "bad_source_identity",
+        "live_selection_diagnostics",
+        "mirrored_preview",
+        "tilted_geometry_scope",
+        "responsive_layout"
+      ],
+      "page_errors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "template_library": {
+      "templates": 75,
+      "models": 7,
+      "tested": [
+        "same_app_tab",
+        "catalog_filters",
+        "normalized_contour_preview",
+        "apply_preserves_target_dimensions",
+        "other_stations_unchanged",
+        "undo",
+        "standalone_export",
+        "empty_search_disables_apply",
+        "hyphen_free_search",
+        "source_dimensions_ft",
+        "point_requires_source_dimensions",
+        "native_source_identity_and_rotations_preserved",
+        "native_export",
+        "JSON_roundtrip",
+        "catalog_download",
+        "responsive"
+      ],
+      "pageErrors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    },
+    "live_diagnostics": {
+      "tested": [
+        "initial_full_check",
+        "numeric_edit_before_blur",
+        "risk_correction_before_blur",
+        "invalid_partial_numeric_input",
+        "single_undo_per_field",
+        "drag_warning_before_pointerup",
+        "self_intersection_export_rejection",
+        "close_stations",
+        "small_section",
+        "user_gap_threshold",
+        "issue_navigation",
+        "manual_check_with_auto_off",
+        "JSON_report",
+        "unchanged_VSP3_export",
+        "unexamined_components_label",
+        "VSP3_edit_download",
+        "JSON_roundtrip",
+        "responsive_layout"
+      ],
+      "latencies": {
+        "numeric_overlap_ms": 148,
+        "corrected_risk_ms": 108,
+        "drag_self_intersection_ms": 215
+      },
+      "page_errors": [],
+      "responsive": [
+        {
+          "width": 850,
+          "overflow": false
+        },
+        {
+          "width": 390,
+          "overflow": false
+        }
+      ]
+    }
+  },
+  "portable_bridge_unittests": {
+    "passed": 9,
+    "command": "python -m unittest discover -s tests -v"
+  },
+  "inherited_baseline": "Validation_0.8_baseline.json: earlier geometry and mode checks; not all rerun in 0.8.1",
+  "limits": [
+    "Windows BAT launcher and Windows file picker were not executed in this environment.",
+    "Requires separately installed Python 3.10+ and a full OpenVSP installation for automatic preparation.",
+    "Mesh certification and aerodynamic solver calculations were not performed.",
+    "Body transformation and fitting scope limitations remain as documented in README.txt."
+  ],
+  "sha256": {
+    "Run_OpenVSP.bat": "fc235826024a037715a8f6e96bfd3e9cc5933d4e629111f16e5e70039c1a0f45",
+    "Section_Studio.html": "b59ab18f86bf8de604f80bf668d4508c806e5644ec46b1c74a29fc19a827d0ef",
+    "Start_Section_Studio.bat": "2636835ee96547e0ae794821fa35f24ba865787f841e105668b9a3bcb42cdef8",
+    "native/sections.vspscript": "9f056ba36c603ba98726bd0e8f0d020fcb6843e8c559624582bfa147b14f947f",
+    "native/wings_ft.vspscript": "f2357ccf8630e131ab4aee4252732b8be527b2279f51be6234c670d4f694e51b",
+    "native/wings_in.vspscript": "6a70d04cca55f13131b2efb657ac0a8354da692d051d032e49a02f1709a22211",
+    "native/wings_m.vspscript": "3eef6c6430eadc0d546eafc3da58db380d2247ca284f8d3ef163ebf04bd85e71",
+    "native/wings_mm.vspscript": "a69de671e43c5b05884e6d3e09c8f4522c44650bc8c041d3a28119414e49f157",
+    "section_studio_server.py": "3f554681547d5574adfce250d5163c408577652b12e8590f793c4d637aab1afc",
+    "source/app.js": "8c05a34a27fca92b2fe44241f8cb5a6963d60db1e7b67a4f6f3f8749275d7803",
+    "source/audit.js": "1f0d2afe9d4c63e7651a729ce9ace1c0720e8ed77207a0c979fb86670e8f6126",
+    "source/build.py": "dab30b5180edaa4e670d8df6eef1e99eb1efffa2520397f297ea6c0fa69452ea",
+    "source/core.js": "f114fe3766063bee6e54933a1a9d0d22770f1e4301001a9f826b09ab033126cc",
+    "source/native.js": "b179aec2847e8d65a3431d2c8d1e96b002bbea2d88ecc4c8239b1d647371e1e2",
+    "source/template.html": "045c8615ed3b61c20eb33a52d1838a9791a0d1691eb6f706d032e76267d55bdc",
+    "source/templates.js": "85deb154d4ff9cb2d8aa32a593ae4e554dc69cd09670d251a7f921694d83a0cd",
+    "source/vsp.js": "bfdac89723ae8f6c1648eb887517cfc329efdd8ca16adf53be68d7a9ab1b7b44",
+    "source/wingfit.js": "119c57abc96934098c2a80a5be455ef89597acc550ac832803375b082d290211",
+    "source/wingui.js": "eb11546afe472dd56d0263173ba97ec9e5134657c7cd26c59223685cc52907ea",
+    "tests/test_bridge.py": "6880236422a0bf67c2cf9539c32ec624897318c033396622a0cee68b9080e87b"
+  }
+}

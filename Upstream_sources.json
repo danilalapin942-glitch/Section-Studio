@@ -1,0 +1,248 @@
+[
+  {
+    "file": "VSPAEROMgr.cpp",
+    "path": "src/geom_core/VSPAEROMgr.cpp",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "64920b45ae30471d044eabd24b2e8942f1f0bd5646a92a5f4e60c2e6c7e38fb1",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/geom_core/VSPAEROMgr.cpp"
+  },
+  {
+    "file": "VSP_Geom.C",
+    "path": "src/vsp_aero/Solver/VSP_Geom.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "8cd3080ed8ff4385fc8b06b981c8b8cb70b84ee4249f372452ac5d2ddf3ced4c",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/VSP_Geom.C"
+  },
+  {
+    "file": "VSP_Solver.C",
+    "path": "src/vsp_aero/Solver/VSP_Solver.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "4177a02f29e43342285a6d125d2f0f801732ae0423f28acceaa9fa7eca651333",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/VSP_Solver.C"
+  },
+  {
+    "file": "VSP_Grid.C",
+    "path": "src/vsp_aero/Solver/VSP_Grid.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "af965d1b9129ec265c2002ceed0e58d2ad2b1da5176849f75c7dcf192498a2b7",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/VSP_Grid.C"
+  },
+  {
+    "file": "VSP_Edge.C",
+    "path": "src/vsp_aero/Solver/VSP_Edge.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "3985060fc63430eef5a0ac6140b17e869f13eb20306d4dc1d9a03cefd095c8f9",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/VSP_Edge.C"
+  },
+  {
+    "file": "VSP_Loop.C",
+    "path": "src/vsp_aero/Solver/VSP_Loop.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "4542fcf0fe8d94aa35b3fceb7494517c9331a043aa33cea810bb49e1d20b9043",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/VSP_Loop.C"
+  },
+  {
+    "file": "vspaero.C",
+    "path": "src/vsp_aero/Solver/vspaero.C",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "586e683b5eeea7c4c9691bf59de6752fd9e6b71381fa356dcd55b8f2e823f7b3",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/vspaero.C"
+  },
+  {
+    "file": "ScriptMgr.cpp",
+    "path": "src/geom_core/ScriptMgr.cpp",
+    "tag": "OpenVSP_3.51.0",
+    "sha256": "25a015511dba6ad287ff91136dfbce6c25e4cf64cbb1a92630ffda003b7098d4",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/geom_core/ScriptMgr.cpp"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "base_geom.f90",
+    "path": "src/base_geom.f90",
+    "sha256": "5de8358216bcbc5eb65bf704dcedcfbdd3021b1ff657559c57a77a2a428bce9e",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/base_geom.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "flow.f90",
+    "path": "src/flow.f90",
+    "sha256": "a06c540c59cf06e4d0b9aecdf95bf64f8ef5d9cb3dc2f82843225846d1c77834",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/flow.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "main.f90",
+    "path": "src/main.f90",
+    "sha256": "b5c84d6b08ebd6f6639d3e0afff461961484edc0193d6e7c46a53ffc19d6db57",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/main.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "mesh.f90",
+    "path": "src/mesh.f90",
+    "sha256": "49b166c1e2ef28387f431d633614b79ad8dc197da282c6b5b0003304c4591095",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/mesh.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "panel.f90",
+    "path": "src/panel.f90",
+    "sha256": "746366071cf291e8cc5992a016356ef4ab8ad24f6be3068bd6dd498aaf3097ce",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/panel.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "panel_solver.f90",
+    "path": "src/panel_solver.f90",
+    "sha256": "fff5c784c13e9166aadeb477e73ec0363a0de72d5836a67293be0a8dd3fc9bdf",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/panel_solver.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "stl.f90",
+    "path": "src/stl.f90",
+    "sha256": "cf82288b0f4fa95df485dc24d04b9c9666d758e1f390f3cd963b572275d8fa92",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/stl.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "surface_mesh.f90",
+    "path": "src/surface_mesh.f90",
+    "sha256": "6ef53e4f20f679c58f279bf5f86d0b0b887b454c865d7d54b4701987bbe96ae3",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/surface_mesh.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "tri.f90",
+    "path": "src/tri.f90",
+    "sha256": "765c2930f74f6b54b6f22729e725b584cb6a8197c658d056c3cceccd6b9cf040",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/tri.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "vtk.f90",
+    "path": "src/vtk.f90",
+    "sha256": "028ae50142d4c025d1a30358122217718be258a35323cac7ded6d25fb31df0a6",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/vtk.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "wake_mesh.f90",
+    "path": "src/wake_mesh.f90",
+    "sha256": "5214d766fe205cc1b63b01f0dcf1c34653afb385ba0ce852af4c1e55c6edd153",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/wake_mesh.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "wake_strip.f90",
+    "path": "src/wake_strip.f90",
+    "sha256": "0aab7c69e3e806c8bedea74e848d3040a7b5456d699f221e7fcf66d06ba72654",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/src/wake_strip.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "helpers.f90",
+    "path": "common/helpers.f90",
+    "sha256": "758033895d8d0086aa1810c6b78b2adff4d5dbe5f9ad4b14ef077f4a511da5fa",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/helpers.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "json.f90",
+    "path": "common/json.f90",
+    "sha256": "ab1726ff913eafd456ae0edea8a584ef714df3a38a3aaf49b2b364e395088681",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/json.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "json_xtnsn.f90",
+    "path": "common/json_xtnsn.f90",
+    "sha256": "1fee831d321fb5784869a0a613b9bbc4ac0bd0f27d299bea9ddba3aa185bc4c2",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/json_xtnsn.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "linalg.f90",
+    "path": "common/linalg.f90",
+    "sha256": "637fb0a5e75eb5544aa7b7c2246f2d9cfafb251262ea45066e8dd5bbcc2e23cb",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/linalg.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "linked_list.f90",
+    "path": "common/linked_list.f90",
+    "sha256": "d2c8368d8884c36dc6251774438defc9001933fe433c5346c6b5a5daa933d0a2",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/linked_list.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "math.f90",
+    "path": "common/math.f90",
+    "sha256": "70847cb245874275dad2ef533f73b0eeb0263b14daa6a41c3b9942ddb9517e2e",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/math.f90"
+  },
+  {
+    "repository": "usuaero/MachLine",
+    "version": "v4.0",
+    "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
+    "commit_date_utc": "2024-10-02T20:42:16Z",
+    "file": "sort.f90",
+    "path": "common/sort.f90",
+    "sha256": "e8590d075ae1ec3af5546a4bbad07e3b698b85b1667a30cde92ee62591f460f2",
+    "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/sort.f90"
+  }
+]

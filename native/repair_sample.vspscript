@@ -1,0 +1,14 @@
+// Sample corresponding native surface points of the single repaired body.
+int main(){
+ ClearVSPModel();ReadVSPFile("Source.vsp3");Update();
+ string g="SS_BODY";int n=GetTotalNumSurfs(g);
+ if(n<1||n>16){Print("SECTION_STUDIO_ERROR: Unsupported number of surfaces.");return 1;}
+ file sample;sample.open("Samples.txt","w");sample.writeString(formatInt(n)+"\n");
+ for(int surf=0;surf<n;surf++)for(int u=0;u<=320;u++)for(int w=0;w<=64;w++){
+  vec3d p=CompPnt01(g,surf,double(u)/320.0,double(w)/64.0);
+  sample.writeString(formatFloat(p.x(),"",0,15)+" "+formatFloat(p.y(),"",0,15)+" "+formatFloat(p.z(),"",0,15)+"\n");
+ }
+ sample.close();
+ if(GetNumTotalErrors()>0){while(GetNumTotalErrors()>0){ErrorObj e=PopLastError();Print(e.GetErrorString());}Print("SECTION_STUDIO_ERROR");return 1;}
+ Print("SECTION_STUDIO_SAVED: Samples.txt");return 0;
+}

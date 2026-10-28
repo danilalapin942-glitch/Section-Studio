@@ -1,0 +1,15 @@
+{
+  "program": "Section Studio",
+  "version": "1.0",
+  "source_release_date": "2026-10-11",
+  "publication_date": "2026-10-28",
+  "release_directory": "releases/1.0",
+  "archive": "releases/1.0/Fuselage_Section_Studio_v10.zip",
+  "archive_sha256": "da5fda1a1cd7516b6a87d2c660b00bc9f26307c2811fbd956e7055ab22f3662a",
+  "release_url": "https://github.com/danilalapin942-glitch/Section-Studio/releases/tag/v1.0",
+  "independent_python_unit_tests": 42,
+  "independent_javascript_contract_suites": 2,
+  "browser_UI_rerun_at_publication": false,
+  "OpenVSP_rerun_at_publication": false,
+  "aerodynamic_solver_run": false
+}

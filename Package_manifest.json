@@ -1,0 +1,250 @@
+{
+  "version": "1.0",
+  "date_utc": "2026-10-11",
+  "files": {
+    "Aircraft_Section_Library_v1.json": {
+      "bytes": 262976,
+      "sha256": "c224fb2822bc3975f1b72be202513924864257837009f1cd04dde5c67606a3e0"
+    },
+    "CHANGELOG.txt": {
+      "bytes": 5042,
+      "sha256": "354cc31ce700fe4d53697860b9dc6836a8e416bd0c4a382cebac547b7c24f4cb"
+    },
+    "Editor_manual_0.8.txt": {
+      "bytes": 37085,
+      "sha256": "b816526ba7c5dffa641417ab7ce7ea9b66a5d5ec9bb3b3453e8a919a19441730"
+    },
+    "Example_edited.vsp3": {
+      "bytes": 329395,
+      "sha256": "f175c1a4bf6d44855dd22fb5b44fe37839ee27e1256d93889518b5cb28d55776"
+    },
+    "Example_input.vsp3": {
+      "bytes": 271151,
+      "sha256": "b2bb2d5e1641a4e30a572d9be91db3c0b3de9459c98729d4ab3461415fb33af2"
+    },
+    "Example_project.json": {
+      "bytes": 318021,
+      "sha256": "269776acb552ca639502012839b88455a7744e6d4d0ed105cbf44a54080ef164"
+    },
+    "Example_risks.json": {
+      "bytes": 28431,
+      "sha256": "04311e2a665df5fbd000ea326887e07b7236fa1b44f8fca31dff81166926ad31"
+    },
+    "Examples/MQ28_wingfit_ready.json": {
+      "bytes": 4483566,
+      "sha256": "9ddfe9bcd6dc95bae9ceefcaf1dba87fffec7a669ae761109b0fee776e1296fc"
+    },
+    "Examples/MachLine_after.vsp3": {
+      "bytes": 415227,
+      "sha256": "ce3738e55285919163c5de27371b7a087c04044b8baa369498ad4b18faea1811"
+    },
+    "Examples/MachLine_before.vsp3": {
+      "bytes": 421293,
+      "sha256": "ab9fbc9f1102073d184e3cb8b389f3d854a0003363109fede8017036c454c9d9"
+    },
+    "Examples/MachLine_example.txt": {
+      "bytes": 1933,
+      "sha256": "db493158a5d9544026e5e989382590aefa810dd5382b08a9e6133c18ce712665"
+    },
+    "Examples/MachLine_repair_report.json": {
+      "bytes": 32609,
+      "sha256": "ca9aa3b41434bd58d72d97eb557ebdfdc2bd6e147abda3e4a56807ce4da14556"
+    },
+    "Examples/Repair_after.vsp3": {
+      "bytes": 415227,
+      "sha256": "ce3738e55285919163c5de27371b7a087c04044b8baa369498ad4b18faea1811"
+    },
+    "Examples/Repair_before.vsp3": {
+      "bytes": 421293,
+      "sha256": "ab9fbc9f1102073d184e3cb8b389f3d854a0003363109fede8017036c454c9d9"
+    },
+    "Examples/Repair_example.txt": {
+      "bytes": 1099,
+      "sha256": "02bff1643d504fe64cf8a863d00469ec4d1dc937e017fc7d865a21f20ff9d980"
+    },
+    "MachLine_1.0_notes.txt": {
+      "bytes": 13150,
+      "sha256": "3bdbdff76e76e3e985da4de0f5e85a60a90abcfd918bdb094e10f5ffff9e13b6"
+    },
+    "Prepared_models/MQ28_for_wingfit.vsp3": {
+      "bytes": 575792,
+      "sha256": "987c8fc3df331171e20b81224fc9a994734f5eefff3b0cd93449c95fe1d23239"
+    },
+    "Prepared_models/OKRUG_prepared.vsp3": {
+      "bytes": 695825,
+      "sha256": "8e10c3b29abd13073152ec3fbace1763b0cea4a201350c91053ee5ae4c1ed9ca"
+    },
+    "README.txt": {
+      "bytes": 17945,
+      "sha256": "f46595c86f077fb843ebdadff01408c52a00f02c7ea8d9a5b178ecc3aced5398"
+    },
+    "Run_OpenVSP.bat": {
+      "bytes": 1640,
+      "sha256": "fc235826024a037715a8f6e96bfd3e9cc5933d4e629111f16e5e70039c1a0f45"
+    },
+    "START_HERE.txt": {
+      "bytes": 1662,
+      "sha256": "0e9706f6f680d781eb6730afe072e8d4a4402a8ea66e17ba44698b8918e00dce"
+    },
+    "Section_Studio.html": {
+      "bytes": 507895,
+      "sha256": "33010438de39f1a353b759b8adce74d69164833775d89e83bd76fd3ec5bb5b70"
+    },
+    "Start_Section_Studio.bat": {
+      "bytes": 765,
+      "sha256": "2636835ee96547e0ae794821fa35f24ba865787f841e105668b9a3bcb42cdef8"
+    },
+    "Upstream_sources.json": {
+      "bytes": 10440,
+      "sha256": "043672b139a5dc48c85ad78699586e356bf7b473c153549c1dd41a948ed061de"
+    },
+    "VSPAERO_0.9_notes.txt": {
+      "bytes": 18135,
+      "sha256": "3d3bcdae2f4ee47976414dc82c302386474e827bd1034daa3ad744e6421dc683"
+    },
+    "Validation.json": {
+      "bytes": 41449,
+      "sha256": "244aaa23119891977ffd819dc4b44078f865e4cfcc6df42b3818decec25cfd23"
+    },
+    "Validation_0.8.1_baseline.json": {
+      "bytes": 8993,
+      "sha256": "66836aa66c6d784a4a223df4798c116af1dd10ad6348299b9248ce27534f052b"
+    },
+    "Validation_0.8_baseline.json": {
+      "bytes": 10182,
+      "sha256": "778e6074b76e37bdaf750a93475be65ab4ec1456a49f6a0869eb41d247098d39"
+    },
+    "Validation_0.9_baseline.json": {
+      "bytes": 13145,
+      "sha256": "94b6169d278e91ac6a581973e0971557651eaa8c0a92906f20c51661a76f5d25"
+    },
+    "machline_audit.py": {
+      "bytes": 22245,
+      "sha256": "b2de84e66cb66d42c23cbfbcfbe26e663ca05a306e1b77d612fd1a219ac0d899"
+    },
+    "mesh_audit.py": {
+      "bytes": 20192,
+      "sha256": "ac7a00864e4634eefb19cbf5a84930db7e8674af255fc7448c1157de54fd1663"
+    },
+    "native/machline_mesh.vspscript": {
+      "bytes": 1072,
+      "sha256": "a888f4864a60ea92a9e272625e05662da681c29e5a2a0788cec165967081da6d"
+    },
+    "native/mesh.vspscript": {
+      "bytes": 1878,
+      "sha256": "877a917248eea4ea60995eec221935e8d66a6df82b410720a767af3a98ec7e8e"
+    },
+    "native/repair_sample.vspscript": {
+      "bytes": 840,
+      "sha256": "03cadde6f16f27ecb5b059917292c209e21edc23dfb04b743f385fc98516c043"
+    },
+    "native/sections.vspscript": {
+      "bytes": 865,
+      "sha256": "f1ca4db9479e1224972aee39683906cde95ffd8a6fca2baa920a63ddb3a52e9c"
+    },
+    "native/wings_ft.vspscript": {
+      "bytes": 2433,
+      "sha256": "e467079d2a1bde89a33550482042299d041bc2fb97793e91555a4342558ff4b1"
+    },
+    "native/wings_in.vspscript": {
+      "bytes": 2493,
+      "sha256": "e7ba89ccebf0610c33ed2e58457f6611db23592d7beaabbc3567a67a2d33e028"
+    },
+    "native/wings_m.vspscript": {
+      "bytes": 2480,
+      "sha256": "cb84e56f6d8c0692bd4d5bebf36805a69ae93d5d268e07eac9a8e305cc631a16"
+    },
+    "native/wings_mm.vspscript": {
+      "bytes": 2502,
+      "sha256": "dd69b3d504c6f3b09b3c28e38744ff6886e44732f2db2d3a140b3a41fbe01594"
+    },
+    "native_audit.py": {
+      "bytes": 15426,
+      "sha256": "aedf3e63ce26bbac2da6990a07262559ebabf663ab3b983aa3780c1657f8973d"
+    },
+    "section_studio_server.py": {
+      "bytes": 16762,
+      "sha256": "989d32403a1d72e67a346586ae2110985c06318bf022ef799828ec05c332f34c"
+    },
+    "source/app.js": {
+      "bytes": 59888,
+      "sha256": "203913e587d27aa214a63b00b3f6a43c410bb5400cbe4ef4a96cc3c394b3ce33"
+    },
+    "source/audit.js": {
+      "bytes": 13215,
+      "sha256": "fe69660d5c0ec8887810eb9beac4cf7a392a30c36e4355ed9bb002181b553f72"
+    },
+    "source/build.py": {
+      "bytes": 517,
+      "sha256": "167b065e6ad2463a917e85b152dd0a3df159c7e806c57be1ed1c0964c852eb5e"
+    },
+    "source/core.js": {
+      "bytes": 23197,
+      "sha256": "6de5bcb5bb2ca115a607eded124c8eb2cbbe92048b4497e74d1c6862806b1e86"
+    },
+    "source/machline.js": {
+      "bytes": 8364,
+      "sha256": "e2e3c4c317666cefaf51b06bccf295829313cd37fea8addd9619b0767d2b4ff8"
+    },
+    "source/native.js": {
+      "bytes": 1215,
+      "sha256": "ce886bba8ea07421fe48531f034b8dbb1c29f04ca0ef4f7f16e2bbe8ee805980"
+    },
+    "source/pressure.js": {
+      "bytes": 4231,
+      "sha256": "5339cb70826b64921ac8df282d114b419fa80e30a5445094ed6d082f0004f5d8"
+    },
+    "source/repair.js": {
+      "bytes": 5578,
+      "sha256": "086fd1e382d5a8fc784b6c77e87ff35692696bf10e1dd698bc4ca00ea030275a"
+    },
+    "source/riskui.js": {
+      "bytes": 23681,
+      "sha256": "57d77ed7ee3bc2be037291148125005a7f25df1a910ccaff4b1ad087b7df5b64"
+    },
+    "source/sections.json": {
+      "bytes": 264136,
+      "sha256": "bb7ca9d365454722e73a9e5299f7e937809ea19ac05afb5232cc1c1aa369564d"
+    },
+    "source/template.html": {
+      "bytes": 44581,
+      "sha256": "b80836f76b6ca42a54e8a5f559a562ae207105358417b877531a5d88eae1b2ba"
+    },
+    "source/templates.js": {
+      "bytes": 2571,
+      "sha256": "85deb154d4ff9cb2d8aa32a593ae4e554dc69cd09670d251a7f921694d83a0cd"
+    },
+    "source/vsp.js": {
+      "bytes": 24483,
+      "sha256": "6158084fae983fb38adaa1f22ca4955554bf65b26cda219517f054af4d303736"
+    },
+    "source/wingfit.js": {
+      "bytes": 18434,
+      "sha256": "b3cd940162e1818b7ddda1b01d2ad8fe4ecc63f33b4831b9276835891951870b"
+    },
+    "source/wingui.js": {
+      "bytes": 14457,
+      "sha256": "eb11546afe472dd56d0263173ba97ec9e5134657c7cd26c59223685cc52907ea"
+    },
+    "tests/test_bridge.py": {
+      "bytes": 6136,
+      "sha256": "f1e23cee122380d9a79829ab7fd9ed85ac437cc57687ae493c6887aae5625e04"
+    },
+    "tests/test_machline.py": {
+      "bytes": 6248,
+      "sha256": "c457dbee9bb3c466346dcdc0ce48b2f8124158ab5c610aa33643c4929c24b93a"
+    },
+    "tests/test_machline_repair.js": {
+      "bytes": 2086,
+      "sha256": "5f2bacbaa574fe1506142fd996885cec90683f29c90489bb946d45ee4f9bfa8a"
+    },
+    "tests/test_mesh_audit.py": {
+      "bytes": 6362,
+      "sha256": "8904db89d7800e8a1c6a8b9dd85dfb422117b8e102684a0fd3f6579fc69bbb78"
+    },
+    "tests/test_pressure_repair.js": {
+      "bytes": 1995,
+      "sha256": "eae076c6ffe81e32fbae4d9bb08aaf40b519c54e3d390d601ef3944063cc240d"
+    }
+  }
+}

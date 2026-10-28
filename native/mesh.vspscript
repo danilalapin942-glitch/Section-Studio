@@ -1,0 +1,29 @@
+// Build the actual VSPAERO v7 input geometry. No aerodynamic solve.
+int main(){
+ ClearVSPModel(); ReadVSPFile("Source.vsp3"); SetVSP3FileName("Source.vsp3"); Update();
+ if(GetVSPVersionMajor()!=3 || GetVSPVersionMinor()!=51){Print("SECTION_STUDIO_ERROR: Mesh verification requires OpenVSP 3.51.x.");return 1;}
+ string analysis="VSPAEROComputeGeometry"; SetAnalysisInputDefaults(analysis);
+ int preset=SS_PRESET;
+ if(preset==1){
+  int thick=GetNumSets()-2,thin=GetNumSets()-1;
+  array<string> ids=FindGeoms();
+  for(uint k=0;k<ids.length();k++){
+   string kind=GetGeomTypeName(ids[k]);
+   SetSetFlag(ids[k],thick,kind=="Fuselage"||kind=="Pod"||kind=="Stack"||kind=="Ellipsoid"||kind=="BOR");
+   SetSetFlag(ids[k],thin,kind=="Wing");
+  }
+  array<int> a={thick},b={thin},off={0};
+  SetIntAnalysisInput(analysis,"GeomSet",a);SetIntAnalysisInput(analysis,"ThinGeomSet",b);
+  SetIntAnalysisInput(analysis,"UseModeFlag",off);SetIntAnalysisInput(analysis,"Symmetry",off);
+  array<string> empty={""};SetStringAnalysisInput(analysis,"SingleGeomID",empty);
+ }
+ string r=ExecAnalysis(analysis);
+ if(GetNumTotalErrors()>0){while(GetNumTotalErrors()>0){ErrorObj e=PopLastError();Print(e.GetErrorString());}Print("SECTION_STUDIO_ERROR");return 1;}
+ array<string> names=GetStringResults(r,"VSPGeomFileName");
+ array<int> thick=GetIntResults(r,"GeometrySet"),thin=GetIntResults(r,"ThinGeometrySet");
+ array<int> mode=GetIntAnalysisInput(analysis,"UseModeFlag"),sym=GetIntAnalysisInput(analysis,"Symmetry");
+ if(names.length()!=1||thick.length()!=1||thin.length()!=1){Print("SECTION_STUDIO_ERROR: Missing mesh results.");return 1;}
+ file info;info.open("MeshInfo.txt","w");
+ info.writeString(GetVSPVersion()+"\n"+formatInt(thick[0])+"\n"+formatInt(thin[0])+"\n"+names[0]+"\n"+formatInt(mode[0])+"\n"+formatInt(sym[0])+"\n");info.close();
+ Print("SECTION_STUDIO_SAVED: MeshInfo.txt");return 0;
+}
