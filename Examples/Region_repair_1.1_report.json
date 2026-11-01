@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "verified": true,
+  "reasons": [],
+  "nativeMaxMoveFt": 0.090000000000001,
+  "nativeOutsideMoveFt": 0,
+  "protectedMoveFt": 0,
+  "sampling": {
+    "u": 321,
+    "w": 65,
+    "points": 20865,
+    "limit": "Конечная выборка; тонкие изменения между отсчётами могут быть пропущены."
+  },
+  "introduced": [],
+  "candidateHash": "911fe641a35af983d88660a0ab052898f70dc58d19d4b5ef99ba7e66661d0f12",
+  "solver": "VSPAERO",
+  "inclinationBefore": null,
+  "inclinationAfter": null,
+  "before": {
+    "nodes": 1732,
+    "panels": 1792,
+    "parts": 2,
+    "thickParts": 2,
+    "thinParts": 0,
+    "minAreaFt2": 0.0014922063801417291,
+    "maxAspect": 9.448688706666896,
+    "refinementLevels": 1,
+    "errors": 0,
+    "warnings": 2,
+    "info": 0,
+    "proximityPairsTested": 0,
+    "proximityCandidateVisits": 30252,
+    "proximityLimited": false
+  },
+  "after": {
+    "nodes": 1732,
+    "panels": 1792,
+    "parts": 2,
+    "thickParts": 2,
+    "thinParts": 0,
+    "minAreaFt2": 0.0014922063801417291,
+    "maxAspect": 9.448688706666896,
+    "refinementLevels": 1,
+    "errors": 0,
+    "warnings": 2,
+    "info": 0,
+    "proximityPairsTested": 0,
+    "proximityCandidateVisits": 33448,
+    "proximityLimited": false
+  },
+  "stations": [
+    3,
+    4,
+    5
+  ],
+  "zoneFt": [
+    2,
+    10
+  ],
+  "previewKinkBeforeDeg": 100.38885781546946,
+  "previewKinkAfterDeg": 57.401409912675085,
+  "budgetFt": 0.1
+}

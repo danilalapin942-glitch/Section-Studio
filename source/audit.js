@@ -30,7 +30,7 @@
   const gapLimit=Number(options.minGap??.001),angleLimit=Number(options.angleLimit??65),contourSegments=96;
   if(!Number.isFinite(gapLimit)||gapLimit<0||gapLimit>10)throw new Error('Порог зазора должен быть от 0 до 10 ft.');
   if(!Number.isFinite(angleLimit)||angleLimit<5||angleLimit>89)throw new Error('Порог резкого изменения — от 5 до 89°.');
-  const bodies=project.bodies,tilted=bodies.map(b=>b.sections.some(s=>Math.abs(s.pitch||0)>1e-8||Math.abs(s.yaw||0)>1e-8)),enabled=bodies.flatMap((b,i)=>b.enabled?[i]:[]),stations=[...new Set(enabled.flatMap(i=>bodies[i].sections.map(s=>s.x)))].sort((a,b)=>a-b),length=stations.at(-1)-stations[0],eps=Math.max(1e-9,length*1e-10);
+  const bodies=project.bodies,tilted=bodies.map(b=>C.frames?.active(b)||b.sections.some(s=>Math.abs(s.pitch||0)>1e-8||Math.abs(s.yaw||0)>1e-8)),enabled=bodies.flatMap((b,i)=>b.enabled?[i]:[]),stations=[...new Set(enabled.flatMap(i=>bodies[i].sections.map(s=>s.x)))].sort((a,b)=>a-b),length=stations.at(-1)-stations[0],eps=Math.max(1e-9,length*1e-10);
   const xx=new Set(stations);for(let j=0;j<stations.length-1;j++){const a=stations[j],b=stations[j+1],n=Math.max(4,Math.ceil((b-a)/length*120));for(let k=1;k<n;k++)xx.add(a+(b-a)*k/n);}
   const allPlanes=[...xx].sort((a,b)=>a-b);
   const focused=Number.isFinite(options.focusX);let planes=allPlanes;
@@ -74,5 +74,13 @@
   issues.sort((a,b)=>severityOrder[a.severity]-severityOrder[b.severity]||a.x-b.x);issues.forEach((i,n)=>{delete i.lastIndex;i.id='geometry-'+n;});
   return {kind:'geometry',scope:focused?'local':'full',focusX:focused?options.focusX:null,issues,summary:{bodies:enabled.length,instances:enabled.reduce((n,i)=>n+(bodies[i].mirrorY?2:1),0),tiltedBodiesSkipped:enabled.filter(i=>tilted[i]).length,engineModesIgnored:enabled.filter(i=>meta.engineModes?.[i]).length,planes:planes.length,contourSegments,minGap:Number.isFinite(minimumGap)?minimumGap:null,minGapX:minimumGapX,errors:issues.filter(i=>i.severity==='error').length,warnings:issues.filter(i=>i.severity==='warning').length,pressureWarnings:issues.filter(i=>i.domain==='pressure-risk').length,otherComponents:meta.otherComponents||0},settings:{minGap:gapLimit,angleLimit,pressureTurn:Number(options.pressureTurn??40),solver:options.solver||'vspaero',machline:options.solver==='machline'?root.SectionMach.settings(options.machline):null},pressureModel:{kind:'geometry-heuristic',cpCalculated:false,probabilityCalibrated:false,referenceSolver:options.solver==='machline'?'MachLine v4.0 / '+root.SectionMach.SHA:'VSPAERO v7 / OpenVSP 3.51.0'},limits:['Проверены только выбранные тела и их поддерживаемые зеркальные копии, по предварительным базовым сечениям редактора.','Узкие зоны между плоскостями и между отсчётами контура могут быть пропущены.','Проверка не воспроизводит Skinning OpenVSP и не запускает расчёт.','Двигательные обрезки, проточные каналы и их торцы не проверяются.','Для тел с наклоном станций по Y/Z пространственные пересечения и зазор не проверяются; показана проекция.']};
  }
- const api={checkGeometry,polygonGap,selfCross};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.SectionAudit=api;
+ const originalCheck=checkGeometry;
+ function checkPaths(project,options={},meta={},C=root.SectionCore){
+  const q={...project,bodies:project.bodies.map(b=>C.outerBody(b))},r=originalCheck(q,options,meta,C);
+  for(const issue of r.issues)if(Number.isInteger(issue.station)&&issue.body?.length===1){const bi=issue.body[0],s=q.bodies[bi].sections[issue.station];issue.station=project.bodies[bi].sections.indexOf(s);}
+  r.summary.internalPathsExcluded=project.bodies.reduce((n,b)=>n+C.paths(b).filter(p=>p.role!=='outer').length,0);
+  if(r.summary.internalPathsExcluded)r.limits.push('Живая проверка охватывает наружные ветви; внутренние стенки проверяются нативной сеткой и пространственными зазорами.');
+  return r;
+ }
+ const api={checkGeometry:checkPaths,polygonGap,selfCross};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.SectionAudit=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

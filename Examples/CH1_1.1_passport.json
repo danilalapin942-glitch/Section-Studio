@@ -1,0 +1,314 @@
+{
+  "passport": {
+    "format": "section-studio-geometry-passport",
+    "version": "1.1",
+    "units": "ft",
+    "areaUnits": "ft2",
+    "sourceUnits": "ft",
+    "sourceHash": "46efe826d956119a4862e51cc212ef4382096b3436e63aef6a536d193e8bb54e",
+    "boundsFt": [
+      [
+        0,
+        -17.44287236,
+        -1.520892074
+      ],
+      [
+        52.03412073,
+        17.44287236,
+        3.289792605
+      ]
+    ],
+    "dimensionsFt": {
+      "x": 52.03412073,
+      "y": 34.88574472,
+      "z": 4.810684679
+    },
+    "components": [
+      {
+        "name": "Wing",
+        "type": "Wing",
+        "lengthFt": null,
+        "engineIO": 0,
+        "symmetry": 2,
+        "orderPolicy": 0,
+        "id": "NFAYAEXLTA",
+        "sectionCount": 0,
+        "boundsFt": [
+          [
+            23.04755208,
+            -17.44287236,
+            1.4946133
+          ],
+          [
+            49.45012755,
+            17.44287236,
+            2.274995557
+          ]
+        ],
+        "dimensionsFt": {
+          "x": 26.40257547,
+          "y": 34.88574472,
+          "z": 0.7803822570000001
+        },
+        "grossMeshAreaFt2": 865.8192177213145,
+        "hasInternalPaths": false
+      },
+      {
+        "name": "Fuselage",
+        "type": "Fuselage",
+        "lengthFt": 52.03412073490813,
+        "engineIO": 3,
+        "symmetry": 0,
+        "orderPolicy": 2,
+        "id": "TMCWTAJLFF",
+        "sectionCount": 22,
+        "boundsFt": [
+          [
+            0,
+            -2.727528772,
+            -1.520892074
+          ],
+          [
+            52.03412073,
+            2.727528772,
+            3.289792605
+          ]
+        ],
+        "dimensionsFt": {
+          "x": 52.03412073,
+          "y": 5.455057544,
+          "z": 4.810684679
+        },
+        "grossMeshAreaFt2": 776.4038932146625,
+        "hasInternalPaths": true
+      },
+      {
+        "name": "Gondola",
+        "type": "Fuselage",
+        "lengthFt": 52.03412073490813,
+        "engineIO": 1,
+        "symmetry": 2,
+        "orderPolicy": 2,
+        "id": "VVMDVQXEAY",
+        "sectionCount": 48,
+        "boundsFt": [
+          [
+            18.4,
+            -4.636666069,
+            0.49
+          ],
+          [
+            49.45012755,
+            4.636666069,
+            2.39
+          ]
+        ],
+        "dimensionsFt": {
+          "x": 31.05012755,
+          "y": 9.273332138,
+          "z": 1.9000000000000001
+        },
+        "grossMeshAreaFt2": 358.0476470023027,
+        "hasInternalPaths": true
+      }
+    ],
+    "references": {
+      "Sref": 680.1714992318873,
+      "bref": 34.8753280839895,
+      "cref": 22.51689499765079
+    },
+    "compGeomWetArea": [
+      {
+        "geomId": "NFAYAEXLTA",
+        "name": "Wing",
+        "areaFt2": 432.9096057467291
+      },
+      {
+        "geomId": "NFAYAEXLTA",
+        "name": "Wing",
+        "areaFt2": 432.9096057467291
+      },
+      {
+        "geomId": "TMCWTAJLFF",
+        "name": "Fuselage",
+        "areaFt2": 776.403893260159
+      },
+      {
+        "geomId": "VVMDVQXEAY",
+        "name": "Gondola",
+        "areaFt2": 179.02382349683094
+      },
+      {
+        "geomId": "VVMDVQXEAY",
+        "name": "Gondola",
+        "areaFt2": 179.02382349683094
+      }
+    ],
+    "grossMeshAreaFt2": 2000.2707579382798,
+    "compGeomWetAreaFt2": 2000.270751747279,
+    "physicalExternalWetAreaFt2": null,
+    "surfaceCategories": [
+      "external",
+      "internal-duct",
+      "interface-closure",
+      "flow-face-closure"
+    ],
+    "areaStatus": "CompGeom учитывает пересечения. Внутренние стенки и условные крышки пока включены в его результат; физическая внешняя площадь требует явного назначения категорий.",
+    "solverRun": false,
+    "meshSurfaceCategoriesFt2": {
+      "external": 2000.270757938248,
+      "internal-duct": 0,
+      "interface-closure": 0,
+      "flow-face-closure": 0
+    },
+    "unassignedTrianglesAreAssumedExternal": true
+  },
+  "spatial": {
+    "format": "section-studio-spatial-gaps",
+    "version": "1.1",
+    "sourceHash": "46efe826d956119a4862e51cc212ef4382096b3436e63aef6a536d193e8bb54e",
+    "openVSPVersion": "OpenVSP 3.51.0",
+    "units": "ft",
+    "pairs": [
+      {
+        "distanceFt": 0.0025429164266711286,
+        "pointA": [
+          22.547543946861275,
+          -2.6914363895796773,
+          1.996748900384017
+        ],
+        "pointB": [
+          22.54755208,
+          -2.693979293,
+          1.996748900384017
+        ],
+        "crossing": false,
+        "complete": true,
+        "distanceComplete": true,
+        "tests": 444,
+        "triangleA": 5375,
+        "triangleB": 68878,
+        "elapsedSeconds": 0.035317914000188466,
+        "a": "TMCWTAJLFF",
+        "b": "VVMDVQXEAY",
+        "nameA": "Fuselage",
+        "nameB": "Gondola",
+        "minimumGapFt": 0.001,
+        "toleranceFt": 0.0001,
+        "contained": false,
+        "state": "clear",
+        "passed": true
+      },
+      {
+        "distanceFt": 0.005999999999999339,
+        "pointA": [
+          23.23192708,
+          -4.636666069,
+          1.953903769
+        ],
+        "pointB": [
+          23.23192708,
+          -4.642666069,
+          1.953903769
+        ],
+        "crossing": false,
+        "complete": true,
+        "distanceComplete": true,
+        "tests": 51130,
+        "triangleA": 75407,
+        "triangleB": 9319,
+        "elapsedSeconds": 2.512325523999607,
+        "a": "VVMDVQXEAY",
+        "b": "NFAYAEXLTA",
+        "nameA": "Gondola",
+        "nameB": "Wing",
+        "minimumGapFt": 0.006,
+        "toleranceFt": 0.0001,
+        "contained": false,
+        "state": "clear",
+        "passed": true
+      }
+    ],
+    "complete": true,
+    "passed": true,
+    "limits": [
+      "Глобальный минимум вычислен между треугольниками именно этой сетки. Погрешность аппроксимации аналитических поверхностей отдельно не оценена.",
+      "В 3D отмечены точки минимального расстояния каждой пары; это не непрерывная карта всех зазоров."
+    ],
+    "solverRun": false,
+    "meshQuality": {
+      "degenerateTriangles": 0,
+      "firstDegenerateFaces": [],
+      "minimumTriangleAreaFt2": 2.929687500004108e-07
+    },
+    "refinement": {
+      "temporaryOnly": true,
+      "coarsePairs": [
+        {
+          "distanceFt": 0.0016735740417873387,
+          "pointA": [
+            22.48268520623119,
+            -2.6925960339187562,
+            1.9858307892294358
+          ],
+          "pointB": [
+            22.48269338,
+            -2.694269588,
+            1.9858307892294358
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 439,
+          "triangleA": 3263,
+          "triangleB": 31750,
+          "elapsedSeconds": 0.0340473229998679,
+          "a": "TMCWTAJLFF",
+          "b": "VVMDVQXEAY",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "state": "clear",
+          "passed": true
+        },
+        {
+          "distanceFt": 0.005999999999999339,
+          "pointA": [
+            23.35726672,
+            -4.636666069,
+            1.948152086
+          ],
+          "pointB": [
+            23.35726672,
+            -4.642666069,
+            1.948152086
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 25160,
+          "triangleA": 35655,
+          "triangleB": 4647,
+          "elapsedSeconds": 1.1683149990003585,
+          "a": "VVMDVQXEAY",
+          "b": "NFAYAEXLTA",
+          "nameA": "Gondola",
+          "nameB": "Wing",
+          "minimumGapFt": 0.006,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "minimumChangesFt": [
+        0.0008693423848837899,
+        0
+      ],
+      "complete": true,
+      "note": "Уточнена поперечная сетка выбранных тел и продольные интервалы у минимума. Разность двух сеток — индикатор чувствительности, не строгая граница погрешности CAD."
+    }
+  }
+}

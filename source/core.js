@@ -1,7 +1,8 @@
-/* Section Studio 1.0 — two editable bodies in shared world coordinates, feet. */
+/* Section Studio 1.2 — selected body pair, component frames and feet. */
 (function (root) {
   'use strict';
-  const VERSION = '1.0';
+  const VERSION = '1.2.1';
+  const Frames=root.SectionFrames||(typeof require==='function'?require('./frames'):null);
   const clone = o => JSON.parse(JSON.stringify(o));
   const CHINE = [[.5,.22],[.44,.08],[.34,-.40],[.29,-.46],[.25,-.5],[.12,-.5],[0,-.5],[-.12,-.5],[-.25,-.5],[-.29,-.46],[-.34,-.40],[-.44,.08],[-.5,.22],[-.475,.32],[-.445,.47],[-.40,.5],[-.27,.5],[-.13,.5],[0,.5],[.13,.5],[.27,.5],[.40,.5],[.445,.47],[.475,.32],[.5,.22]];
   function preset(kind) {
@@ -66,12 +67,13 @@
     if(!p||p.format!=='section-studio'||p.schema!==1||p.units!=='ft')return ['Нужен проект Section Studio версии 1, в футах.'];
     if(typeof p.name!=='string'||! /^[\p{L}][\p{L}\p{N}_ .-]{0,79}$/u.test(p.name))e.push('Имя компонента: буквы, цифры, пробелы, _, точка и дефис; начиная с буквы.');
     if(!Number.isFinite(p.strength)||p.strength<0||p.strength>1)e.push('Сглаживание должно быть от 0 до 1.');
-    if(!Array.isArray(p.sections)||p.sections.length<3||p.sections.length>64)return e.concat('Нужно от 3 до 64 сечений.');
+    if(![0,2].includes(p.orderPolicy||0))e.push('Поддерживаются Monotonic и Free XSec Order.');
+    if(!Array.isArray(p.sections)||p.sections.length<3||p.sections.length>128)return e.concat('Нужно от 3 до 128 сечений.');
     p.sections.forEach((s,i)=>{
       const tag=`Сечение ${i+1}: `;
       if(!["point","ellipse","chine","trapezoid","custom"].includes(s.shape))e.push(tag+"неизвестная форма.");
       if(!['x','width','height','z'].every(k=>Number.isFinite(s[k])&&Math.abs(s[k])<=1e5)){e.push(tag+'недопустимое число.');return;}
-      if(i&&s.x-p.sections[i-1].x<.001)e.push(tag+'станции X должны возрастать минимум на 0,001 ft.');
+      if(i&&((p.orderPolicy===2?Math.abs(s.x-p.sections[i-1].x):s.x-p.sections[i-1].x)<.001-1e-10))e.push(tag+(p.orderPolicy===2?'соседние станции Free должны различаться по X минимум на 0,001 ft.':'станции X должны возрастать минимум на 0,001 ft.'));
       if(s.width<0||s.height<0)e.push(tag+'размеры не могут быть отрицательными.');
       const point=s.width===0&&s.height===0;
       if(point!==(s.shape==="point"))e.push(tag+"форма «Точка» должна иметь нулевые размеры.");
@@ -150,7 +152,18 @@
       `  string output_file="${p.name}_sections_"+g+".vsp3";`, '  WriteVSPFile(output_file,SET_ALL);', '  if(GetNumTotalErrors()>0) { while(GetNumTotalErrors()>0) { ErrorObj e=PopLastError(); Print(e.GetErrorString()); } Print("SECTION_STUDIO_ERROR"); return; }', '  Print("SECTION_STUDIO_SAVED: "+output_file);', '}');
     return lines.join('\n')+'\n';
   }
-  const bodyProject=b=>({format:'section-studio',schema:1,units:'ft',name:b.name,strength:b.strength,sections:b.sections});
+  const bodyProject=b=>({format:'section-studio',schema:1,units:'ft',name:b.name,strength:b.strength,sections:b.sections,orderPolicy:b.orderPolicy||0});
+  // Native station order is topology. Never sort the complete Free body by X.
+  function paths(b){
+    const ss=b.sections;if(!ss?.length)return [];
+    if(b.orderPolicy!==2)return [{key:'outer',role:'outer',start:0,end:ss.length-1,sections:ss,direction:1}];
+    const runs=[];let start=0,dir=0;
+    for(let i=1;i<ss.length;i++){const d=Math.sign(ss[i].x-ss[i-1].x);if(dir&&d&&d!==dir){runs.push({start,end:i-1,direction:dir});start=i-1;}if(d)dir=d;}
+    runs.push({start,end:ss.length-1,direction:dir||1});
+    const outer=runs.reduce((a,p)=>Math.abs(ss[p.end].x-ss[p.start].x)>Math.abs(ss[a.end].x-ss[a.start].x)?p:a,runs[0]);
+    return runs.map((p,i)=>{let role=p===outer?'outer':p.end<=outer.start&&[1,2].includes(b.engineIO)?'inlet':p.start>=outer.end&&[2,3].includes(b.engineIO)?'outlet':'return';return {...p,key:role==='return'?role+'_'+i:role,role,sections:ss.slice(p.start,p.end+1)};});
+  }
+  function outerBody(b){const p=paths(b).find(p=>p.role==='outer');return {...b,orderPolicy:0,activeBranch:'outer',sections:(p?.sections||b.sections).slice().sort((a,b)=>a.x-b.x)};}
   function demoAssembly(){
     const f=demo();
     const g=[[8,.8,.5,2.55],[10,1.9,1.15,2.74],[12,2.4,1.6,2.89],[18,2.35,1.5,2.87],[23,1.7,1.1,2.65],[26,.9,.6,2.30]];
@@ -173,13 +186,18 @@
     });
     if(!p.bodies[0]?.enabled)e.push('Фюзеляж должен быть включён.');
     if(p.bodies[0]?.name===p.bodies[1]?.name)e.push('Компонентам нужны разные имена.');
+    if(p.componentPool!==undefined){const a=p.componentPool;if(!a||typeof a!=='object'||Array.isArray(a)||Object.keys(a).length>256)e.push('Неверное дерево компонентов (предел 256 тел).');else for(const [id,b]of Object.entries(a)){if(!b||b.sourceId!==id)e.push('Неверная ссылка компонента.');else e.push(...validate(bodyProject(b),thorough).map(t=>b.name+': '+t));}}
+    for(const b of [...p.bodies,...Object.values(p.componentPool||{})])if(b.rotation!==undefined&&(!Array.isArray(b.rotation)||b.rotation.length!==3||!b.rotation.every(x=>Number.isFinite(x)&&Math.abs(x)<=36000)))e.push('Неверный поворот корпуса.');
+    if(p.shapeLocks!==undefined&&(!Array.isArray(p.shapeLocks)||p.shapeLocks.length>64||p.shapeLocks.some(l=>!l||typeof l.geomId!=='string'||!['x0','x1','toleranceFt'].every(k=>Number.isFinite(l[k]))||l.x1<=l.x0||l.toleranceFt<0||l.toleranceFt>10)))e.push('Неверные защищённые зоны поверхности.');
+    if(p.junctionPairs!==undefined&&(!Array.isArray(p.junctionPairs)||p.junctionPairs.length>16||p.junctionPairs.some(l=>!l||typeof l.a!=='string'||typeof l.b!=='string'||l.a===l.b||!['minimumGapFt','toleranceFt'].every(k=>Number.isFinite(l[k])&&l[k]>=0&&l[k]<=10))))e.push('Неверные пары пространственных стыков.');
+    if(p.surfaceAssignments!==undefined){const a=p.surfaceAssignments;if(!a||typeof a.meshSignature!=='string'||! /^[a-f0-9]{64}$/.test(a.meshSignature)||!a.faces||typeof a.faces!=='object'||Array.isArray(a.faces)||Object.entries(a.faces).some(([k,v])=>! /^(0|[1-9][0-9]*)$/.test(k)||Number(k)>150000||!['external','internal-duct','interface-closure','flow-face-closure','unknown'].includes(v)))e.push('Неверные назначения категорий поверхности.');}
     return e;
   }
   function importProject(p,thorough=true){
     if(p?.schema===1){const e=validate(p,thorough);if(e.length)throw new Error(e.join('\n'));const q=demoAssembly();q.name=p.name+'_pair';if(q.name.length>40)q.name='Assembly';q.bodies[0]={id:'fuselage',enabled:true,name:p.name,strength:p.strength,sections:clone(p.sections)};q.bodies[1].enabled=false;if(q.bodies[1].name===p.name)q.bodies[1].name='Gondola_2';return q;}
     const e=validateAssembly(p,thorough);if(e.length)throw new Error(e.join('\n'));return clone(p);
   }
-  function sectionAt(b,x){
+  function sectionAtMonotonic(b,x){
     const ss=b.sections;
     if(!b.enabled||x<ss[0].x-1e-8||x>ss.at(-1).x+1e-8)return null;
     const exact=ss.findIndex(s=>Math.abs(s.x-x)<1e-8);
@@ -199,21 +217,35 @@
     }else s.points=aa.points.map((q,i)=>q.map((v,k)=>(1-t)*v+t*bb.points[i][k]));s.knots=aa.knots;
     return {section:s,index:-1};
   }
+  function sectionAt(b,x,branch=b.activeBranch||'outer'){
+    if(b.orderPolicy!==2)return sectionAtMonotonic(b,x);
+    const ps=paths(b),path=ps.find(p=>p.key===branch)||ps.find(p=>p.role==='outer');if(!path)return null;
+    const ss=path.sections.slice().sort((a,b)=>a.x-b.x),a=sectionAtMonotonic({...b,orderPolicy:0,sections:ss},x);
+    if(a&&a.index>=0)a.index=b.sections.indexOf(ss[a.index]);if(a)a.branch=path.key;return a;
+  }
   function addAt(b,x){
     const a=sectionAt(b,x);
     if(!a)throw new Error('Плоскость X находится вне длины компонента.');
     if(a.index>=0)return a.index;
-    if(b.sections.length>=64)throw new Error('Предел: 64 сечения на компонент.');
-    if(b.sections.some(s=>Math.abs(s.x-x)<.001-1e-10))throw new Error('До соседнего сечения нужно минимум 0,001 ft.');
-    const i=b.sections.findIndex(s=>s.x>x);b.sections.splice(i,0,clone(a.section));return i;
+    if(b.sections.length>=128)throw new Error('Предел: 128 сечений на компонент.');
+    const path=paths(b).find(p=>p.key===(b.activeBranch||'outer'))||paths(b)[0];
+    if(path.sections.some(s=>Math.abs(s.x-x)<.001-1e-10))throw new Error('До соседнего сечения этой ветви нужно минимум 0,001 ft.');
+    let i=path.start+1;while(i<=path.end&&(path.direction>0?b.sections[i].x<x:b.sections[i].x>x))i++;
+    b.sections.splice(i,0,clone(a.section));return i;
   }
-  function loftBody(b,n=64,nw=48){
+  function loftLocal(b,n=64,nw=48){
     if(!b.enabled)return [];
+    if(b.orderPolicy===2){
+      const rows=[],per=Math.max(2,Math.ceil(n/(b.sections.length-1)));
+      for(let i=0;i<b.sections.length-1;i++){const a=ring(b.sections[i],nw),z=ring(b.sections[i+1],nw);for(let k=0;k<per;k++){const t=k/per;rows.push(a.map((p,j)=>p.map((v,d)=>(1-t)*v+t*z[j][d])));}}
+      rows.push(ring(b.sections.at(-1),nw));return rows;
+    }
     const x0=b.sections[0].x,L=b.sections.at(-1).x-x0;
     // Include prescribed stations exactly in the displayed mesh.
     const xx=[...new Set([...Array.from({length:n+1},(_,i)=>x0+i/n*L),...b.sections.map(s=>s.x)])].sort((a,b)=>a-b);
     return xx.map(x=>ring(sectionAt(b,x).section,nw));
   }
+  function loftBody(b,n=64,nw=48){const rows=loftLocal(b,n,nw);return Frames?.active(b)?rows.map(r=>r.map(p=>Frames.toWorld(b,p))):rows;}
   function nearest(p,a,b){const dx=b[0]-a[0],dy=b[1]-a[1],den=dx*dx+dy*dy,t=den?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/den)):0,q=[a[0]+t*dx,a[1]+t*dy];return {d:Math.hypot(p[0]-q[0],p[1]-q[1]),p:q};}
   function inside(p,poly){let yes=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;}
   function boundaryDistance(p,poly){let d=Infinity;for(let i=0;i<poly.length;i++)d=Math.min(d,nearest(p,poly[i],poly[(i+1)%poly.length]).d);return d;}
@@ -233,11 +265,11 @@
     const overlap=crossed||pa.some(p=>strict(p,pb))||pb.some(p=>strict(p,pa))||[center(pa),center(pb)].some(p=>strict(p,pa)&&strict(p,pb));
     return {...best,state:overlap?'overlap':best.distance<1e-7?'touching':'separated',samples:n};
   }
-  function gapAt(p,x,n=160){const a=sectionAt(p.bodies[0],x),b=sectionAt(p.bodies[1],x);if(!a||!b)return {state:'unavailable'};return {...contourGap(a.section,b.section,n),exact:a.index>=0&&b.index>=0};}
-  function ringsAt(b,x,n=96){const a=sectionAt(b,x);if(!a)return [];const r=ring(a.section,n);return b.mirrorY?[r,r.map(p=>[p[0],-p[1],p[2]])]:[r];}
+  function gapAt(p,x,n=160){if(p.bodies.some(b=>Frames?.active(b)))return {state:'tilted'};const a=sectionAt(p.bodies[0],x),b=sectionAt(p.bodies[1],x);if(!a||!b)return {state:'unavailable'};return {...contourGap(a.section,b.section,n),exact:a.index>=0&&b.index>=0};}
+  function ringsAt(b,x,n=96,world=false){let rr=paths(b).flatMap(p=>{const a=sectionAt(b,x,p.key);return a?[ring(a.section,n)]:[];});if(world)rr=rr.map(r=>r.map(p=>Frames.toWorld(b,p)));return b.mirrorY&&(world||!Frames.active(b))?rr.flatMap(r=>[r,r.map(p=>[p[0],-p[1],p[2]])]):rr;}
   function exportAssembly(p){
     const e=validateAssembly(p);if(e.length)throw new Error(e.join('\n'));
-    if(p.bodies.some(b=>b.enabled&&(b.mirrorY||b.sections.some(s=>s.y||s.roll||s.pitch||s.yaw))))throw new Error('Для зеркальных копий, поворотов и боковых смещений используй «Сохранить VSP3».');
+    if(p.bodies.some(b=>b.enabled&&(b.orderPolicy===2||b.mirrorY||b.sections.some(s=>s.y||s.roll||s.pitch||s.yaw))))throw new Error('Для Free, каналов, зеркальных копий, поворотов и боковых смещений используй «Сохранить VSP3».');
     const bs=p.bodies.filter(b=>b.enabled),parts=['// Section Studio '+VERSION+' | two-body project | feet'];
     bs.forEach((b,i)=>{
       const base=exportScript(bodyProject(b));
@@ -247,6 +279,6 @@
     parts.push('  bool failed=false;','  while(GetNumTotalErrors()>0) { ErrorObj e=PopLastError(); Print(e.GetErrorString()); failed=true; }','  if(failed) { Print("SECTION_STUDIO_ERROR"); return; }',`  string output_file="${p.name}_sections_"+g0+".vsp3";`,'  WriteVSPFile(output_file,SET_ALL);','  if(GetNumTotalErrors()>0) { while(GetNumTotalErrors()>0) { ErrorObj e=PopLastError(); Print(e.GetErrorString()); } Print("SECTION_STUDIO_ERROR"); return; }','  Print("SECTION_STUDIO_SAVED: "+output_file);','}');
     return parts.join('\n')+'\n';
   }
-  const api={VERSION,clone,preset,demo:demoAssembly,legacyDemo:demo,curve,ring,point3,localPoint,ringsAt,slopes,interpolator,loft:loftBody,validate:validateAssembly,validateBody:(b,thorough=true)=>validate(bodyProject(b),thorough),movePoint,exportScript:exportAssembly,importProject,sectionAt,addAt,contourGap,gapAt,knotsOf,editable,refine};
+  const api={VERSION,clone,preset,demo:demoAssembly,legacyDemo:demo,curve,ring,point3,localPoint,ringsAt,worldRingsAt:(b,x,n)=>ringsAt(b,x,n,true),paths,outerBody,frames:Frames,loftLocal,slopes,interpolator,loft:loftBody,validate:validateAssembly,validateBody:(b,thorough=true)=>validate(bodyProject(b),thorough),movePoint,exportScript:exportAssembly,importProject,sectionAt,addAt,contourGap,gapAt,knotsOf,editable,refine};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;root.SectionCore=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

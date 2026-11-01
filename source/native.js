@@ -6,5 +6,5 @@ async function call(path,data){
  let result;try{result=await response.json();}catch{throw new Error('Некорректный ответ локальной программы.');}
  if(!response.ok||result.error)throw new Error(result.error||'OpenVSP не выполнил подготовку.');return result;
 }
-root.StudioNative={available:!!config,status:()=>call('status'),configure:executable=>call('configure',{executable}),pick:()=>call('pick',{}),prepare:data=>call('prepare',data),audit:data=>call('audit',data),verifyRepair:data=>call('verify-repair',data),auditTri:data=>call('machline-tri',data)};
+root.StudioNative={available:!!config,recoveryList:()=>call('recovery-list'),recoverySave:project=>call('recovery-save',{project}),recoveryLoad:id=>call('recovery-load',{id}),startJob:(kind,payload)=>call('job-start',{kind,payload}),jobStatus:id=>call('job-poll',{id}),cancelJob:id=>call('job-cancel',{id}),assembly:data=>call('assembly',data),compare:data=>call('shape-compare',data),status:()=>call('status'),configure:executable=>call('configure',{executable}),pick:()=>call('pick',{}),prepare:data=>call('prepare',data),audit:data=>call('audit',data),verifyRepair:data=>call('verify-repair',data),auditTri:data=>call('machline-tri',data)};
 })(globalThis);

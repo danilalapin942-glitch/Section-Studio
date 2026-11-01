@@ -95,19 +95,19 @@
    }catch(error){if(seq===job){$('meshSummary').textContent=error.message;api.notice(error.message,true);}}
    finally{busy=false;refresh();e.target.value='';}
   };
-  $('meshSave').onclick=()=>{if(!meshReport||meshKey!==key())return;const {mesh,panelInclinations,...report}=meshReport;api.download(JSON.stringify({program:'Section Studio 1.0',project:api.getProject().name,report},null,2),api.getProject().name+'_'+mode()+'_mesh_risks.json','application/json');};
+  $('meshSave').onclick=()=>{if(!meshReport||meshKey!==key())return;const {mesh,panelInclinations,...report}=meshReport;api.download(JSON.stringify({program:'Section Studio 1.1',project:api.getProject().name,report},null,2),api.getProject().name+'_'+mode()+'_mesh_risks.json','application/json');};
   $('machTriSave').onclick=()=>{if(!meshReport||meshKey!==key()||meshReport.kind!=='machline-tri-preflight')return;const m=meshReport.mesh,text=`${m.nodes.length} ${m.faces.length}\n`+m.nodes.map(p=>p.join(' ')).join('\n')+'\n'+m.faces.map(f=>f.map(n=>n+1).join(' ')).join('\n')+'\n'+m.faceParts.join('\n')+'\n';api.download(text,'Mesh.tri','text/plain');api.notice('Mesh.tri сохранена в футах. Предупреждения относятся к этой сетке; экспорт не подтверждает готовность расчёта.');};
   $('machInputSave').onclick=()=>{if(!meshReport||meshKey!==key()||meshReport.kind!=='machline-tri-preflight')return;const s=meshReport.settings;
    const input={flow:{freestream_velocity:s.direction,freestream_mach_number:s.mach},geometry:{file:'Mesh.tri',mirror_about:'none',spanwise_axis:'+y',singularity_order:'lower',reference:{area:1,length:1,CG:[0,0,0]},wake_model:{wake_present:true,wake_shedding_angle:90,trefftz_distance:-1}},solver:{formulation:s.formulation,control_point_offset:s.offset,control_point_offset_type:s.offsetType,matrix_solver:'GMRES',run_checks:true},post_processing:{pressure_rules:{isentropic:s.mach>0,incompressible:s.mach===0}},output:{body_file:'Body.vtk',wake_file:'Wake.vtk',control_point_file:'ControlPoints.vtk',report_file:'Report.json',verbose:true}};
    api.download(SectionMach.inputJSON(input),'MachLine_input_template.json','application/json');api.notice('Скачан шаблон. Задай reference.area в ft², reference.length и CG в ft; сейчас стоят 1, 1 и [0,0,0]. Настрой след под модель и разреши предупреждения перед расчётом.');
   };
-  function inspect(issue){chosen=C.clone(issue);draft=null;nativeVerification=null;draftKey='';$('repairTitle').textContent=issue.title;$('repairReason').textContent=issue.detail;$('repairMessage').textContent=SectionRepair.eligibility(api.getProject(),chosen,api.auditMeta())||'Доступно ограниченное сглаживание одной станции. Соседние станции и X сохраняются; зона влияния проверяется отдельно.';renderRepair();$('repairDialog').showModal();}
+  function inspect(issue){chosen=C.clone(issue);draft=null;nativeVerification=null;draftKey='';$('repairTitle').textContent=issue.title;$('repairReason').textContent=issue.detail;$('repairMessage').textContent=SectionRepair.eligibility(api.getProject(),chosen,api.auditMeta())||'Доступно ограниченное сглаживание. Выбери одну станцию или участок из 3–7 станций. X и границы участка сохраняются.';renderRepair();$('repairDialog').showModal();}
   $('repairZone').onclick=()=>{
    const report=api.getAudit(),x=api.cursor(),p=api.getProject();const issue=report?.issues.find(i=>i.repair&&i.body.includes(api.active())&&x>=i.x0&&x<=i.x1);
    if(issue)inspect(issue);else api.notice('В текущей зоне нет предупреждения с поддерживаемым ремонтом. Выбери резкий поворот продольного обвода.',true);
   };
   function buildPreview(){
-   try{const maxMove=Number($('repairBudget').value.replace(',','.'));draft=SectionRepair.propose(api.getProject(),chosen,{maxMove,options:api.auditOptions(),meta:api.auditMeta()});draftKey=key();nativeVerification=null;renderRepair();}
+   try{const maxMove=Number($('repairBudget').value.replace(',','.'));draft=SectionRepair.propose(api.getProject(),chosen,{maxMove,radius:Number($('repairRadius').value),options:api.auditOptions(),meta:api.auditMeta()});draftKey=key();nativeVerification=null;renderRepair();}
    catch(e){draft=null;nativeVerification=null;renderRepair();$('repairMessage').textContent=e.message;}
   }
   function renderRepair(){
@@ -118,7 +118,7 @@
    $('repairApply').disabled=!draft||busy||draftKey!==key()||!!(api.getProject().source&&!nativeVerification?.verified);
    if(blocked&&chosen)$('repairMessage').textContent=blocked;
    if(draft){
-    $('repairMessage').textContent=`${draft.metricKind==='inclination'?'Наклон к потоку':'Поворот обвода'}: ${draft.metricBefore.toFixed(2)}° → ${draft.metricAfter.toFixed(2)}°. Смещение управляющих точек до ${fmt(draft.maxMove)} ft; предел ${fmt(draft.budget)} ft (не больше 5% меньшего местного габарита). Новых рисков предварительной формы нет. ${draft.metricAfter>chosen.threshold?'Предупреждение в зоне остаётся: угол выше выбранного порога. ':''}${api.getProject().source?!nativeVerification?'До применения нужна проверка реальной поверхности и сетки.':'':'Учебная форма: проверены только сечения редактора; после экспорта проверь сетку OpenVSP.'}`;
+    $('repairMessage').textContent=`Станций в правке: ${(draft.stations||[draft.station]).length}. ${draft.metricKind==='inclination'?'Наклон к потоку':'Поворот обвода'}: ${draft.metricBefore.toFixed(2)}° → ${draft.metricAfter.toFixed(2)}°. Смещение управляющих точек до ${fmt(draft.maxMove)} ft; предел ${fmt(draft.budget)} ft (не больше 5% меньшего местного габарита). Новых рисков предварительной формы нет. ${draft.metricAfter>chosen.threshold?'Предупреждение в зоне остаётся: угол выше выбранного порога. ':''}${api.getProject().source?!nativeVerification?'До применения нужна проверка реальной поверхности и сетки.':'':'Учебная форма: проверены только сечения редактора; после экспорта проверь сетку OpenVSP.'}`;
     if(nativeVerification){$('repairMessage').textContent+=nativeVerification.verified?` Локальный ремонт прошёл проверку OpenVSP / ${nativeVerification.solver||'VSPAERO'}: фактическое смещение на выборке ${fmt(nativeVerification.nativeMaxMoveFt)} ft; вне зоны ${fmt(nativeVerification.nativeOutsideMoveFt)} ft.${nativeVerification.inclinationBefore!=null?' Наклон реальной TRI: '+nativeVerification.inclinationBefore.toFixed(2)+'° → '+nativeVerification.inclinationAfter.toFixed(2)+'°.':''} По всей сетке остаётся ошибок: ${nativeVerification.after.summary.errors}, предупреждений: ${nativeVerification.after.summary.warnings}.`:' Ремонт отклонён: '+nativeVerification.reasons.join(' ');}
     drawRepair();
    }else{const [c,w,h]=canvas('repairView');c.fillStyle='#647983';c.fillText('Построй предпросмотр: исходная форма останется в редакторе.',15,30);}
@@ -134,7 +134,7 @@
    try{
     const xml=api.exportVSP(p),generated=api.exportVSP(preview.project),id=p.bodies[preview.body].sourceId,a=VSPImport.parse(xml).all.find(g=>g.id===id),b=VSPImport.parse(generated).all.find(g=>g.id===id);
     const candidateXml=xml.slice(0,a.range.start)+generated.slice(b.range.start,b.range.end)+xml.slice(a.range.end);
-    const protectedZones=p.bodies[preview.body].wingFitRegion?[p.bodies[preview.body].wingFitRegion]:[];
+    const protectedZones=[...(p.bodies[preview.body].wingFitRegion?[p.bodies[preview.body].wingFitRegion]:[]),...(p.shapeLocks||[]).filter(l=>l.geomId===id).map(l=>[l.x0,l.x1])];
     const result=await StudioNative.verifyRepair({xml,candidateXml,bodyId:id,units:p.source.units,preset:$('meshPreset').value,budget:preview.budget,zone:preview.zone,protectedZones,code:chosen.code,...solverOptions()});
     if(seq!==job||k!==key()||draft!==preview)return;
     nativeVerification=result;draft.nativeVerified=result.verified;draft.candidateXml=candidateXml;renderRepair();
@@ -144,12 +144,12 @@
   function apply(){
    if(!draft||draftKey!==key()||busy||api.getProject().source&&!nativeVerification?.verified)return;
    const q=C.clone(draft.project),r=draft,v=nativeVerification;
-   q.repairLog=[...(q.repairLog||[]),{version:'1.0',time:new Date().toISOString(),code:chosen.code,solver:mode(),solverSettings:solverOptions().machline,metricKind:r.metricKind,body:q.bodies[r.body].name,station:r.station,x:q.bodies[r.body].sections[r.station].x,zone:r.zone,budgetFt:r.budget,maxControlMoveFt:r.maxMove,angleBefore:r.metricBefore,angleAfter:r.metricAfter,nativeVerified:!!v?.verified,nativeMaxMoveFt:v?.nativeMaxMoveFt,inclinationBefore:v?.inclinationBefore,inclinationAfter:v?.inclinationAfter,sampling:v?.sampling}].slice(-60);
+   q.repairLog=[...(q.repairLog||[]),{version:'1.1',time:new Date().toISOString(),code:chosen.code,solver:mode(),solverSettings:solverOptions().machline,metricKind:r.metricKind,body:q.bodies[r.body].name,station:r.station,stations:r.stations||[r.station],x:q.bodies[r.body].sections[r.station].x,zone:r.zone,budgetFt:r.budget,maxControlMoveFt:r.maxMove,angleBefore:r.metricBefore,angleAfter:r.metricAfter,nativeVerified:!!v?.verified,nativeMaxMoveFt:v?.nativeMaxMoveFt,inclinationBefore:v?.inclinationBefore,inclinationAfter:v?.inclinationAfter,sampling:v?.sampling}].slice(-60);
    if(api.commit(q)){job++;$('repairDialog').close();draft=null;nativeVerification=null;if(v?.verified)installReport(v.after,key());api.notice('Локальный ремонт применён. «Отменить» возвращает исходную форму. Распределение давления проверяется расчётом.');}
   }
   $('repairPreview').onclick=buildPreview;$('repairNative').onclick=verify;$('repairApply').onclick=apply;
   $('repairAuto').onclick=async()=>{buildPreview();if(draft&&api.getProject().source)await verify();};
-  $('repairBudget').oninput=()=>{job++;draft=null;nativeVerification=null;renderRepair();};
+  for(const id of ['repairBudget','repairRadius'])$(id).oninput=()=>{job++;draft=null;nativeVerification=null;renderRepair();};
   $('repairClose').onclick=()=>{$('repairDialog').close();};$('repairDialog').addEventListener('close',()=>{job++;draft=null;nativeVerification=null;});
   window.addEventListener('resize',()=>{drawMesh();if(draft)drawRepair();});
   refresh();drawMesh();

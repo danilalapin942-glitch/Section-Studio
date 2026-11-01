@@ -15,8 +15,15 @@ import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import xml.etree.ElementTree as ET
-from native_audit import build_mesh, build_machline_mesh, verify_repair, FACTORS
+from native_audit import build_mesh, build_machline_mesh, verify_repair, FACTORS,process_failure
 from machline_audit import settings as machline_settings, read_tri, inspect_machline
+from assembly_audit import assembly, compare
+from assembly_repair import repair_assembly
+from job_manager import Jobs
+from setup_checks import discover_executables,self_test
+from local_storage import RecoveryStore,read_settings,write_settings
+from version import VERSION
+from instance_guard import InstanceGuard
 
 ROOT = Path(__file__).resolve().parent
 MAX_INPUT = 64 * 1024 * 1024
@@ -84,6 +91,13 @@ def merge_selected(original, converted, selection):
     return original
 
 
+def validate_recovery_project(project):
+    source=project.get('source')
+    if source is not None:
+        if not isinstance(source,dict)or source.get('kind')!='vsp3'or source.get('units')not in FACTORS:raise ValueError('Повреждён исходный VSP3 в проекте восстановления.')
+        geoms(source.get('xml'))
+
+
 class Studio(ThreadingHTTPServer):
     daemon_threads = True
 
@@ -92,18 +106,34 @@ class Studio(ThreadingHTTPServer):
         self.origin = f'http://127.0.0.1:{self.server_port}'
         self.token = secrets.token_urlsafe(32)
         self.config_path = Path(config)
+        self.recovery=RecoveryStore(self.config_path.parent/'Recovery',validate_recovery_project)
+        self.startup_warnings=[]
         self.busy = threading.Lock()
+        self.jobs = Jobs(self.busy,self.run_job)
         self.executable = None
         if executable:
             self.executable = validate_executable(executable)
         else:
             try:
-                stored = json.loads(self.config_path.read_text(encoding='utf-8'))
+                stored,self.startup_warnings=read_settings(self.config_path)
                 self.executable = validate_executable(stored.get('executable'))
             except (OSError, ValueError, TypeError):
-                candidate = shutil.which('vspscript')
-                if candidate:
-                    self.executable = validate_executable(candidate)
+                candidates=discover_executables()
+                if candidates:self.executable=validate_executable(candidates[0])
+
+    def server_close(self):
+        if hasattr(self,'jobs'):self.jobs.close()
+        super().server_close()
+
+    def run_job(self,kind,data,progress):
+        geoms(data.get('xml'))
+        if data.get('units')not in FACTORS:raise ValueError('Проверь единицы модели.')
+        if not self.executable:raise ValueError('Сначала подключи OpenVSP 3.51.')
+        if kind=='assembly':
+            progress('Нативная сетка и карта пространственных зазоров',.1)
+            return assembly(self.executable,ROOT,data)
+        if kind=='autofit':return repair_assembly(self.executable,ROOT,data,geoms,progress)
+        raise ValueError('Неизвестный вид фоновой проверки.')
 
     def audit(self, data, repair=False):
         geoms(data.get('xml'))
@@ -133,8 +163,8 @@ class Studio(ThreadingHTTPServer):
         source = geoms(xml)
         if kind == 'sections':
             chosen = data.get('selection')
-            if not isinstance(chosen, list) or len(chosen) != 2 or len(set(chosen)) != 2:
-                raise ValueError('Выбери два разных компонента FUSELAGE.')
+            if not isinstance(chosen, list) or not 1<=len(chosen)<=32 or len(set(chosen)) != len(chosen):
+                raise ValueError('Выбери от 1 до 32 разных компонентов FUSELAGE.')
             if any(not isinstance(i, str) or i not in source or source[i][0].lower() != 'fuselage' for i in chosen):
                 raise ValueError('Выбранный компонент не является FUSELAGE.')
             script = (ROOT / 'native/sections.vspscript').read_text(encoding='utf-8')
@@ -172,7 +202,7 @@ class Studio(ThreadingHTTPServer):
                     message = log.read(12000).decode('utf-8', errors='replace')
                 file = folder / output
                 if 'SECTION_STUDIO_ERROR' in message or f'SECTION_STUDIO_SAVED: {output}' not in message or run.returncode != 0 or not file.is_file():
-                    raise ValueError('OpenVSP не подготовил модель.\n' + (message[-6000:] or f'Код завершения: {run.returncode}'))
+                    raise ValueError('OpenVSP не подготовил модель.\n'+(process_failure(run.returncode)+'\n'if run.returncode else'')+message[-6000:])
                 if file.stat().st_size > MAX_INPUT:
                     raise ValueError('Результат подготовки превышает 64 МБ.')
                 content = file.read_text(encoding='utf-8')
@@ -212,15 +242,19 @@ class Handler(BaseHTTPRequestHandler):
             pass
 
     def do_GET(self):
-        if not self.allowed(self.path.startswith('/api/')):
+        if not self.allowed(self.path.startswith('/api/')and self.path!='/api/instance'):
             return self.send(403, {'error': 'Недопустимый запрос.'})
+        if self.path=='/api/instance':return self.send(200,{'ok':True,'instanceId':getattr(self.server,'instance_id',None),'version':VERSION})
         if self.path in ('/', '/Section_Studio.html'):
             html = (ROOT / 'Section_Studio.html').read_text(encoding='utf-8')
             config = json.dumps({'token': self.server.token})
             html = html.replace('<head>', '<head><script>window.SectionStudioLocalConfig=' + config + ';</script>', 1)
             return self.send(200, html.encode('utf-8'), 'text/html; charset=utf-8')
         if self.path == '/api/status':
-            return self.send(200, {'ok': True, 'executable': self.server.executable, 'busy': self.server.busy.locked(), 'version': '1.0'})
+            return self.send(200, {'ok': True, 'executable': self.server.executable, 'busy': self.server.busy.locked(), 'version': VERSION,'warnings':self.server.startup_warnings})
+        if self.path == '/api/recovery-list':
+            try:return self.send(200,self.server.recovery.listing())
+            except OSError as exc:return self.send(400,{'error':'Автовосстановление недоступно: '+str(exc)})
         return self.send(404, {'error': 'Не найдено.'})
 
     def do_POST(self):
@@ -236,13 +270,25 @@ class Handler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(size).decode('utf-8'))
             if not isinstance(data, dict):
                 raise ValueError('Нужен объект JSON.')
+            if self.path=='/api/recovery-save':return self.send(200,self.server.recovery.save(data.get('project')))
+            if self.path=='/api/recovery-load':return self.send(200,self.server.recovery.load(data.get('id')))
+            if self.path in('/api/job-poll','/api/job-cancel'):
+                ident=data.get('id')
+                if not isinstance(ident,str)or not re.fullmatch(r'[a-f0-9]{24}',ident):raise ValueError('Неверный ID проверки.')
+                return self.send(200,self.server.jobs.poll(ident)if self.path=='/api/job-poll'else self.server.jobs.cancel(ident))
+            if self.path=='/api/job-start':
+                kind,payload=data.get('kind'),data.get('payload')
+                if kind not in('assembly','autofit')or not isinstance(payload,dict):raise ValueError('Неверная фоновая задача.')
+                geoms(payload.get('xml'))
+                if payload.get('units')not in FACTORS:raise ValueError('Проверь единицы модели.')
+                return self.send(200,self.server.jobs.start(kind,payload))
             if self.path == '/api/configure':
                 if self.server.busy.locked():
                     raise ValueError('Дождись завершения подготовки.')
                 executable = validate_executable(data.get('executable'))
                 self.server.config_path.parent.mkdir(parents=True, exist_ok=True)
                 # Write settings before reporting success.
-                self.server.config_path.write_text(json.dumps({'executable': executable}, ensure_ascii=False), encoding='utf-8')
+                settings,_=read_settings(self.server.config_path);settings['executable']=executable;write_settings(self.server.config_path,settings)
                 self.server.executable = executable
                 return self.send(200, {'ok': True, 'executable': executable})
             if self.path == '/api/pick':
@@ -259,6 +305,17 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(200, {'ok': True, 'executable': selected})
             if self.path == '/api/prepare':
                 return self.send(200, self.server.prepare(data))
+            if self.path in ('/api/assembly','/api/shape-compare'):
+                geoms(data.get('xml'))
+                if data.get('units') not in FACTORS:
+                    raise ValueError('Проверь единицы модели.')
+                if self.path=='/api/shape-compare':geoms(data.get('originalXml'))
+                if not self.server.executable:raise ValueError('Сначала подключи OpenVSP 3.51.')
+                if not self.server.busy.acquire(blocking=False):raise ValueError('OpenVSP занят. Дождись завершения проверки.')
+                try:
+                    result=(assembly if self.path=='/api/assembly'else compare)(self.server.executable,ROOT,data)
+                finally:self.server.busy.release()
+                return self.send(200,result)
             if self.path == '/api/audit':
                 return self.send(200, self.server.audit(data))
             if self.path == '/api/machline-tri':
@@ -276,9 +333,9 @@ class Handler(BaseHTTPRequestHandler):
                                   openVSPVersion='ASCII TRI',thickSet=-1,thinSet=-1,useMode=False,symmetry=False,preset='external-tri',sourceUnits=units,
                                   sourceHash=hashlib.sha256(text.encode('utf-8')).hexdigest(),excludedComponents=[])
                     report['limits'].insert(0,'Внешняя TRI не сопоставлена текущему VSP3 и не используется для подтверждения ремонта модели.')
-                    return self.send(200,{'ok':True,'report':report})
                 finally:
                     self.server.busy.release()
+                return self.send(200,{'ok':True,'report':report})
             if self.path == '/api/verify-repair':
                 return self.send(200, self.server.audit(data, repair=True))
             return self.send(404, {'error': 'Не найдено.'})
@@ -288,26 +345,34 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(500, {'error': 'Подготовка не выполнена. Исходная модель не изменена.'})
 
 
-def main():
-    parser = argparse.ArgumentParser(description='Section Studio 1.0 — local OpenVSP bridge')
+def main(argv=None):
+    parser = argparse.ArgumentParser(description='Section Studio '+VERSION+' — local OpenVSP bridge')
     parser.add_argument('--vspscript')
     parser.add_argument('--port', type=int, default=0)
     parser.add_argument('--no-browser', action='store_true')
+    parser.add_argument('--self-test',action='store_true')
     config_dir = Path(os.environ.get('LOCALAPPDATA', str(Path.home() / '.config'))) / 'SectionStudio'
     parser.add_argument('--config', default=str(config_dir / 'settings.json'))
-    args = parser.parse_args()
-    server = Studio(args.config, args.vspscript, args.port)
-    print(f'Section Studio 1.0: {server.origin}', flush=True)
-    print('Keep this window open. Ctrl+C stops the application.', flush=True)
-    if not args.no_browser:
-        webbrowser.open(server.origin)
-    try:
-        server.serve_forever()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        server.server_close()
+    args = parser.parse_args(argv)
+    if args.self_test:
+        server=Studio(args.config,args.vspscript,args.port)
+        result=self_test(ROOT,server);server.server_close();path=Path(args.config).parent/'Setup_check.json';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(result,ensure_ascii=False,indent=2));print('Report:',path);return 0 if result['passed']else 1
+    with InstanceGuard(Path(args.config).parent/'instance.lock')as guard:
+        if not guard.acquired:
+            origin=guard.existing_origin();print('Section Studio is already running:',origin,flush=True)
+            if not args.no_browser:webbrowser.open(origin)
+            return 0
+        server=Studio(args.config,args.vspscript,args.port);server.instance_id=guard.ident
+        guard.publish({'instanceId':guard.ident,'origin':server.origin,'version':VERSION,'pid':os.getpid()})
+        print(f'Section Studio {VERSION}: {server.origin}',flush=True)
+        print('Keep this window open. Ctrl+C stops the application.',flush=True)
+        for warning in server.startup_warnings:print('Settings:',warning,flush=True)
+        if not args.no_browser:webbrowser.open(server.origin)
+        try:server.serve_forever()
+        except KeyboardInterrupt:pass
+        finally:server.server_close()
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

@@ -1,0 +1,15 @@
+const assert=require('assert/strict'),C=require('../source/core'),P=require('../source/pressure'),M=require('../source/machline'),A=require('../source/audit'),R=require('../source/repair');
+const p=C.demo();p.bodies[1].enabled=false;
+p.bodies[0].sections=[0,2,5.8,6,6.2,10,12].map((x,k)=>({x,y:0,z:k===3?.24:0,width:2,height:2,shape:'ellipse',points:C.preset('ellipse')}));
+const original=C.clone(p),issue=A.checkGeometry(p).issues.find(i=>i.code==='pressure_station_kink'&&i.station===3),r=R.propose(p,issue,{maxMove:.1,radius:1});
+assert.deepEqual(p,original);assert.deepEqual(r.stations,[2,3,4]);assert(r.metricAfter<r.metricBefore*.95);assert(r.maxMove<=r.budget);
+for(const k of [0,1,5,6])assert.deepEqual(r.project.bodies[0].sections[k],p.bodies[0].sections[k]);
+assert.deepEqual(r.project.bodies[0].sections.map(s=>s.x),p.bodies[0].sections.map(s=>s.x));
+const locked=C.clone(p);locked.bodies[0].sourceId='F';locked.shapeLocks=[{geomId:'F',x0:3,x1:5,toleranceFt:.001}];assert.throws(()=>R.propose(locked,issue,{radius:1}));
+const free=C.clone(p.bodies[0]);free.orderPolicy=2;free.engineIO=1;free.sections=[{...free.sections[1],x:3},{...free.sections[1],x:2},{...free.sections[1],x:1},{...free.sections[1],x:4},{...free.sections[1],x:8}];
+assert.deepEqual(C.paths(free).map(p=>p.role),['inlet','outer']);assert.equal(C.sectionAt(free,2,'inlet').index,1);assert.equal(C.sectionAt(free,2,'outer').index,-1);
+free.activeBranch='inlet';const oldOrder=free.sections.map(s=>s.x);C.addAt(free,2.5);assert.deepEqual(free.sections.map(s=>s.x),[3,2.5,2,1,4,8]);assert.equal(C.loft(free).length>5,true);
+assert.equal(C.validateBody(free).length,0);assert.deepEqual(C.outerBody(free).sections.map(s=>s.x),[1,4,8]);
+assert.equal(C.ringsAt(free,2).length,2);free.mirrorY=true;assert.equal(C.ringsAt(free,2).length,4);
+for(const patch of [{shapeLocks:[{geomId:'F',x0:5,x1:2,toleranceFt:.001}]},{junctionPairs:[{a:'F',b:'F',minimumGapFt:.1,toleranceFt:.001}]},{surfaceAssignments:{meshSignature:'invalid',faces:{0:'external'}}}])assert(C.validate({...C.demo(),...patch}).length>0);
+console.log('1.1 Free paths, topology-preserving insertion, bounded region repair and surface protection passed.');

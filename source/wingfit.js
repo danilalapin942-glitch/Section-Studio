@@ -73,9 +73,10 @@ function profile(project,settings){
  const selected=wing.surfaces.find(s=>s.index===Number(settings.surfaceIndex??0));if(!selected)throw new Error('Выбери поверхность крыла.');
  const ring=selected.rings[rIndex],opposite=wing.surfaces.find(s=>s!==selected&&Math.abs(center(s.rings[rIndex])+center(ring))<1e-5&&s.rings[rIndex].every((p,j)=>Math.abs(p[0]-ring[j][0])<1e-5&&Math.abs(p[2]-ring[j][2])<1e-5));
  if(!opposite||Math.abs(center(ring))<.0001)throw new Error('Для двухстороннего сопряжения нужны зеркальные поверхности крыла с разнесёнными корнями. Выбери станцию вне оси симметрии.');
- const right=center(ring)>0?ring:opposite.rings[rIndex],left=center(ring)>0?opposite.rings[rIndex]:ring;
- const xs=right.map(p=>p[0]),x0=Math.min(...xs),x1=Math.max(...xs);if(x1-x0<.01)throw new Error('Недостаточная продольная хорда выбранного профиля.');
- const zs=right.map(p=>p[2]);if(Math.max(...zs)-Math.min(...zs)>(x1-x0)*.65)throw new Error('Поверхность слишком наклонена: этот режим рассчитан на крыло, близкое к горизонтальному.');
+ let right=center(ring)>0?ring:opposite.rings[rIndex],left=center(ring)>0?opposite.rings[rIndex]:ring;const body=project.bodies[Number(settings.bodyIndex??0)];if(C.frames?.active(body)){right=right.map(p=>C.frames.fromWorld(body,p));left=left.map(p=>C.frames.fromWorld(body,p));if(center(right)<center(left))[right,left]=[left,right];}
+ const meanY=body.sections.reduce((n,s)=>n+(s.y||0)/body.sections.length,0),reference=(body.mirrorY||Math.abs(meanY)>1e-7)&&meanY<0?left:right;
+ const xs=reference.map(p=>p[0]),x0=Math.min(...xs),x1=Math.max(...xs);if(x1-x0<.01)throw new Error('Недостаточная продольная хорда выбранного профиля.');
+ const zs=reference.map(p=>p[2]);if(Math.max(...zs)-Math.min(...zs)>(x1-x0)*.65)throw new Error('Поверхность слишком наклонена: этот режим рассчитан на крыло, близкое к горизонтальному.');
  return {right,left,x0,x1,chord:x1-x0,wingId:wing.id,ringIndex:rIndex};
 }
 const mix=(a,b,t)=>a.map((v,k)=>v+(b[k]-v)*t);
@@ -91,12 +92,16 @@ function shoulder(a,b,u0,u1,start,end){
  return {u0,u1,p:[a,a.map((x,k)=>x+v[k]*hs),b.map((x,k)=>x-w[k]*he),b]};
 }
 function tangent(s,u,side='both'){const a=point(s,Math.max(0,u-(side==='after'?0:1e-6))),b=point(s,Math.min(1,u+(side==='before'?0:1e-6)));return b.map((v,k)=>v-a[k]);}
-function makeSection(s,pr,x,mode,gap,weight=1){
- const ex=Math.max(pr.x0,Math.min(pr.x1,x)),r=envelope(pr.right,ex),l=envelope(pr.left,ex),R=point(s,0),L=point(s,.5);
+function makeSection(s,pr,x,mode,gap,weight=1,side=0){
+ const ex=Math.max(pr.x0,Math.min(pr.x1,x)),r=envelope(side<0?pr.left:pr.right,ex),l=side? r:envelope(pr.left,ex),R=point(s,0),L=point(s,.5);
  const upperR=[r.upper[1]-gap,r.upper[2]],upperL=[l.upper[1]+gap,l.upper[2]],lowerR=[r.lower[1]-gap,r.lower[2]],lowerL=[l.lower[1]+gap,l.lower[2]];
- if(upperR[0]<=upperL[0]+.002||lowerR[0]<=lowerL[0]+.002)throw new Error('Зазор больше доступной ширины стыка.');
+ if(side){const allowance=Number(pr.sideAllowanceFt??.003);for(const [u,d]of [[upperR,lowerR],[upperL,lowerL]]){u[1]+=allowance;d[1]-=allowance;}}
+ if(!side&&(upperR[0]<=upperL[0]+.002||lowerR[0]<=lowerL[0]+.002))throw new Error('Зазор больше доступной ширины стыка.');
  const sampled=C.ring(s,128),lo=Math.min(...sampled.map(p=>p[2])),hi=Math.max(...sampled.map(p=>p[2]));let seg=[];
- if(mode==='high'){
+ if(side){
+  if(side>0){const m=mix(upperR,lowerR,.5),br=point(s,.125),tr=point(s,.875);seg=[straight(m,lowerR,0,.0625),shoulder(lowerR,br,.0625,.125,[0,-1],tangent(s,.125)),...segments(s,.125,.875),shoulder(tr,upperR,.875,.9375,tangent(s,.875),[0,-1]),straight(upperR,m,.9375,1)];}
+  else{const m=mix(upperL,lowerL,.5),bl=point(s,.375),tl=point(s,.625);seg=[...segments(s,0,.375),shoulder(bl,lowerL,.375,.4375,tangent(s,.375),[0,1]),straight(lowerL,m,.4375,.5),straight(m,upperL,.5,.5625),shoulder(upperL,tl,.5625,.625,[0,1],tangent(s,.625)),...segments(s,.625,1)];}
+ }else if(mode==='high'){
   if(Math.min(upperR[1],upperL[1])<=Math.max(R[1],L[1])+.00001)throw new Error('Высокоплан: верх профиля ниже боковой средней части корпуса. Проверь компоновку и положение крыла.');
   seg=[...segments(s,0,.5),shoulder(L,upperL,.5,.625,tangent(s,.5,'before'),[0,1]),straight(upperL,upperR,.625,.875),shoulder(upperR,R,.875,1,[0,-1],tangent(s,0,'after'))];
  }else if(mode==='low'){
@@ -113,9 +118,9 @@ function makeSection(s,pr,x,mode,gap,weight=1){
  const oldCurve=C.refine(s,breaks),newCurve=C.refine(pseudo,breaks),points=oldCurve.points.map((p,i)=>mix(p,newCurve.points[i],weight)),knots=oldCurve.knots;
  points[points.length-1]=points[0].slice();const result={...copy(s),shape:'custom',points,knots,freeform:true,symmetric:false};delete result.template;return result;
 }
-function rootGap(pr,s,x){
+function rootGap(pr,s,x,side=0){
  let minimum=Infinity;const ring=C.ring(s,256);
- for(const [foil,sign] of [[pr.right,1],[pr.left,-1]]){const {lower:l,upper:u}=envelope(foil,x),lo=l[2],hi=u[2];
+ for(const [foil,sign] of side>0?[[pr.right,1]]:side<0?[[pr.left,-1]]:[[pr.right,1],[pr.left,-1]]){const {lower:l,upper:u}=envelope(foil,x),lo=l[2],hi=u[2];
   for(let i=0;i<ring.length-1;i++){const a=ring[i],b=ring[i+1],dz=b[2]-a[2];let t0=0,t1=1;
    if(Math.abs(dz)>1e-12){const aa=(lo-a[2])/dz,bb=(hi-a[2])/dz;t0=Math.max(0,Math.min(aa,bb));t1=Math.min(1,Math.max(aa,bb));}else if(a[2]<lo-1e-8||a[2]>hi+1e-8)continue;
    if(t0>t1+1e-8)continue;for(const t of [t0,t1]){const z=a[2]+dz*t,y=a[1]+(b[1]-a[1])*t,fy=hi-lo>1e-12?l[1]+(u[1]-l[1])*(z-lo)/(hi-lo):(u[1]+l[1])/2;minimum=Math.min(minimum,sign*(fy-y));}
@@ -124,35 +129,56 @@ function rootGap(pr,s,x){
 }
 function fit(project,settings){
  const pr=profile(project,settings),bodyIndex=Number(settings.bodyIndex),b=project.bodies[bodyIndex],gap=Number(settings.gap),transition=Number(settings.transition),count=Number(settings.stations??15);
- if(!b?.enabled)throw new Error('Выбери включённый корпус.');if(b.mirrorY||b.sections.some(s=>Math.abs(s.y||0)>1e-7||Math.abs(s.pitch||0)>1e-7||Math.abs(s.yaw||0)>1e-7))throw new Error('Сопряжение сейчас поддерживает корпус на плоскости XZ без наклона станций и зеркальных копий тела.');
+ if(!b?.enabled)throw new Error('Выбери включённый корпус.');if(b.sections.some(s=>Math.abs(s.roll||0)>1e-7||Math.abs(s.pitch||0)>1e-7||Math.abs(s.yaw||0)>1e-7))throw new Error('Сопряжение повёрнутых станций требует ручной настройки.');
+ const meanY=b.sections.reduce((n,s)=>n+(s.y||0)/b.sections.length,0),side=b.mirrorY||Math.abs(meanY)>1e-7?Math.sign(meanY):0;
+ pr.sideAllowanceFt=Number(settings.edgeAllowance??.003);if(!Number.isFinite(pr.sideAllowanceFt)||pr.sideAllowanceFt<0||pr.sideAllowanceFt>pr.chord*.05)throw new Error('Припуск у кромки должен быть от 0 до 5% хорды.');
+ if(b.mirrorY&&!side)throw new Error('Зеркальное тело на оси не образует отдельную боковую мотогондолу.');
  if(!Number.isFinite(gap)||gap<0||gap>pr.chord)throw new Error('Зазор должен быть положительным или нулевым и меньше хорды.');
  if(!Number.isFinite(transition)||transition<.01||transition>pr.chord*2)throw new Error('Длина перехода должна быть от 0,01 ft до двух хорд.');
  if(!Number.isInteger(count)||count<7||count>25)throw new Error('Нужно от 7 до 25 станций по хорде.');
- const x0=pr.x0-transition,x1=pr.x1+transition;if(x0<=b.sections[0].x+.001||x1>=b.sections.at(-1).x-.001)throw new Error('Зона стыка с переходами должна находиться внутри длины корпуса. Уменьши переход.');
- const original=copy(b),q=copy(project),target=q.bodies[bodyIndex];
- const positions=[x0,pr.x0-transition*.5,pr.x0-transition*.25,...Array.from({length:count},(_,i)=>pr.x0+pr.chord*(1-Math.cos(Math.PI*i/(count-1)))/2),pr.x1+transition*.25,pr.x1+transition*.5,x1];
+ const outside=C.outerBody(b),minX=outside.sections[0].x,maxX=outside.sections.at(-1).x;
+ if(pr.x0<minX-.001||pr.x1>maxX+.001)throw new Error('Наружная ветвь корпуса должна перекрывать всю корневую хорду крыла.');
+ const x0=Math.max(pr.x0-transition,minX),x1=Math.min(pr.x1+transition,maxX);
+ const original=copy(b);original.activeBranch='outer';const q=copy(project),target=q.bodies[bodyIndex];target.activeBranch='outer';
+ const positions=[x0,pr.x0-transition*.5,pr.x0-transition*.25,...Array.from({length:count},(_,i)=>pr.x0+pr.chord*(1-Math.cos(Math.PI*i/(count-1)))/2),pr.x1+transition*.25,pr.x1+transition*.5,x1].filter(x=>x>=x0-1e-8&&x<=x1+1e-8);
  for(const x of positions){if(target.sections.some(s=>Math.abs(s.x-x)<.001))continue;C.addAt(target,x);}
- let changed=0;for(let i=0;i<target.sections.length;i++){const s=target.sections[i];if(s.x<x0+1e-8||s.x>x1-1e-8)continue;
+ const outerSet=new Set(C.paths(target).find(p=>p.role==='outer').sections);
+ let changed=0;for(let i=0;i<target.sections.length;i++){const s=target.sections[i];if(!outerSet.has(s)||s.x<x0-1e-8||s.x>x1+1e-8)continue;
   const old=C.sectionAt(original,s.x)?.section;if(!old?.width)throw new Error('В зоне стыка найдено точечное сечение.');
   const t=s.x<pr.x0?(s.x-x0)/transition:s.x>pr.x1?(x1-s.x)/transition:1,weight=t*t*t*(10+t*(-15+6*t));
   if(weight<EPS)continue;
-  const fitted=makeSection(old,pr,s.x,settings.mode,gap,weight);fitted.x=s.x;if(s.sourceId)fitted.sourceId=s.sourceId;
+  if(s.repairLocked||s.sharpEdge)throw new Error('Станция в зоне сопряжения защищена от изменения. Измени границы стыка или явно сними защиту.');
+  const fitted=makeSection(old,pr,s.x,settings.mode,gap,weight,side);fitted.x=s.x;if(s.sourceId)fitted.sourceId=s.sourceId;
   fitted.wingFit={wingId:pr.wingId,mode:settings.mode,gapFt:gap,ringIndex:pr.ringIndex};target.sections[i]=fitted;changed++;
  }
  target.wingFitRegion=[x0,x1];
  const errors=C.validate(q);if(errors.length)throw new Error('Подгонка создаёт непригодный контур: '+errors[0]);
  // Test the preview between native stations too; export still needs native inspection.
  for(let i=0;i<=40;i++){const s=C.sectionAt(target,x0+(x1-x0)*i/40).section;const e=C.validateBody({...target,sections:[{...s,x:0},{...s,x:1},{...s,x:2}]});if(e.length)throw new Error('Промежуточное сечение пересекается. Уменьши подгонку или измени исходную форму корпуса.');}
- let previewMinGapYFt=Infinity;for(let i=0;i<=128;i++){const x=pr.x0+pr.chord*i/128;previewMinGapYFt=Math.min(previewMinGapYFt,rootGap(pr,C.sectionAt(target,x).section,x));}
+ if(side&&settings.bodyMate)mateInboard(q,bodyIndex,[pr.x0,pr.x1],Number(settings.bodyGap??gap));
+ let previewMinGapYFt=Infinity;for(let i=0;i<=128;i++){const x=pr.x0+pr.chord*i/128;previewMinGapYFt=Math.min(previewMinGapYFt,rootGap(pr,C.sectionAt(target,x).section,x,side));}
  if(previewMinGapYFt<-1e-5)throw new Error('Корпус выходит внутрь корневой зоны крыла по предварительной выборке. Измени исходные сечения или параметры стыка.');
  if(!Number.isFinite(previewMinGapYFt))throw new Error('Не удалось проверить корневой стык по всей хорде.');
- const report={bodyIndex,wingId:pr.wingId,mode:settings.mode,x0:pr.x0,x1:pr.x1,region:[x0,x1],gapFt:gap,transitionFt:transition,added:target.sections.length-original.sections.length,changed,total:target.sections.length,stationOnly:true,previewMinGapYFt,rootClearanceSamplePlanes:129};
+ const report={bodyIndex,wingId:pr.wingId,mode:side?'side':settings.mode,edgeAllowanceFt:side?pr.sideAllowanceFt:0,bodyMate:!!(side&&settings.bodyMate),bodyGapFt:Number(settings.bodyGap??gap),side,x0:pr.x0,x1:pr.x1,region:[x0,x1],gapFt:gap,transitionFt:transition,added:target.sections.length-original.sections.length,changed,total:target.sections.length,stationOnly:true,previewMinGapYFt,rootClearanceSamplePlanes:129};
  q.lastWingFit=report;return {project:q,report,profile:pr};
+}
+function mateInboard(project,bodyIndex,region,gap){
+ if(!Number.isFinite(gap)||gap<0||gap>10)throw new Error('Проверь отдельный зазор корпус / мотогондола.');
+ const b=project.bodies[bodyIndex],anchor=project.bodies[bodyIndex===1?0:1];if(!anchor?.enabled)throw new Error('Для сопряжения внутреннего борта нужен второй включённый корпус.');
+ const transformed=C.frames.active(b)||C.frames.active(anchor),surface=transformed?C.loft(C.outerBody(anchor),128,96).map(r=>r.map(p=>C.frames.fromWorld(b,p))):null;
+ const ss=C.paths(b).find(p=>p.role==='outer').sections,sign=Math.sign(ss.reduce((n,s)=>n+(s.y||0),0));
+ for(const s of ss){if(s.x<region[0]-1e-8||s.x>region[1]+1e-8)continue;const aa=transformed?null:C.sectionAt(anchor,s.x,'outer')?.section;if(!aa&&!transformed)throw new Error('Опорный корпус отсутствует в плоскости стыка.');
+  let ring;if(!transformed)ring=C.ring(aa,384);else{ring=[];for(let i=0;i<surface.length-1;i++)for(let j=0;j<surface[i].length-1;j++)for(const tri of [[surface[i][j],surface[i+1][j],surface[i+1][j+1]],[surface[i][j],surface[i+1][j+1],surface[i][j+1]]]){const hits=[];for(let k=0;k<3;k++){const a=tri[k],z=tri[(k+1)%3],dx=z[0]-a[0];if(Math.abs(dx)<1e-12)continue;const t=(s.x-a[0])/dx;if(t>=0&&t<=1)hits.push(a.map((v,d)=>v+t*(z[d]-v)));}if(hits.length>=2)ring.push(hits[0],hits[1]);}if(!ring.length)throw Error('Опорная поверхность не пересекает местную плоскость станции.');}
+  const world=s.points.map(p=>C.point3(s,p)),ys=world.map(p=>sign*p[1]),inner=Math.min(...ys),outer=Math.max(...ys),width=outer-inner;
+  const border=z=>{let y=-Infinity;for(let j=0;j<ring.length-1;j+=transformed?2:1){const a=ring[j],b=ring[j+1],dz=b[2]-a[2];if(Math.abs(dz)<1e-12){if(Math.abs(z-a[2])<1e-8)y=Math.max(y,sign*a[1],sign*b[1]);continue;}const t=(z-a[2])/dz;if(t>=0&&t<=1)y=Math.max(y,sign*(a[1]+t*(b[1]-a[1])));}return y;};
+  s.points=world.map((p,j)=>{const ratio=(ys[j]-inner)/width,weight=ratio>=.5?0:(1-ratio/.5)**2,target=border(p[2]);if(!Number.isFinite(target)||!weight)return C.localPoint(s,p[1],p[2]);const delta=target+gap-inner;if(target+gap>=outer-.001)throw new Error('Между корпусом и крылом не хватает места для мотогондолы.');return C.localPoint(s,sign*(ys[j]+weight*delta),p[2]);});s.points[s.points.length-1]=s.points[0].slice();s.freeform=true;s.symmetric=false;
+ }
+ const errors=C.validate(project);if(errors.length)throw new Error('Внутренний борт: '+errors[0]);return project;
 }
 function suggested(project,wingId,selection={}){
  const wing=project.wingData.wings.find(w=>w.id===wingId)||project.wingData.wings[0],settings={wingId:wing.id,bodyIndex:0,surfaceIndex:wing.surfaces[0].index,ringIndex:0,...selection};const pr=profile(project,settings),s=C.sectionAt(project.bodies[settings.bodyIndex],(pr.x0+pr.x1)/2)?.section;if(!s)return {...settings,mode:'high',gap:.001,transition:pr.chord*.12,stations:15};
  const env=envelope(pr.right,(pr.x0+pr.x1)/2),rr=C.ring(s,128),top=Math.max(...rr.map(p=>p[2])),bottom=Math.min(...rr.map(p=>p[2])),z=(env.upper[2]+env.lower[2])/2;
- return {...settings,mode:z>s.z+s.height*.23?'high':z<s.z-s.height*.23?'low':'mid',gap:Math.max(0,env.upper[1]-Math.max(...rr.map(p=>p[1]))),transition:pr.chord*.12,stations:15,bodyTop:top,bodyBottom:bottom};
+ return {...settings,mode:project.bodies[settings.bodyIndex].mirrorY||Math.abs(s.y||0)>.0001?'side':z>s.z+s.height*.23?'high':z<s.z-s.height*.23?'low':'mid',gap:Math.max(0,env.upper[1]-Math.max(...rr.map(p=>p[1]))),transition:pr.chord*.12,stations:15,bodyTop:top,bodyBottom:bottom};
 }
-const api={fingerprint,verify,preparation,envelope,profile,fit,suggested,makeSection,rootGap};root.WingFit=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
+const api={fingerprint,verify,preparation,envelope,profile,fit,suggested,makeSection,rootGap,mateInboard};root.WingFit=api;if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

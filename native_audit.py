@@ -8,17 +8,24 @@ import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
 
+from native_control import run_cancelable
+
 from mesh_audit import read_vspgeom, inspect_mesh, compare_reports
 from machline_audit import read_tri, inspect_machline, compare_machline_reports
 
 FACTORS = {'ft': 1., 'm': 1/.3048, 'mm': 1/.3048/1000, 'in': 1/12}
+
+def process_failure(returncode):
+    code=returncode&0xffffffff
+    hints={0xc0000135:'Не найдена DLL. Используй полный комплект OpenVSP с его библиотеками.',0xc000007b:'Несовместимый EXE или DLL. Проверь разрядность и целостность комплекта OpenVSP.',0xc0000142:'Не удалось инициализировать OpenVSP или его DLL. Проверь полный комплект и системные зависимости.'}
+    return 'Код завершения: '+str(returncode)+' (0x'+format(code,'08X')+'). '+hints.get(code,'Смотри журнал OpenVSP и проверь установку.')
 
 
 def run_script(executable, folder, script, output):
     (folder/'Prepare.vspscript').write_bytes(script.encode('utf-8'))
     with (folder/'run.log').open('wb') as log:
         try:
-            run = subprocess.run([executable, '-script', 'Prepare.vspscript'], cwd=folder,
+            run = run_cancelable([executable, '-script', 'Prepare.vspscript'], cwd=folder,
                                  stdout=log, stderr=subprocess.STDOUT, timeout=180,
                                  creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         except subprocess.TimeoutExpired as exc:
@@ -34,7 +41,7 @@ def run_script(executable, folder, script, output):
     # Our scripts use int main() and return 0 explicitly. ScriptMgr 3.51 reads
     # GetReturnDWord even for void main(), whose status can be indeterminate.
     if run.returncode != 0 or 'SECTION_STUDIO_ERROR' in message or f'SECTION_STUDIO_SAVED: {output}' not in message or not target.is_file():
-        raise ValueError('OpenVSP не подтвердил проверку.\n'+message[-6000:])
+        raise ValueError('OpenVSP не подтвердил проверку.\n'+(process_failure(run.returncode)+'\n'if run.returncode else'')+message[-6000:])
     if target.stat().st_size > 64*1024*1024:
         raise ValueError('Результат проверки превышает 64 МБ.')
     return target

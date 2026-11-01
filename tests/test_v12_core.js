@@ -1,0 +1,7 @@
+const assert=require('assert/strict'),C=require('../source/core');
+global.VSPImport={geometryKey:b=>JSON.stringify({name:b.name,sections:b.sections,rotation:b.rotation}),parse:()=>({all:[]})};const W=require('../source/workspace');
+const p=C.demo();p.source={xml:'local fixture',selection:['A','B']};p.bodies[0].sourceId='A';p.bodies[1].sourceId='B';p.componentPool={C:{...C.clone(p.bodies[1]),sourceId:'C',name:'Aux_Body'}};W.sync(p);assert.equal(W.allBodies(p).length,3);
+let q=W.select(p,['A','C']);q.bodies[1].sections[3].height+=.01;const height=q.bodies[1].sections[3].height;q=W.select(q,['A','B']);q.bodies[1].sections[3].width+=.02;q=W.select(q,['A','C']);assert.equal(q.bodies[1].sections[3].height,height);assert.equal(W.allBodies(q).length,3);assert.notEqual(W.key(q),W.key(p));
+const body=C.clone(C.demo().bodies[0]);body.rotation=[12,17,26];body.referenceFrame={x:5,y:2,z:3,length:10,originFraction:.25};const a=C.loftLocal(body,12,12),b=C.loft(body,12,12);for(let i=0;i<a.length;i++)for(let j=0;j<a[i].length;j++){const p=C.frames.fromWorld(body,b[i][j]);assert(Math.hypot(...p.map((v,k)=>v-a[i][j][k]))<1e-11);}assert.equal(C.gapAt({bodies:[body,C.demo().bodies[1]]},10).state,'tilted');
+const sharp=C.demo();sharp.bodies[0].sections[3].sharpEdge=true;const R=require('../source/repair'),A=require('../source/audit');const issue={code:'pressure_station_kink',body:0,station:3};assert.throws(()=>R.propose(sharp,issue,{radius:1,maxMove:.05}));
+console.log('1.2 component pool, pair switching, rigid frames and intentional-edge protection passed.');

@@ -1,0 +1,66 @@
+{
+  "ok": true,
+  "report": {
+    "format": "section-studio-preservation",
+    "version": "1.2",
+    "sourceHash": "7e86ff87fbd9bac1e4f409e13654992ef56356c53c05281c94d7bfff21912db4",
+    "originalHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+    "components": [
+      {
+        "id": "NFAYAEXLTA",
+        "name": "Wing",
+        "parametersUnchanged": true,
+        "complete": true,
+        "maximumMoveFt": 0.0,
+        "rmsMoveFt": 0.0,
+        "sampleCount": 8450,
+        "skippedSampleCount": 0,
+        "correspondence": "same-native-parameter",
+        "locks": []
+      },
+      {
+        "id": "TMCWTAJLFF",
+        "name": "Fuselage",
+        "parametersUnchanged": true,
+        "complete": true,
+        "maximumMoveFt": 0.0,
+        "rmsMoveFt": 0.0,
+        "sampleCount": 66625,
+        "skippedSampleCount": 0,
+        "correspondence": "same-native-parameter",
+        "locks": []
+      },
+      {
+        "id": "VVMDVQXEAY",
+        "name": "Gondola",
+        "parametersUnchanged": false,
+        "complete": true,
+        "maximumMoveFt": 0.033442385141927,
+        "rmsMoveFt": 0.0027708530043590485,
+        "sampleCount": 21318,
+        "skippedSampleCount": 0,
+        "correspondence": "bidirectional-native-surface-projection",
+        "anchorsUsed": 33,
+        "directions": 2,
+        "locks": [
+          {
+            "geomId": "VVMDVQXEAY",
+            "x0": 18.4,
+            "x1": 20.59,
+            "toleranceFt": 0.0001,
+            "maximumMoveFt": 1.1e-14,
+            "sampleCount": 3102,
+            "skippedSampleCount": 0,
+            "passed": true
+          }
+        ],
+        "note": "Отклонение формы по двусторонней выборке 129×33 плюс параметры исходных сечений. Это не перемещение материальных точек; нативная проекция и конечная выборка не дают строгой границы между отсчётами."
+      }
+    ],
+    "complete": true,
+    "locksPassed": true,
+    "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+    "reopenedInOpenVSP": true,
+    "solverRun": false
+  }
+}

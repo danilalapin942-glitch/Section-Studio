@@ -1,0 +1,3608 @@
+{
+  "program": "Section Studio",
+  "version": "1.2",
+  "date_utc": "2026-10-31",
+  "scope": "Implemented all six 1.2 geometry improvements. Final watertight MachLine mesh preparation remains 1.3. No aerodynamic solver or certification performed.",
+  "environment": {
+    "OpenVSP": "3.51.0 Linux",
+    "Python": "3.12.14",
+    "browser": "Chromium 131 headless",
+    "windowsLaunchTested": false
+  },
+  "tests": {
+    "python": {
+      "count": 82,
+      "passed": true,
+      "logSummary": "Ran 82 tests in 20.086s: OK"
+    },
+    "javascript": {
+      "suites": [
+        {
+          "suite": "test_pressure_repair.js",
+          "passed": true,
+          "output": "Pressure indicator, bounded repair and protected-zone checks passed.\n"
+        },
+        {
+          "suite": "test_machline_repair.js",
+          "passed": true,
+          "output": "MachLine regime, bounded repair, invariant and protection contracts passed.\n"
+        },
+        {
+          "suite": "test_v11_core.js",
+          "passed": true,
+          "output": "1.1 Free paths, topology-preserving insertion, bounded region repair and surface protection passed.\n"
+        },
+        {
+          "suite": "test_v12_core.js",
+          "passed": true,
+          "output": "1.2 component pool, pair switching, rigid frames and intentional-edge protection passed.\n"
+        }
+      ],
+      "javascriptSyntax": "all source modules passed",
+      "pythonCompile": "all root modules and build passed"
+    },
+    "browserPageErrors": []
+  },
+  "browserRegression": {
+    "modelLoaders": {
+      "results": [
+        {
+          "file": "Fuselage_Section_Studio_v12/Prepared_models/CH1.vsp3",
+          "prepared": false,
+          "same": true,
+          "editable": 2,
+          "errors": []
+        },
+        {
+          "file": "Fuselage_Section_Studio_v12/Prepared_models/MQ28_for_wingfit.vsp3",
+          "prepared": false,
+          "same": true,
+          "editable": 2,
+          "errors": []
+        },
+        {
+          "file": "model_tests/MQ20_repaired_v01.vsp3",
+          "prepared": false,
+          "same": true,
+          "editable": 2,
+          "errors": []
+        },
+        {
+          "file": "model_tests/Spirit_Mosquito_wingfit_v02.vsp3",
+          "prepared": false,
+          "same": true,
+          "editable": 2,
+          "errors": []
+        }
+      ],
+      "errors": []
+    },
+    "legacyProjectsAndProtection": {
+      "legacy": [
+        {
+          "file": "MQ28_wingfit_ready.json",
+          "version": "1.2",
+          "errors": [],
+          "geoms": 4,
+          "sourceKept": true
+        },
+        {
+          "file": "CH1_1.1_ready.json",
+          "version": "1.2",
+          "errors": [],
+          "geoms": 3,
+          "sourceKept": true
+        },
+        {
+          "file": "CH1_1.1_fitted.json",
+          "version": "1.2",
+          "errors": [],
+          "geoms": 3,
+          "sourceKept": true
+        }
+      ],
+      "errors": [],
+      "engineU": {
+        "rows": [
+          {
+            "sameId": true,
+            "u": 0,
+            "expected": 0
+          },
+          {
+            "sameId": true,
+            "u": 0.12121212121212122,
+            "expected": 0.12121212121212122
+          }
+        ],
+        "rejected": true
+      },
+      "curvedCategory": {
+        "selectedFaces": 3072,
+        "persisted": true
+      },
+      "protectedSaveBlocked": true
+    },
+    "workerFaces": 8648,
+    "workerMapFaces": 8648,
+    "workerPreviewAndStaleCancellationPassed": true,
+    "nativeAutoApplyAndUndoPassed": true,
+    "singleBodyNoOpByteIdentical": true,
+    "threeEditableBodiesRetainEditsAfterPairSwitch": true,
+    "multiBodyNativeComparison": {
+      "format": "section-studio-preservation",
+      "version": "1.2",
+      "sourceHash": "a231f48a246b06f5ae4e2e2ecf1eab387c3880138bf65f91e4f7cb16d225381f",
+      "originalHash": "a67e1a86b7af4018cb4a596d6db0eeef8df1c5a2edc1733fdc78cffd202a7084",
+      "components": [
+        {
+          "id": "NFAYAEXLTA",
+          "name": "Wing",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0,
+          "rmsMoveFt": 0,
+          "sampleCount": 8450,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "TMCWTAJLFF",
+          "name": "Fuselage",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0,
+          "rmsMoveFt": 0,
+          "sampleCount": 66625,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "VVMDVQXEAY",
+          "name": "Gondola",
+          "parametersUnchanged": false,
+          "complete": true,
+          "maximumMoveFt": 0.004549533195049027,
+          "rmsMoveFt": 0.0005347512910809035,
+          "sampleCount": 133250,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "ZHHYIBSNSAC",
+          "name": "Aux_Body",
+          "parametersUnchanged": false,
+          "complete": true,
+          "maximumMoveFt": 0.028341941805930766,
+          "rmsMoveFt": 0.003450963012154954,
+          "sampleCount": 66625,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        }
+      ],
+      "complete": true,
+      "locksPassed": true,
+      "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+      "reopenedInOpenVSP": true,
+      "scope": "all-components",
+      "solverRun": false
+    },
+    "threeAxisRotatedWingFit": {
+      "frame": {
+        "beforeSame": true,
+        "referenceFrame": {
+          "x": 3,
+          "y": -5,
+          "z": 8,
+          "length": 52.03412073490813,
+          "originFraction": 0.25
+        },
+        "rotation": [
+          12,
+          17,
+          26
+        ]
+      },
+      "preview": {
+        "bodyIndex": 1,
+        "wingId": "NFAYAEXLTA",
+        "mode": "side",
+        "edgeAllowanceFt": 0.003,
+        "bodyMate": false,
+        "bodyGapFt": 0.006,
+        "side": 1,
+        "x0": 23.047552075614092,
+        "x1": 49.45012755464037,
+        "region": [
+          22.547552075614092,
+          49.45012755464036
+        ],
+        "gapFt": 0.006,
+        "transitionFt": 0.5,
+        "added": 15,
+        "changed": 39,
+        "total": 48,
+        "stationOnly": true,
+        "previewMinGapYFt": 0.00599999999999401,
+        "rootClearanceSamplePlanes": 129
+      },
+      "message": "Стык прошёл проверку расстояний на нативной TRI. Gondola / Wing: 0.006000 ft, порог 0.006 ft. Можно применить правку.",
+      "wingAndFuselageUnchanged": true,
+      "errors": []
+    },
+    "activeRelativePoseAndStaleAbsoluteCache": {
+      "nativeSemanticComplete": true,
+      "layouts": {
+        "TMCWTAJLFF": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.201816424156732e-14,
+          "validatedPlaneCount": 21,
+          "sectionIds": [
+            "WQDAOJJDYR",
+            "ZMZSHKQAVA",
+            "IAQOIHFVAV",
+            "RGBQFIBXYV",
+            "CUTZHSPHXC",
+            "AKBAPMYUPH",
+            "JFYLGCSSMB",
+            "CGZEVBSWKL",
+            "AQMLNLPLED",
+            "POQZGLUYZR",
+            "LNCUOKPRIA",
+            "BSLQOBLVLM",
+            "IVYIXFOENU",
+            "WDZCKMGGEV",
+            "KYDIIHKFDA",
+            "WNGKVWEODF",
+            "HQWKDJBFRG",
+            "RWIRSQNAHR",
+            "GPRJHJPDLM",
+            "ZZUYMUVFWO",
+            "KKHDDHLDHS",
+            "WXOMSVESIE"
+          ],
+          "outer": [
+            0,
+            17
+          ],
+          "runs": [
+            [
+              0,
+              17
+            ],
+            [
+              17,
+              21
+            ]
+          ],
+          "stations": [
+            {
+              "i": 0,
+              "planeResidualFt": 0.0,
+              "nativePointClosure": true,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.0
+            },
+            {
+              "i": 1,
+              "planeResidualFt": 1.2420620087993939e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.751648008823395
+            },
+            {
+              "i": 2,
+              "planeResidualFt": 1.4085954624931674e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.833568036556244
+            },
+            {
+              "i": 3,
+              "planeResidualFt": 2.067790383364354e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 1.465399384498596
+            },
+            {
+              "i": 4,
+              "planeResidualFt": 1.1102230246251565e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.034264020621777,
+              "curvatureJumpPerFt": 5.286494731903076
+            },
+            {
+              "i": 5,
+              "planeResidualFt": 2.8449465006019636e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.342342972755432
+            },
+            {
+              "i": 6,
+              "planeResidualFt": 2.4980018054066022e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.360476344823837
+            },
+            {
+              "i": 7,
+              "planeResidualFt": 2.733924198139448e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 2.411216259002686
+            },
+            {
+              "i": 8,
+              "planeResidualFt": 7.438494264988549e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.181189641356468
+            },
+            {
+              "i": 9,
+              "planeResidualFt": 6.106226635438361e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.055231835693121
+            },
+            {
+              "i": 10,
+              "planeResidualFt": 1.099120794378905e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.004695579875261
+            },
+            {
+              "i": 11,
+              "planeResidualFt": 1.1213252548714081e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 5.896645069122314
+            },
+            {
+              "i": 12,
+              "planeResidualFt": 9.103828801926284e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.195835277438164,
+              "curvatureJumpPerFt": 705.558349609375
+            },
+            {
+              "i": 13,
+              "planeResidualFt": 7.716050021144838e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 13.973760604858398,
+              "curvatureJumpPerFt": 12.305569648742676
+            },
+            {
+              "i": 14,
+              "planeResidualFt": 7.827072323607354e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 5.522934913635254,
+              "curvatureJumpPerFt": 0.132504060864449
+            },
+            {
+              "i": 15,
+              "planeResidualFt": 9.006684287271582e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 8.737004280090332,
+              "curvatureJumpPerFt": 0.173052996397018
+            },
+            {
+              "i": 16,
+              "planeResidualFt": 1.201816424156732e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 7.396666049957275,
+              "curvatureJumpPerFt": 0.101958185434341
+            },
+            {
+              "i": 17,
+              "planeResidualFt": 6.161737786669619e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 92.60768127441406,
+              "curvatureJumpPerFt": 0.070789664983749
+            },
+            {
+              "i": 18,
+              "planeResidualFt": 8.28503932126523e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 59.55335998535156,
+              "curvatureJumpPerFt": 3.3687211e-08
+            },
+            {
+              "i": 19,
+              "planeResidualFt": 1.1129985821867194e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 3.524922609329224,
+              "curvatureJumpPerFt": 1.2763498e-08
+            },
+            {
+              "i": 20,
+              "planeResidualFt": 7.840950111415168e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 4.511669635772705,
+              "curvatureJumpPerFt": 9.0132889454e-05
+            },
+            {
+              "i": 21,
+              "planeResidualFt": 8.527900607901984e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.0
+            }
+          ]
+        }
+      },
+      "frame": {
+        "origin": [
+          16.008530183727032,
+          -5.0,
+          8.0
+        ],
+        "rotation": [
+          12.0,
+          17.0,
+          26.0
+        ],
+        "center": 13.008530183727032,
+        "length": 52.03412073490813
+      },
+      "editedAbsRoundtripVerified": true,
+      "editedNativeLayouts": {
+        "TMCWTAJLFF": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.2170819907453279e-14,
+          "validatedPlaneCount": 21,
+          "sectionIds": [
+            "WQDAOJJDYR",
+            "ZMZSHKQAVA",
+            "IAQOIHFVAV",
+            "RGBQFIBXYV",
+            "CUTZHSPHXC",
+            "AKBAPMYUPH",
+            "JFYLGCSSMB",
+            "CGZEVBSWKL",
+            "AQMLNLPLED",
+            "POQZGLUYZR",
+            "LNCUOKPRIA",
+            "BSLQOBLVLM",
+            "IVYIXFOENU",
+            "WDZCKMGGEV",
+            "KYDIIHKFDA",
+            "WNGKVWEODF",
+            "HQWKDJBFRG",
+            "RWIRSQNAHR",
+            "GPRJHJPDLM",
+            "ZZUYMUVFWO",
+            "KKHDDHLDHS",
+            "WXOMSVESIE"
+          ],
+          "outer": [
+            0,
+            17
+          ],
+          "runs": [
+            [
+              0,
+              17
+            ],
+            [
+              17,
+              21
+            ]
+          ],
+          "stations": [
+            {
+              "i": 0,
+              "planeResidualFt": 0.0,
+              "nativePointClosure": true,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.0
+            },
+            {
+              "i": 1,
+              "planeResidualFt": 1.6028844918025698e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.751648008823395
+            },
+            {
+              "i": 2,
+              "planeResidualFt": 1.2628786905111156e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.833568036556244
+            },
+            {
+              "i": 3,
+              "planeResidualFt": 2.3592239273284576e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 1.465399384498596
+            },
+            {
+              "i": 4,
+              "planeResidualFt": 2.7200464103316335e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.034264020621777,
+              "curvatureJumpPerFt": 5.286502361297607
+            },
+            {
+              "i": 5,
+              "planeResidualFt": 2.55351295663786e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.350587606430054
+            },
+            {
+              "i": 6,
+              "planeResidualFt": 2.886579864025407e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.360470175743103
+            },
+            {
+              "i": 7,
+              "planeResidualFt": 3.1780134079895106e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 2.411216259002686
+            },
+            {
+              "i": 8,
+              "planeResidualFt": 7.549516567451064e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.181189641356468
+            },
+            {
+              "i": 9,
+              "planeResidualFt": 5.9396931817445875e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.055231835693121
+            },
+            {
+              "i": 10,
+              "planeResidualFt": 1.0824674490095276e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.004695579875261
+            },
+            {
+              "i": 11,
+              "planeResidualFt": 1.1213252548714081e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 5.896645069122314
+            },
+            {
+              "i": 12,
+              "planeResidualFt": 9.103828801926284e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.195835277438164,
+              "curvatureJumpPerFt": 705.558349609375
+            },
+            {
+              "i": 13,
+              "planeResidualFt": 7.716050021144838e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 13.973760604858398,
+              "curvatureJumpPerFt": 12.305569648742676
+            },
+            {
+              "i": 14,
+              "planeResidualFt": 7.827072323607354e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 5.522934913635254,
+              "curvatureJumpPerFt": 0.132504060864449
+            },
+            {
+              "i": 15,
+              "planeResidualFt": 9.006684287271582e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 8.737004280090332,
+              "curvatureJumpPerFt": 0.173052996397018
+            },
+            {
+              "i": 16,
+              "planeResidualFt": 1.2170819907453279e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 7.396666049957275,
+              "curvatureJumpPerFt": 0.101958177983761
+            },
+            {
+              "i": 17,
+              "planeResidualFt": 6.300515664747763e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 92.60768127441406,
+              "curvatureJumpPerFt": 0.070789664983749
+            },
+            {
+              "i": 18,
+              "planeResidualFt": 8.132383655379272e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 59.55335998535156,
+              "curvatureJumpPerFt": 3.3687211e-08
+            },
+            {
+              "i": 19,
+              "planeResidualFt": 1.099120794378905e-14,
+              "nativePointClosure": false,
+              "normalJumpDeg": 3.524922609329224,
+              "curvatureJumpPerFt": 1.324863e-08
+            },
+            {
+              "i": 20,
+              "planeResidualFt": 8.0629947163402e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 4.511669635772705,
+              "curvatureJumpPerFt": 9.0132889454e-05
+            },
+            {
+              "i": 21,
+              "planeResidualFt": 8.673617379884035e-15,
+              "nativePointClosure": false,
+              "normalJumpDeg": 0.0,
+              "curvatureJumpPerFt": 0.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "nativeModels": {
+    "CH1": {
+      "sourceSha256": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+      "nativeComplete": true,
+      "pairs": [
+        {
+          "distanceFt": 0.0018604672708525723,
+          "pointA": [
+            22.19999091344095,
+            -2.693976734918747,
+            1.9732695044298394
+          ],
+          "pointB": [
+            22.2,
+            -2.69583718,
+            1.9732695044298394
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 204,
+          "triangleA": 3263,
+          "triangleB": 23559,
+          "elapsedSeconds": 0.02340483399984805,
+          "a": "TMCWTAJLFF",
+          "b": "VVMDVQXEAY",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 12191,
+          "normalA": [
+            0.005961355717643763,
+            -0.999687454436098,
+            -0.024278708389913417
+          ],
+          "faceB": 46119,
+          "normalB": [
+            -0.028457488818134605,
+            0.9995950036540626,
+            0.0
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "semanticCoverage": 1.0,
+      "unknownFaces": 0,
+      "nativeSmoothnessComplete": true,
+      "note": "Native layout verified"
+    },
+    "MQ28": {
+      "sourceSha256": "987c8fc3df331171e20b81224fc9a994734f5eefff3b0cd93449c95fe1d23239",
+      "nativeComplete": true,
+      "pairs": [
+        {
+          "distanceFt": 0.02894603699603025,
+          "pointA": [
+            12.069512442544378,
+            -1.2725878473469956,
+            -0.6177668151099694
+          ],
+          "pointB": [
+            12.06967213,
+            -1.2932521461000261,
+            -0.6380358633051257
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 2182,
+          "triangleA": 156,
+          "triangleB": 19,
+          "elapsedSeconds": 0.16839397599960648,
+          "a": "VJUKNWEOLP",
+          "b": "LQJAIQLUIN",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 156,
+          "normalA": [
+            0.005608167567736822,
+            -0.7468500034890733,
+            -0.6649688870502917
+          ],
+          "faceB": 1011,
+          "normalB": [
+            -1.0,
+            0.0,
+            -0.0
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "semanticCoverage": 1.0,
+      "unknownFaces": 0,
+      "nativeSmoothnessComplete": true,
+      "note": "Native layout verified"
+    },
+    "MQ20": {
+      "sourceSha256": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
+      "nativeComplete": true,
+      "pairs": [
+        {
+          "distanceFt": 0.01937224524942947,
+          "pointA": [
+            43.108301473441706,
+            1.5897992618094768e-17,
+            0.034929082496997305
+          ],
+          "pointB": [
+            43.10895132,
+            8.901596104e-36,
+            0.05429042505
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 785,
+          "triangleA": 775,
+          "triangleB": 472,
+          "elapsedSeconds": 0.060203617999832204,
+          "a": "OOGDGRQXEU",
+          "b": "XCDIQYNZAG",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 775,
+          "normalA": [
+            0.03353821724435863,
+            -0.020456820351542584,
+            0.9992280552932723
+          ],
+          "faceB": 1312,
+          "normalB": [
+            -0.08721622190688436,
+            -0.018620751164482897,
+            -0.9960153604550279
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "semanticCoverage": 0.8659217877094972,
+      "unknownFaces": 576,
+      "nativeSmoothnessComplete": false,
+      "note": "Unverified engine trim remains unknown; auto repair is blocked"
+    },
+    "Spirit_Mosquito": {
+      "sourceSha256": "fb53c4a4cac6ee4fc5aad2e2df0edd0c2180269acc1eb5605089d920e7f1f08f",
+      "nativeComplete": true,
+      "pairs": [
+        {
+          "distanceFt": 0.0030782992649011527,
+          "pointA": [
+            18.807262012341678,
+            1.9154411121490003,
+            2.044511598916882
+          ],
+          "pointB": [
+            18.80734630193268,
+            1.9154383309621097,
+            2.047588742705225
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 2027,
+          "triangleA": 18351,
+          "triangleB": 2240,
+          "elapsedSeconds": 0.15349315399998886,
+          "a": "DHVJMQQHWJ",
+          "b": "RXBIXDEBGK",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 18351,
+          "normalA": [
+            0.016786431122825917,
+            -0.0009035722751629695,
+            0.9998586896593449
+          ],
+          "faceB": 28864,
+          "normalB": [
+            -0.027426456642310075,
+            -0.002517291093924629,
+            -0.9996206544092594
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "semanticCoverage": 1.0,
+      "unknownFaces": 0,
+      "nativeSmoothnessComplete": true,
+      "note": "Native layout verified"
+    }
+  },
+  "nativeAutoRepair": {
+    "ok": true,
+    "passed": true,
+    "initial": {
+      "format": "section-studio-spatial-gaps",
+      "version": "1.2",
+      "sourceHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+      "openVSPVersion": "OpenVSP 3.51.0",
+      "units": "ft",
+      "pairs": [
+        {
+          "distanceFt": 0.0018604672708525723,
+          "pointA": [
+            22.19999091344095,
+            -2.693976734918747,
+            1.9732695044298394
+          ],
+          "pointB": [
+            22.2,
+            -2.69583718,
+            1.9732695044298394
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 204,
+          "triangleA": 3263,
+          "triangleB": 23559,
+          "elapsedSeconds": 0.024832187000356498,
+          "a": "TMCWTAJLFF",
+          "b": "VVMDVQXEAY",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.003,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 12191,
+          "normalA": [
+            0.005961355717643763,
+            -0.999687454436098,
+            -0.024278708389913417
+          ],
+          "faceB": 46119,
+          "normalB": [
+            -0.028457488818134605,
+            0.9995950036540626,
+            0
+          ],
+          "state": "below-limit",
+          "passed": false
+        },
+        {
+          "distanceFt": 0.005999999999999339,
+          "pointA": [
+            23.04755208,
+            -4.636666069,
+            2.010930177
+          ],
+          "pointB": [
+            23.04755208,
+            -4.642666069,
+            2.010930177
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 19390,
+          "triangleA": 24000,
+          "triangleB": 4525,
+          "elapsedSeconds": 1.0987773810002182,
+          "a": "VVMDVQXEAY",
+          "b": "NFAYAEXLTA",
+          "nameA": "Gondola",
+          "nameB": "Wing",
+          "minimumGapFt": 0.006,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 46560,
+          "normalA": [
+            -0.04228880760773346,
+            -0.9991054282462467,
+            0
+          ],
+          "faceB": 4525,
+          "normalB": [
+            0,
+            1,
+            0
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "complete": true,
+      "passed": false,
+      "limits": [
+        "Глобальный минимум вычислен между треугольниками именно этой сетки. Погрешность аппроксимации аналитических поверхностей отдельно не оценена.",
+        "В 3D отмечены точки минимального расстояния каждой пары; это не непрерывная карта всех зазоров."
+      ],
+      "solverRun": false,
+      "meshQuality": {
+        "degenerateTriangles": 0,
+        "firstDegenerateFaces": [],
+        "minimumTriangleAreaFt2": 5.523968750008227e-07
+      },
+      "refinement": null,
+      "semanticSurface": {
+        "method": "native-rib-plane-validated-parameters",
+        "layouts": {
+          "TMCWTAJLFF": {
+            "verified": true,
+            "frontCaps": 0,
+            "backCaps": 1,
+            "maximumPlaneResidualFt": 7.105427357601002e-15,
+            "sectionIds": [
+              "WQDAOJJDYR",
+              "ZMZSHKQAVA",
+              "IAQOIHFVAV",
+              "RGBQFIBXYV",
+              "CUTZHSPHXC",
+              "AKBAPMYUPH",
+              "JFYLGCSSMB",
+              "CGZEVBSWKL",
+              "AQMLNLPLED",
+              "POQZGLUYZR",
+              "LNCUOKPRIA",
+              "BSLQOBLVLM",
+              "IVYIXFOENU",
+              "WDZCKMGGEV",
+              "KYDIIHKFDA",
+              "WNGKVWEODF",
+              "HQWKDJBFRG",
+              "RWIRSQNAHR",
+              "GPRJHJPDLM",
+              "ZZUYMUVFWO",
+              "KKHDDHLDHS",
+              "WXOMSVESIE"
+            ],
+            "outer": [
+              0,
+              17
+            ],
+            "runs": [
+              [
+                0,
+                17
+              ],
+              [
+                17,
+                21
+              ]
+            ],
+            "stations": [
+              {
+                "i": 0,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              },
+              {
+                "i": 1,
+                "planeResidualFt": 4.440892098500626e-16,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.751648008823395
+              },
+              {
+                "i": 2,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.833568036556244
+              },
+              {
+                "i": 3,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 1.465399384498596
+              },
+              {
+                "i": 4,
+                "planeResidualFt": 8.881784197001252e-16,
+                "normalJumpDeg": 0.034264020621777,
+                "curvatureJumpPerFt": 5.286494731903076
+              },
+              {
+                "i": 5,
+                "planeResidualFt": 1.7763568394002505e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.342342972755432
+              },
+              {
+                "i": 6,
+                "planeResidualFt": 1.7763568394002505e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.360476344823837
+              },
+              {
+                "i": 7,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 2.411216259002686
+              },
+              {
+                "i": 8,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.181189641356468
+              },
+              {
+                "i": 9,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.055231835693121
+              },
+              {
+                "i": 10,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.004695579875261
+              },
+              {
+                "i": 11,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 5.896645069122314
+              },
+              {
+                "i": 12,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.195835277438164,
+                "curvatureJumpPerFt": 705.558349609375
+              },
+              {
+                "i": 13,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 13.973760604858398,
+                "curvatureJumpPerFt": 12.30634593963623
+              },
+              {
+                "i": 14,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 5.522934913635254,
+                "curvatureJumpPerFt": 0.132588520646095
+              },
+              {
+                "i": 15,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 8.737004280090332,
+                "curvatureJumpPerFt": 0.172879919409752
+              },
+              {
+                "i": 16,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 7.396666049957275,
+                "curvatureJumpPerFt": 0.101958192884922
+              },
+              {
+                "i": 17,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 92.60768127441406,
+                "curvatureJumpPerFt": 0.031211817637086
+              },
+              {
+                "i": 18,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 59.55335998535156,
+                "curvatureJumpPerFt": 1.9461856e-08
+              },
+              {
+                "i": 19,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 3.524922609329224,
+                "curvatureJumpPerFt": 7.483984e-09
+              },
+              {
+                "i": 20,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 4.511669635772705,
+                "curvatureJumpPerFt": 1.7435186237e-05
+              },
+              {
+                "i": 21,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              }
+            ]
+          },
+          "VVMDVQXEAY": {
+            "verified": true,
+            "frontCaps": 1,
+            "backCaps": 1,
+            "maximumPlaneResidualFt": 7.105427357601002e-15,
+            "sectionIds": [
+              "ORYGYELFQU",
+              "ROWBFGPBID",
+              "RVOMQXYJYJ",
+              "WBRUPNQJKQ",
+              "FSIRHYDQBQ",
+              "SSYWGFHKCA",
+              "TSXZLIRNNK",
+              "VDQCEROLQC",
+              "ECAZNULBZA",
+              "TECPWVOZAD",
+              "KNVESHXUWQ",
+              "IOXKPUFVBW",
+              "RGJTDUJRWM",
+              "PRKKDDBVAV",
+              "FKFYIILPVK",
+              "BPFEILGKVU",
+              "DSGVMUTFWE",
+              "HCVVCMAISO",
+              "UNMAGKBEKV",
+              "XCZJXTVDBR",
+              "KFSCSUTIBW",
+              "RVVTAZZGRT",
+              "LSKELTKCZB",
+              "EQAXELJSLF",
+              "ARPDQROUQU",
+              "POUNKDBNTM",
+              "WVZOBHOCYI",
+              "GBJVDEJIXX",
+              "BFCGBEYIEQ",
+              "OMGGSTLTPO",
+              "CLEHDOMWVO",
+              "IEBIWFWFQG",
+              "JYXVBNTXCS"
+            ],
+            "outer": [
+              3,
+              32
+            ],
+            "runs": [
+              [
+                0,
+                3
+              ],
+              [
+                3,
+                32
+              ]
+            ],
+            "stations": [
+              {
+                "i": 0,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              },
+              {
+                "i": 1,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 3.739368677139282,
+                "curvatureJumpPerFt": 0.009244714863598
+              },
+              {
+                "i": 2,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 23.075727462768555,
+                "curvatureJumpPerFt": 0.011215936392546
+              },
+              {
+                "i": 3,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 153.14266967773438,
+                "curvatureJumpPerFt": 0.012277720496058
+              },
+              {
+                "i": 4,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 16.948007583618164,
+                "curvatureJumpPerFt": 0.07314445078373
+              },
+              {
+                "i": 5,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 5.361217498779297,
+                "curvatureJumpPerFt": 0.187753528356552
+              },
+              {
+                "i": 6,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 8.076716423034668,
+                "curvatureJumpPerFt": 0.340826451778412
+              },
+              {
+                "i": 7,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 2.43260645866394,
+                "curvatureJumpPerFt": 0.105541199445724
+              },
+              {
+                "i": 8,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 50.328277587890625,
+                "curvatureJumpPerFt": 0.898204565048218
+              },
+              {
+                "i": 9,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 25.302597045898438,
+                "curvatureJumpPerFt": 0.366205513477325
+              },
+              {
+                "i": 10,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 10.038891792297363,
+                "curvatureJumpPerFt": 0.322559684514999
+              },
+              {
+                "i": 11,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 3.987866878509521,
+                "curvatureJumpPerFt": 0.145871594548225
+              },
+              {
+                "i": 12,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 2.231164455413818,
+                "curvatureJumpPerFt": 0.084886454045773
+              },
+              {
+                "i": 13,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 1.355374693870544,
+                "curvatureJumpPerFt": 0.052723612636328
+              },
+              {
+                "i": 14,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.810841500759125,
+                "curvatureJumpPerFt": 0.032109834253788
+              },
+              {
+                "i": 15,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.084802985191345,
+                "curvatureJumpPerFt": 0.043841790407896
+              },
+              {
+                "i": 16,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.733287036418915,
+                "curvatureJumpPerFt": 0.031398378312588
+              },
+              {
+                "i": 17,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.362616896629333,
+                "curvatureJumpPerFt": 0.011731022037566
+              },
+              {
+                "i": 18,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.534165978431702,
+                "curvatureJumpPerFt": 0.011639147996902
+              },
+              {
+                "i": 19,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.247872203588486,
+                "curvatureJumpPerFt": 0.009162140078843
+              },
+              {
+                "i": 20,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.850654602050781,
+                "curvatureJumpPerFt": 0.019444713369012
+              },
+              {
+                "i": 21,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.275536388158798,
+                "curvatureJumpPerFt": 0.019140299409628
+              },
+              {
+                "i": 22,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 5.67927074432373,
+                "curvatureJumpPerFt": 0.091291777789593
+              },
+              {
+                "i": 23,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.062557257711887,
+                "curvatureJumpPerFt": 0.00298559316434
+              },
+              {
+                "i": 24,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.055952906608582,
+                "curvatureJumpPerFt": 0.002682555699721
+              },
+              {
+                "i": 25,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.052339155226946,
+                "curvatureJumpPerFt": 0.002155927708372
+              },
+              {
+                "i": 26,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.048456642776728,
+                "curvatureJumpPerFt": 0.002195374574512
+              },
+              {
+                "i": 27,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.832277417182922,
+                "curvatureJumpPerFt": 0.018216900527477
+              },
+              {
+                "i": 28,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.192814514040947,
+                "curvatureJumpPerFt": 0.009041366167367
+              },
+              {
+                "i": 29,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.048456642776728,
+                "curvatureJumpPerFt": 0.002674214541912
+              },
+              {
+                "i": 30,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.10653118044138,
+                "curvatureJumpPerFt": 0.004460879601538
+              },
+              {
+                "i": 31,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0.083929374814034,
+                "curvatureJumpPerFt": 0.005006507504731
+              },
+              {
+                "i": 32,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              }
+            ]
+          }
+        },
+        "faceCount": 59168,
+        "faceValuesOmitted": true,
+        "classifiedFaces": 59168,
+        "unknownFaces": 0,
+        "firstUnknownFaces": [],
+        "coverage": 1,
+        "complete": true,
+        "note": "Авторазметка подтверждена плоскостями исходных ID сечений и нативной параметризацией. Нераспознанные грани требуют ручной категории; топологическая роль не доказывает отсутствие перекрытий."
+      },
+      "smoothness": {
+        "method": "native-one-sided-normals-and-finite-curvature",
+        "stations": [
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "ZMZSHKQAVA",
+            "station": 1,
+            "point": [
+              1.0498687664042006,
+              0,
+              0.14399127636577855
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.751648008823395,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "IAQOIHFVAV",
+            "station": 2,
+            "point": [
+              2.296587926509187,
+              0,
+              0.30496784865721804
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.833568036556244,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "RGBQFIBXYV",
+            "station": 3,
+            "point": [
+              3.937007874015752,
+              0,
+              0.5039480293091699
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 1.465399384498596,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "CUTZHSPHXC",
+            "station": 4,
+            "point": [
+              6.594488188976358,
+              0,
+              0.757055212363301
+            ],
+            "normalJumpDeg": 0.034264020621777,
+            "curvatureJumpPerFt": 5.286494731903076,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "AKBAPMYUPH",
+            "station": 5,
+            "point": [
+              9.842519685039356,
+              0,
+              0.9513867662528909
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.342342972755432,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "JFYLGCSSMB",
+            "station": 6,
+            "point": [
+              13.451443569553804,
+              0,
+              1.042052765284251
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.360476344823837,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "CGZEVBSWKL",
+            "station": 7,
+            "point": [
+              16.404199475065607,
+              0,
+              1.0659858133095315
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 2.411216259002686,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "AQMLNLPLED",
+            "station": 8,
+            "point": [
+              23.04755207561413,
+              0,
+              1.0003747588000123
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.181189641356468,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "POQZGLUYZR",
+            "station": 9,
+            "point": [
+              36.248839815127226,
+              0,
+              0.888381889349167
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.055231835693121,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "LNCUOKPRIA",
+            "station": 10,
+            "point": [
+              46.5700221789978,
+              0,
+              0.8830664121334084
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.004695579875261,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "BSLQOBLVLM",
+            "station": 11,
+            "point": [
+              49.45012755464036,
+              0,
+              0.8805406599056553
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 5.896645069122314,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "IVYIXFOENU",
+            "station": 12,
+            "point": [
+              49.52306284601891,
+              0,
+              0.8805186417120369
+            ],
+            "normalJumpDeg": 0.195835277438164,
+            "curvatureJumpPerFt": 705.558349609375,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "WDZCKMGGEV",
+            "station": 13,
+            "point": [
+              50.05,
+              0,
+              0.86
+            ],
+            "normalJumpDeg": 13.973760604858398,
+            "curvatureJumpPerFt": 12.30634593963623,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "KYDIIHKFDA",
+            "station": 14,
+            "point": [
+              50.7,
+              0,
+              0.8
+            ],
+            "normalJumpDeg": 5.522934913635254,
+            "curvatureJumpPerFt": 0.132588520646095,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "WNGKVWEODF",
+            "station": 15,
+            "point": [
+              51.42,
+              0,
+              0.71
+            ],
+            "normalJumpDeg": 8.737004280090332,
+            "curvatureJumpPerFt": 0.172879919409752,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "HQWKDJBFRG",
+            "station": 16,
+            "point": [
+              51.94,
+              0,
+              0.655
+            ],
+            "normalJumpDeg": 7.396666049957275,
+            "curvatureJumpPerFt": 0.101958192884922,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "FSIRHYDQBQ",
+            "station": 4,
+            "point": [
+              18.53,
+              3.5500000000000003,
+              1.435
+            ],
+            "normalJumpDeg": 16.948007583618164,
+            "curvatureJumpPerFt": 0.07314445078373,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "SSYWGFHKCA",
+            "station": 5,
+            "point": [
+              19.35,
+              3.58,
+              1.445
+            ],
+            "normalJumpDeg": 5.361217498779297,
+            "curvatureJumpPerFt": 0.187753528356552,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "TSXZLIRNNK",
+            "station": 6,
+            "point": [
+              21,
+              3.64,
+              1.46
+            ],
+            "normalJumpDeg": 8.076716423034668,
+            "curvatureJumpPerFt": 0.340826451778412,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "VDQCEROLQC",
+            "station": 7,
+            "point": [
+              22.2,
+              3.6483145944066204,
+              1.475
+            ],
+            "normalJumpDeg": 2.43260645866394,
+            "curvatureJumpPerFt": 0.105541199445724,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "ECAZNULBZA",
+            "station": 8,
+            "point": [
+              23.047552075614092,
+              3.6662516244831838,
+              1.475
+            ],
+            "normalJumpDeg": 50.328277587890625,
+            "curvatureJumpPerFt": 0.898204565048218,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "TECPWVOZAD",
+            "station": 9,
+            "point": [
+              23.057552075614094,
+              3.6662516244831838,
+              1.475302880519473
+            ],
+            "normalJumpDeg": 25.302597045898438,
+            "curvatureJumpPerFt": 0.366205513477325,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "KNVESHXUWQ",
+            "station": 10,
+            "point": [
+              23.08755207561409,
+              3.6662516244831838,
+              1.4762115220778913
+            ],
+            "normalJumpDeg": 10.038891792297363,
+            "curvatureJumpPerFt": 0.322559684514999,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "IOXKPUFVBW",
+            "station": 11,
+            "point": [
+              23.147552075614094,
+              3.6662516244831838,
+              1.4780288051947281
+            ],
+            "normalJumpDeg": 3.987866878509521,
+            "curvatureJumpPerFt": 0.145871594548225,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "RGJTDUJRWM",
+            "station": 12,
+            "point": [
+              23.24755207561409,
+              3.6662516244831838,
+              1.4810576103894562
+            ],
+            "normalJumpDeg": 2.231164455413818,
+            "curvatureJumpPerFt": 0.084886454045773,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "PRKKDDBVAV",
+            "station": 13,
+            "point": [
+              23.397552075614094,
+              3.6662516244831838,
+              1.485600818181548
+            ],
+            "normalJumpDeg": 1.355374693870544,
+            "curvatureJumpPerFt": 0.052723612636328,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "FKFYIILPVK",
+            "station": 14,
+            "point": [
+              23.597552075614093,
+              3.6662516244831838,
+              1.4916584285710042
+            ],
+            "normalJumpDeg": 0.810841500759125,
+            "curvatureJumpPerFt": 0.032109834253788,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "BPFEILGKVU",
+            "station": 15,
+            "point": [
+              23.8,
+              3.6662516244831838,
+              1.4977901818214234
+            ],
+            "normalJumpDeg": 1.084802985191345,
+            "curvatureJumpPerFt": 0.043841790407896,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "DSGVMUTFWE",
+            "station": 16,
+            "point": [
+              25,
+              3.6662516244831838,
+              1.5341358441581596
+            ],
+            "normalJumpDeg": 0.733287036418915,
+            "curvatureJumpPerFt": 0.031398378312588,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "HCVVCMAISO",
+            "station": 17,
+            "point": [
+              26.5,
+              3.6662516244831838,
+              1.57956792207908
+            ],
+            "normalJumpDeg": 0.362616896629333,
+            "curvatureJumpPerFt": 0.011731022037566,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "UNMAGKBEKV",
+            "station": 18,
+            "point": [
+              28,
+              3.6662516244831838,
+              1.625
+            ],
+            "normalJumpDeg": 1.534165978431702,
+            "curvatureJumpPerFt": 0.011639147996902,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "XCZJXTVDBR",
+            "station": 19,
+            "point": [
+              30,
+              3.6662516244831838,
+              1.7049967782412692
+            ],
+            "normalJumpDeg": 0.247872203588486,
+            "curvatureJumpPerFt": 0.009162140078843,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "KFSCSUTIBW",
+            "station": 20,
+            "point": [
+              32,
+              3.6662516244831838,
+              1.784985330307004
+            ],
+            "normalJumpDeg": 1.850654602050781,
+            "curvatureJumpPerFt": 0.019444713369012,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "RVVTAZZGRT",
+            "station": 21,
+            "point": [
+              34,
+              3.6662516244831838,
+              1.8913321035393627
+            ],
+            "normalJumpDeg": 0.275536388158798,
+            "curvatureJumpPerFt": 0.019140299409628,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "LSKELTKCZB",
+            "station": 22,
+            "point": [
+              36.248839815127226,
+              3.6662516244831838,
+              2.010930176579465
+            ],
+            "normalJumpDeg": 5.67927074432373,
+            "curvatureJumpPerFt": 0.091291777789593,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "EQAXELJSLF",
+            "station": 23,
+            "point": [
+              38,
+              3.6662516244831838,
+              2.0110674793541574
+            ],
+            "normalJumpDeg": 0.062557257711887,
+            "curvatureJumpPerFt": 0.00298559316434,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "ARPDQROUQU",
+            "station": 24,
+            "point": [
+              40,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.055952906608582,
+            "curvatureJumpPerFt": 0.002682555699721,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "POUNKDBNTM",
+            "station": 25,
+            "point": [
+              42,
+              3.6662516244831838,
+              2.010930176579347
+            ],
+            "normalJumpDeg": 0.052339155226946,
+            "curvatureJumpPerFt": 0.002155927708372,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "WVZOBHOCYI",
+            "station": 26,
+            "point": [
+              44,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.048456642776728,
+            "curvatureJumpPerFt": 0.002195374574512,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "GBJVDEJIXX",
+            "station": 27,
+            "point": [
+              46,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.832277417182922,
+            "curvatureJumpPerFt": 0.018216900527477,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "BFCGBEYIEQ",
+            "station": 28,
+            "point": [
+              47.5,
+              3.6662516244831838,
+              2.0111069982786414
+            ],
+            "normalJumpDeg": 0.192814514040947,
+            "curvatureJumpPerFt": 0.009041366167367,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "OMGGSTLTPO",
+            "station": 29,
+            "point": [
+              48.5,
+              3.6662516244831838,
+              2.012034393662856
+            ],
+            "normalJumpDeg": 0.048456642776728,
+            "curvatureJumpPerFt": 0.002674214541912,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "CLEHDOMWVO",
+            "station": 30,
+            "point": [
+              49,
+              3.6662516244831838,
+              2.012113488608453
+            ],
+            "normalJumpDeg": 0.10653118044138,
+            "curvatureJumpPerFt": 0.004460879601538,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "IEBIWFWFQG",
+            "station": 31,
+            "point": [
+              49.3,
+              3.6662516244831838,
+              2.0113248374692985
+            ],
+            "normalJumpDeg": 0.083929374814034,
+            "curvatureJumpPerFt": 0.005006507504731,
+            "intentionalEdge": false,
+            "warning": false
+          }
+        ],
+        "warnings": 15,
+        "complete": true,
+        "angleThresholdDeg": 5,
+        "curvatureThresholdPerFt": 2,
+        "note": "Пороги — настройки геометрического контроля. Кривизна оценена по односторонним конечным разностям нормалей; это не критерий Cp или сертификация C2."
+      }
+    },
+    "report": {
+      "format": "section-studio-spatial-gaps",
+      "version": "1.2",
+      "sourceHash": "10be1a6af773448d9aab73d7ed3d817865b25cbf361b3ba188f0408e8c4e67e7",
+      "openVSPVersion": "OpenVSP 3.51.0",
+      "units": "ft",
+      "pairs": [
+        {
+          "distanceFt": 0.004321715688662813,
+          "pointA": [
+            22.199973333971673,
+            -2.693022387358881,
+            1.9823685772952453
+          ],
+          "pointB": [
+            22.2,
+            -2.6973440203788015,
+            1.9823667178059539
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 449,
+          "triangleA": 5119,
+          "triangleB": 53261,
+          "elapsedSeconds": 0.03706738399978349,
+          "a": "TMCWTAJLFF",
+          "b": "VVMDVQXEAY",
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.003,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 23007,
+          "normalA": [
+            0.007320510612585995,
+            -0.9997563224671046,
+            -0.020825604707235035
+          ],
+          "faceB": 90349,
+          "normalB": [
+            -0.027196074936108587,
+            0.9996300258139159,
+            0.00043011549566529853
+          ],
+          "state": "clear",
+          "passed": true
+        },
+        {
+          "distanceFt": 0.005999999999999339,
+          "pointA": [
+            23.04755208,
+            -4.636666069,
+            2.010930177
+          ],
+          "pointB": [
+            23.04755208,
+            -4.642666069,
+            2.010930177
+          ],
+          "crossing": false,
+          "complete": true,
+          "distanceComplete": true,
+          "tests": 43096,
+          "triangleA": 55422,
+          "triangleB": 9069,
+          "elapsedSeconds": 2.4895848589994785,
+          "a": "VVMDVQXEAY",
+          "b": "NFAYAEXLTA",
+          "nameA": "Gondola",
+          "nameB": "Wing",
+          "minimumGapFt": 0.006,
+          "toleranceFt": 0.0001,
+          "contained": false,
+          "faceA": 92510,
+          "normalA": [
+            -0.04228621312747563,
+            -0.9991055380585865,
+            0
+          ],
+          "faceB": 9069,
+          "normalB": [
+            0,
+            1,
+            0
+          ],
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "complete": true,
+      "passed": true,
+      "limits": [
+        "Глобальный минимум вычислен между треугольниками именно этой сетки. Погрешность аппроксимации аналитических поверхностей отдельно не оценена.",
+        "В 3D отмечены точки минимального расстояния каждой пары; это не непрерывная карта всех зазоров."
+      ],
+      "solverRun": false,
+      "meshQuality": {
+        "degenerateTriangles": 0,
+        "firstDegenerateFaces": [],
+        "minimumTriangleAreaFt2": 7.434108519993038e-08
+      },
+      "refinement": {
+        "temporaryOnly": true,
+        "coarsePairs": [
+          {
+            "distanceFt": 0.003360014662408289,
+            "pointA": [
+              22.199983536202495,
+              -2.6939767709497557,
+              1.97326917662841
+            ],
+            "pointB": [
+              22.2,
+              -2.6973367450611936,
+              1.973267974364759
+            ],
+            "crossing": false,
+            "complete": true,
+            "distanceComplete": true,
+            "tests": 255,
+            "triangleA": 3263,
+            "triangleB": 23559,
+            "elapsedSeconds": 0.0322318290000112,
+            "a": "TMCWTAJLFF",
+            "b": "VVMDVQXEAY",
+            "nameA": "Fuselage",
+            "nameB": "Gondola",
+            "minimumGapFt": 0.003,
+            "toleranceFt": 0.0001,
+            "contained": false,
+            "faceA": 12191,
+            "normalA": [
+              0.005961355717643763,
+              -0.999687454436098,
+              -0.024278708389913417
+            ],
+            "faceB": 46119,
+            "normalB": [
+              -0.027181255434832064,
+              0.9996304574256087,
+              0.00035768709033939664
+            ],
+            "state": "clear",
+            "passed": true
+          },
+          {
+            "distanceFt": 0.005999999999999339,
+            "pointA": [
+              23.04755208,
+              -4.636666069,
+              2.010930177
+            ],
+            "pointB": [
+              23.04755208,
+              -4.642666069,
+              2.010930177
+            ],
+            "crossing": false,
+            "complete": true,
+            "distanceComplete": true,
+            "tests": 19388,
+            "triangleA": 24126,
+            "triangleB": 4525,
+            "elapsedSeconds": 1.5518825059998562,
+            "a": "VVMDVQXEAY",
+            "b": "NFAYAEXLTA",
+            "nameA": "Gondola",
+            "nameB": "Wing",
+            "minimumGapFt": 0.006,
+            "toleranceFt": 0.0001,
+            "contained": false,
+            "faceA": 46686,
+            "normalA": [
+              -0.042286201912126065,
+              -0.9991055385332656,
+              0
+            ],
+            "faceB": 4525,
+            "normalB": [
+              0,
+              1,
+              0
+            ],
+            "state": "clear",
+            "passed": true
+          }
+        ],
+        "minimumChangesFt": [
+          0.0009617010262545239,
+          0
+        ],
+        "complete": true,
+        "note": "Уточнена поперечная сетка выбранных тел и продольные интервалы у минимума. Разность двух сеток — индикатор чувствительности, не строгая граница погрешности CAD."
+      },
+      "distanceField": {
+        "method": "native-TRI-centroid-distance-band",
+        "faceCount": 120544,
+        "faceValuesOmitted": true,
+        "complete": true,
+        "visitedFaces": 204000,
+        "possibleFaceVisits": 204000,
+        "tests": 95741,
+        "elapsedSeconds": 6.684333961000448,
+        "note": "Цвет — расстояние в центре треугольника. За пределами полосы показана доказанная нижняя граница. Глобальные минимумы пар проверяются отдельно по целым треугольникам."
+      },
+      "semanticSurface": {
+        "method": "native-rib-plane-validated-parameters",
+        "layouts": {
+          "TMCWTAJLFF": {
+            "verified": true,
+            "frontCaps": 0,
+            "backCaps": 1,
+            "maximumPlaneResidualFt": 7.105427357601002e-15,
+            "sectionIds": [
+              "WQDAOJJDYR",
+              "ZMZSHKQAVA",
+              "IAQOIHFVAV",
+              "RGBQFIBXYV",
+              "CUTZHSPHXC",
+              "AKBAPMYUPH",
+              "JFYLGCSSMB",
+              "CGZEVBSWKL",
+              "AQMLNLPLED",
+              "POQZGLUYZR",
+              "LNCUOKPRIA",
+              "BSLQOBLVLM",
+              "IVYIXFOENU",
+              "WDZCKMGGEV",
+              "KYDIIHKFDA",
+              "WNGKVWEODF",
+              "HQWKDJBFRG",
+              "RWIRSQNAHR",
+              "GPRJHJPDLM",
+              "ZZUYMUVFWO",
+              "KKHDDHLDHS",
+              "WXOMSVESIE"
+            ],
+            "outer": [
+              0,
+              17
+            ],
+            "runs": [
+              [
+                0,
+                17
+              ],
+              [
+                17,
+                21
+              ]
+            ],
+            "stations": [
+              {
+                "i": 0,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              },
+              {
+                "i": 1,
+                "planeResidualFt": 4.440892098500626e-16,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.751648008823395
+              },
+              {
+                "i": 2,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.833568036556244
+              },
+              {
+                "i": 3,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 1.465399384498596
+              },
+              {
+                "i": 4,
+                "planeResidualFt": 8.881784197001252e-16,
+                "normalJumpDeg": 0.034264020621777,
+                "curvatureJumpPerFt": 5.286494731903076
+              },
+              {
+                "i": 5,
+                "planeResidualFt": 1.7763568394002505e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.342342972755432
+              },
+              {
+                "i": 6,
+                "planeResidualFt": 1.7763568394002505e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.360476344823837
+              },
+              {
+                "i": 7,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 2.411216259002686
+              },
+              {
+                "i": 8,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.181189641356468
+              },
+              {
+                "i": 9,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.055231835693121
+              },
+              {
+                "i": 10,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0.004695579875261
+              },
+              {
+                "i": 11,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 5.896645069122314
+              },
+              {
+                "i": 12,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.195835277438164,
+                "curvatureJumpPerFt": 705.558349609375
+              },
+              {
+                "i": 13,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 13.973760604858398,
+                "curvatureJumpPerFt": 12.30634593963623
+              },
+              {
+                "i": 14,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 5.522934913635254,
+                "curvatureJumpPerFt": 0.132588520646095
+              },
+              {
+                "i": 15,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 8.737004280090332,
+                "curvatureJumpPerFt": 0.172879919409752
+              },
+              {
+                "i": 16,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 7.396666049957275,
+                "curvatureJumpPerFt": 0.101958192884922
+              },
+              {
+                "i": 17,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 92.60768127441406,
+                "curvatureJumpPerFt": 0.031211817637086
+              },
+              {
+                "i": 18,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 59.55335998535156,
+                "curvatureJumpPerFt": 1.9461856e-08
+              },
+              {
+                "i": 19,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 3.524922609329224,
+                "curvatureJumpPerFt": 7.483984e-09
+              },
+              {
+                "i": 20,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 4.511669635772705,
+                "curvatureJumpPerFt": 1.7435186237e-05
+              },
+              {
+                "i": 21,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              }
+            ]
+          },
+          "VVMDVQXEAY": {
+            "verified": true,
+            "frontCaps": 1,
+            "backCaps": 1,
+            "maximumPlaneResidualFt": 7.105427357601002e-15,
+            "sectionIds": [
+              "ORYGYELFQU",
+              "ROWBFGPBID",
+              "RVOMQXYJYJ",
+              "WBRUPNQJKQ",
+              "FSIRHYDQBQ",
+              "SSYWGFHKCA",
+              "TSXZLIRNNK",
+              "VDQCEROLQC",
+              "ECAZNULBZA",
+              "TECPWVOZAD",
+              "KNVESHXUWQ",
+              "IOXKPUFVBW",
+              "RGJTDUJRWM",
+              "PRKKDDBVAV",
+              "FKFYIILPVK",
+              "BPFEILGKVU",
+              "DSGVMUTFWE",
+              "HCVVCMAISO",
+              "UNMAGKBEKV",
+              "XCZJXTVDBR",
+              "KFSCSUTIBW",
+              "RVVTAZZGRT",
+              "LSKELTKCZB",
+              "EQAXELJSLF",
+              "ARPDQROUQU",
+              "POUNKDBNTM",
+              "WVZOBHOCYI",
+              "GBJVDEJIXX",
+              "BFCGBEYIEQ",
+              "OMGGSTLTPO",
+              "CLEHDOMWVO",
+              "IEBIWFWFQG",
+              "JYXVBNTXCS"
+            ],
+            "outer": [
+              3,
+              32
+            ],
+            "runs": [
+              [
+                0,
+                3
+              ],
+              [
+                3,
+                32
+              ]
+            ],
+            "stations": [
+              {
+                "i": 0,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              },
+              {
+                "i": 1,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 3.739368677139282,
+                "curvatureJumpPerFt": 0.009244714863598
+              },
+              {
+                "i": 2,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 23.075727462768555,
+                "curvatureJumpPerFt": 0.011215936392546
+              },
+              {
+                "i": 3,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 153.14266967773438,
+                "curvatureJumpPerFt": 0.012277720496058
+              },
+              {
+                "i": 4,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 16.948007583618164,
+                "curvatureJumpPerFt": 0.07314445078373
+              },
+              {
+                "i": 5,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 5.361217498779297,
+                "curvatureJumpPerFt": 0.187753528356552
+              },
+              {
+                "i": 6,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 8.076667785644531,
+                "curvatureJumpPerFt": 0.340829342603683
+              },
+              {
+                "i": 7,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 2.43260645866394,
+                "curvatureJumpPerFt": 0.105522699654102
+              },
+              {
+                "i": 8,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 50.32920837402344,
+                "curvatureJumpPerFt": 0.898257195949554
+              },
+              {
+                "i": 9,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 25.302597045898438,
+                "curvatureJumpPerFt": 0.366205513477325
+              },
+              {
+                "i": 10,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 10.038891792297363,
+                "curvatureJumpPerFt": 0.322559684514999
+              },
+              {
+                "i": 11,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 3.987866878509521,
+                "curvatureJumpPerFt": 0.145871594548225
+              },
+              {
+                "i": 12,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 2.231164455413818,
+                "curvatureJumpPerFt": 0.084886454045773
+              },
+              {
+                "i": 13,
+                "planeResidualFt": 3.552713678800501e-15,
+                "normalJumpDeg": 1.355374693870544,
+                "curvatureJumpPerFt": 0.052723612636328
+              },
+              {
+                "i": 14,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.810841500759125,
+                "curvatureJumpPerFt": 0.032109834253788
+              },
+              {
+                "i": 15,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.084802985191345,
+                "curvatureJumpPerFt": 0.043841790407896
+              },
+              {
+                "i": 16,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.733287036418915,
+                "curvatureJumpPerFt": 0.031398378312588
+              },
+              {
+                "i": 17,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.362616896629333,
+                "curvatureJumpPerFt": 0.011731022037566
+              },
+              {
+                "i": 18,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.534165978431702,
+                "curvatureJumpPerFt": 0.011639147996902
+              },
+              {
+                "i": 19,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.247872203588486,
+                "curvatureJumpPerFt": 0.009162140078843
+              },
+              {
+                "i": 20,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 1.850654602050781,
+                "curvatureJumpPerFt": 0.019444713369012
+              },
+              {
+                "i": 21,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.275536388158798,
+                "curvatureJumpPerFt": 0.019140299409628
+              },
+              {
+                "i": 22,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 5.67927074432373,
+                "curvatureJumpPerFt": 0.091291777789593
+              },
+              {
+                "i": 23,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.062557257711887,
+                "curvatureJumpPerFt": 0.00298559316434
+              },
+              {
+                "i": 24,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.055952906608582,
+                "curvatureJumpPerFt": 0.002682555699721
+              },
+              {
+                "i": 25,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.052339155226946,
+                "curvatureJumpPerFt": 0.002155927708372
+              },
+              {
+                "i": 26,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.048456642776728,
+                "curvatureJumpPerFt": 0.002195374574512
+              },
+              {
+                "i": 27,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.832277417182922,
+                "curvatureJumpPerFt": 0.018216900527477
+              },
+              {
+                "i": 28,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.192814514040947,
+                "curvatureJumpPerFt": 0.009041366167367
+              },
+              {
+                "i": 29,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.048456642776728,
+                "curvatureJumpPerFt": 0.002674214541912
+              },
+              {
+                "i": 30,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0.10653118044138,
+                "curvatureJumpPerFt": 0.004460879601538
+              },
+              {
+                "i": 31,
+                "planeResidualFt": 7.105427357601002e-15,
+                "normalJumpDeg": 0.083929374814034,
+                "curvatureJumpPerFt": 0.005006507504731
+              },
+              {
+                "i": 32,
+                "planeResidualFt": 0,
+                "normalJumpDeg": 0,
+                "curvatureJumpPerFt": 0
+              }
+            ]
+          }
+        },
+        "faceCount": 120544,
+        "faceValuesOmitted": true,
+        "classifiedFaces": 120544,
+        "unknownFaces": 0,
+        "firstUnknownFaces": [],
+        "coverage": 1,
+        "complete": true,
+        "note": "Авторазметка подтверждена плоскостями исходных ID сечений и нативной параметризацией. Нераспознанные грани требуют ручной категории; топологическая роль не доказывает отсутствие перекрытий."
+      },
+      "smoothness": {
+        "method": "native-one-sided-normals-and-finite-curvature",
+        "stations": [
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "ZMZSHKQAVA",
+            "station": 1,
+            "point": [
+              1.0498687664042006,
+              0,
+              0.14399127636577855
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.751648008823395,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "IAQOIHFVAV",
+            "station": 2,
+            "point": [
+              2.296587926509187,
+              0,
+              0.30496784865721804
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.833568036556244,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "RGBQFIBXYV",
+            "station": 3,
+            "point": [
+              3.937007874015752,
+              0,
+              0.5039480293091699
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 1.465399384498596,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "CUTZHSPHXC",
+            "station": 4,
+            "point": [
+              6.594488188976358,
+              0,
+              0.757055212363301
+            ],
+            "normalJumpDeg": 0.034264020621777,
+            "curvatureJumpPerFt": 5.286494731903076,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "AKBAPMYUPH",
+            "station": 5,
+            "point": [
+              9.842519685039356,
+              0,
+              0.9513867662528909
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.342342972755432,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "JFYLGCSSMB",
+            "station": 6,
+            "point": [
+              13.451443569553804,
+              0,
+              1.042052765284251
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.360476344823837,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "CGZEVBSWKL",
+            "station": 7,
+            "point": [
+              16.404199475065607,
+              0,
+              1.0659858133095315
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 2.411216259002686,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "AQMLNLPLED",
+            "station": 8,
+            "point": [
+              23.04755207561413,
+              0,
+              1.0003747588000123
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.181189641356468,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "POQZGLUYZR",
+            "station": 9,
+            "point": [
+              36.248839815127226,
+              0,
+              0.888381889349167
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.055231835693121,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "LNCUOKPRIA",
+            "station": 10,
+            "point": [
+              46.5700221789978,
+              0,
+              0.8830664121334084
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 0.004695579875261,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "BSLQOBLVLM",
+            "station": 11,
+            "point": [
+              49.45012755464036,
+              0,
+              0.8805406599056553
+            ],
+            "normalJumpDeg": 0,
+            "curvatureJumpPerFt": 5.896645069122314,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "IVYIXFOENU",
+            "station": 12,
+            "point": [
+              49.52306284601891,
+              0,
+              0.8805186417120369
+            ],
+            "normalJumpDeg": 0.195835277438164,
+            "curvatureJumpPerFt": 705.558349609375,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "WDZCKMGGEV",
+            "station": 13,
+            "point": [
+              50.05,
+              0,
+              0.86
+            ],
+            "normalJumpDeg": 13.973760604858398,
+            "curvatureJumpPerFt": 12.30634593963623,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "KYDIIHKFDA",
+            "station": 14,
+            "point": [
+              50.7,
+              0,
+              0.8
+            ],
+            "normalJumpDeg": 5.522934913635254,
+            "curvatureJumpPerFt": 0.132588520646095,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "WNGKVWEODF",
+            "station": 15,
+            "point": [
+              51.42,
+              0,
+              0.71
+            ],
+            "normalJumpDeg": 8.737004280090332,
+            "curvatureJumpPerFt": 0.172879919409752,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "stationId": "HQWKDJBFRG",
+            "station": 16,
+            "point": [
+              51.94,
+              0,
+              0.655
+            ],
+            "normalJumpDeg": 7.396666049957275,
+            "curvatureJumpPerFt": 0.101958192884922,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "FSIRHYDQBQ",
+            "station": 4,
+            "point": [
+              18.53,
+              3.5500000000000003,
+              1.435
+            ],
+            "normalJumpDeg": 16.948007583618164,
+            "curvatureJumpPerFt": 0.07314445078373,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "SSYWGFHKCA",
+            "station": 5,
+            "point": [
+              19.35,
+              3.58,
+              1.445
+            ],
+            "normalJumpDeg": 5.361217498779297,
+            "curvatureJumpPerFt": 0.187753528356552,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "TSXZLIRNNK",
+            "station": 6,
+            "point": [
+              21,
+              3.64,
+              1.46
+            ],
+            "normalJumpDeg": 8.076667785644531,
+            "curvatureJumpPerFt": 0.340829342603683,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "VDQCEROLQC",
+            "station": 7,
+            "point": [
+              22.2,
+              3.6483145944066204,
+              1.475
+            ],
+            "normalJumpDeg": 2.43260645866394,
+            "curvatureJumpPerFt": 0.105522699654102,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "ECAZNULBZA",
+            "station": 8,
+            "point": [
+              23.047552075614092,
+              3.6662516244831838,
+              1.475
+            ],
+            "normalJumpDeg": 50.32920837402344,
+            "curvatureJumpPerFt": 0.898257195949554,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "TECPWVOZAD",
+            "station": 9,
+            "point": [
+              23.057552075614094,
+              3.6662516244831838,
+              1.475302880519473
+            ],
+            "normalJumpDeg": 25.302597045898438,
+            "curvatureJumpPerFt": 0.366205513477325,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "KNVESHXUWQ",
+            "station": 10,
+            "point": [
+              23.08755207561409,
+              3.6662516244831838,
+              1.4762115220778913
+            ],
+            "normalJumpDeg": 10.038891792297363,
+            "curvatureJumpPerFt": 0.322559684514999,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "IOXKPUFVBW",
+            "station": 11,
+            "point": [
+              23.147552075614094,
+              3.6662516244831838,
+              1.4780288051947281
+            ],
+            "normalJumpDeg": 3.987866878509521,
+            "curvatureJumpPerFt": 0.145871594548225,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "RGJTDUJRWM",
+            "station": 12,
+            "point": [
+              23.24755207561409,
+              3.6662516244831838,
+              1.4810576103894562
+            ],
+            "normalJumpDeg": 2.231164455413818,
+            "curvatureJumpPerFt": 0.084886454045773,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "PRKKDDBVAV",
+            "station": 13,
+            "point": [
+              23.397552075614094,
+              3.6662516244831838,
+              1.485600818181548
+            ],
+            "normalJumpDeg": 1.355374693870544,
+            "curvatureJumpPerFt": 0.052723612636328,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "FKFYIILPVK",
+            "station": 14,
+            "point": [
+              23.597552075614093,
+              3.6662516244831838,
+              1.4916584285710042
+            ],
+            "normalJumpDeg": 0.810841500759125,
+            "curvatureJumpPerFt": 0.032109834253788,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "BPFEILGKVU",
+            "station": 15,
+            "point": [
+              23.8,
+              3.6662516244831838,
+              1.4977901818214234
+            ],
+            "normalJumpDeg": 1.084802985191345,
+            "curvatureJumpPerFt": 0.043841790407896,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "DSGVMUTFWE",
+            "station": 16,
+            "point": [
+              25,
+              3.6662516244831838,
+              1.5341358441581596
+            ],
+            "normalJumpDeg": 0.733287036418915,
+            "curvatureJumpPerFt": 0.031398378312588,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "HCVVCMAISO",
+            "station": 17,
+            "point": [
+              26.5,
+              3.6662516244831838,
+              1.57956792207908
+            ],
+            "normalJumpDeg": 0.362616896629333,
+            "curvatureJumpPerFt": 0.011731022037566,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "UNMAGKBEKV",
+            "station": 18,
+            "point": [
+              28,
+              3.6662516244831838,
+              1.625
+            ],
+            "normalJumpDeg": 1.534165978431702,
+            "curvatureJumpPerFt": 0.011639147996902,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "XCZJXTVDBR",
+            "station": 19,
+            "point": [
+              30,
+              3.6662516244831838,
+              1.7049967782412692
+            ],
+            "normalJumpDeg": 0.247872203588486,
+            "curvatureJumpPerFt": 0.009162140078843,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "KFSCSUTIBW",
+            "station": 20,
+            "point": [
+              32,
+              3.6662516244831838,
+              1.784985330307004
+            ],
+            "normalJumpDeg": 1.850654602050781,
+            "curvatureJumpPerFt": 0.019444713369012,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "RVVTAZZGRT",
+            "station": 21,
+            "point": [
+              34,
+              3.6662516244831838,
+              1.8913321035393627
+            ],
+            "normalJumpDeg": 0.275536388158798,
+            "curvatureJumpPerFt": 0.019140299409628,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "LSKELTKCZB",
+            "station": 22,
+            "point": [
+              36.248839815127226,
+              3.6662516244831838,
+              2.010930176579465
+            ],
+            "normalJumpDeg": 5.67927074432373,
+            "curvatureJumpPerFt": 0.091291777789593,
+            "intentionalEdge": false,
+            "warning": true
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "EQAXELJSLF",
+            "station": 23,
+            "point": [
+              38,
+              3.6662516244831838,
+              2.0110674793541574
+            ],
+            "normalJumpDeg": 0.062557257711887,
+            "curvatureJumpPerFt": 0.00298559316434,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "ARPDQROUQU",
+            "station": 24,
+            "point": [
+              40,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.055952906608582,
+            "curvatureJumpPerFt": 0.002682555699721,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "POUNKDBNTM",
+            "station": 25,
+            "point": [
+              42,
+              3.6662516244831838,
+              2.010930176579347
+            ],
+            "normalJumpDeg": 0.052339155226946,
+            "curvatureJumpPerFt": 0.002155927708372,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "WVZOBHOCYI",
+            "station": 26,
+            "point": [
+              44,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.048456642776728,
+            "curvatureJumpPerFt": 0.002195374574512,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "GBJVDEJIXX",
+            "station": 27,
+            "point": [
+              46,
+              3.6662516244831838,
+              2.0109301765793464
+            ],
+            "normalJumpDeg": 0.832277417182922,
+            "curvatureJumpPerFt": 0.018216900527477,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "BFCGBEYIEQ",
+            "station": 28,
+            "point": [
+              47.5,
+              3.6662516244831838,
+              2.0111069982786414
+            ],
+            "normalJumpDeg": 0.192814514040947,
+            "curvatureJumpPerFt": 0.009041366167367,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "OMGGSTLTPO",
+            "station": 29,
+            "point": [
+              48.5,
+              3.6662516244831838,
+              2.012034393662856
+            ],
+            "normalJumpDeg": 0.048456642776728,
+            "curvatureJumpPerFt": 0.002674214541912,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "CLEHDOMWVO",
+            "station": 30,
+            "point": [
+              49,
+              3.6662516244831838,
+              2.012113488608453
+            ],
+            "normalJumpDeg": 0.10653118044138,
+            "curvatureJumpPerFt": 0.004460879601538,
+            "intentionalEdge": false,
+            "warning": false
+          },
+          {
+            "geomId": "VVMDVQXEAY",
+            "name": "Gondola",
+            "stationId": "IEBIWFWFQG",
+            "station": 31,
+            "point": [
+              49.3,
+              3.6662516244831838,
+              2.0113248374692985
+            ],
+            "normalJumpDeg": 0.083929374814034,
+            "curvatureJumpPerFt": 0.005006507504731,
+            "intentionalEdge": false,
+            "warning": false
+          }
+        ],
+        "warnings": 15,
+        "complete": true,
+        "angleThresholdDeg": 5,
+        "curvatureThresholdPerFt": 2,
+        "note": "Пороги — настройки геометрического контроля. Кривизна оценена по односторонним конечным разностям нормалей; это не критерий Cp или сертификация C2."
+      }
+    },
+    "preservation": {
+      "format": "section-studio-preservation",
+      "version": "1.2",
+      "sourceHash": "10be1a6af773448d9aab73d7ed3d817865b25cbf361b3ba188f0408e8c4e67e7",
+      "originalHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+      "components": [
+        {
+          "id": "NFAYAEXLTA",
+          "name": "Wing",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0,
+          "rmsMoveFt": 0,
+          "sampleCount": 8450,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "TMCWTAJLFF",
+          "name": "Fuselage",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0,
+          "rmsMoveFt": 0,
+          "sampleCount": 66625,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": [
+            {
+              "geomId": "TMCWTAJLFF",
+              "x0": 0,
+              "x1": 16.4,
+              "toleranceFt": 0.0001,
+              "maximumMoveFt": 0,
+              "sampleCount": 21190,
+              "skippedSampleCount": 0,
+              "passed": true
+            }
+          ]
+        },
+        {
+          "id": "VVMDVQXEAY",
+          "name": "Gondola",
+          "parametersUnchanged": false,
+          "complete": true,
+          "maximumMoveFt": 0.0015302461644393084,
+          "rmsMoveFt": 0.00010089839207677598,
+          "sampleCount": 133250,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        }
+      ],
+      "complete": true,
+      "locksPassed": true,
+      "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+      "reopenedInOpenVSP": true,
+      "scope": "all-components",
+      "solverRun": false
+    },
+    "history": [
+      {
+        "iteration": 1,
+        "score": 0,
+        "controlBoundFt": 0.0015959816264528026,
+        "pairs": [
+          {
+            "a": "TMCWTAJLFF",
+            "b": "VVMDVQXEAY",
+            "distanceFt": 0.003360014662408289,
+            "state": "clear",
+            "passed": true
+          },
+          {
+            "a": "VVMDVQXEAY",
+            "b": "NFAYAEXLTA",
+            "distanceFt": 0.005999999999999339,
+            "state": "clear",
+            "passed": true
+          }
+        ]
+      }
+    ],
+    "changedStationIds": [
+      "VDQCEROLQC"
+    ],
+    "budgetFt": 0.05,
+    "zoneFt": [
+      17.4,
+      50.450128
+    ],
+    "reasons": [],
+    "worsenedSmoothness": [],
+    "solverRun": false
+  },
+  "changedCountSurfaceComparison": {
+    "format": "section-studio-preservation",
+    "version": "1.2",
+    "sourceHash": "7e86ff87fbd9bac1e4f409e13654992ef56356c53c05281c94d7bfff21912db4",
+    "originalHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+    "components": [
+      {
+        "id": "NFAYAEXLTA",
+        "name": "Wing",
+        "parametersUnchanged": true,
+        "complete": true,
+        "maximumMoveFt": 0.0,
+        "rmsMoveFt": 0.0,
+        "sampleCount": 8450,
+        "skippedSampleCount": 0,
+        "correspondence": "same-native-parameter",
+        "locks": []
+      },
+      {
+        "id": "TMCWTAJLFF",
+        "name": "Fuselage",
+        "parametersUnchanged": true,
+        "complete": true,
+        "maximumMoveFt": 0.0,
+        "rmsMoveFt": 0.0,
+        "sampleCount": 66625,
+        "skippedSampleCount": 0,
+        "correspondence": "same-native-parameter",
+        "locks": []
+      },
+      {
+        "id": "VVMDVQXEAY",
+        "name": "Gondola",
+        "parametersUnchanged": false,
+        "complete": true,
+        "maximumMoveFt": 0.033442385141927,
+        "rmsMoveFt": 0.0027708530043590485,
+        "sampleCount": 21318,
+        "skippedSampleCount": 0,
+        "correspondence": "bidirectional-native-surface-projection",
+        "anchorsUsed": 33,
+        "directions": 2,
+        "locks": [
+          {
+            "geomId": "VVMDVQXEAY",
+            "x0": 18.4,
+            "x1": 20.59,
+            "toleranceFt": 0.0001,
+            "maximumMoveFt": 1.1e-14,
+            "sampleCount": 3102,
+            "skippedSampleCount": 0,
+            "passed": true
+          }
+        ],
+        "note": "Отклонение формы по двусторонней выборке 129×33 плюс параметры исходных сечений. Это не перемещение материальных точек; нативная проекция и конечная выборка не дают строгой границы между отсчётами."
+      }
+    ],
+    "complete": true,
+    "locksPassed": true,
+    "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+    "reopenedInOpenVSP": true,
+    "solverRun": false
+  },
+  "originalCH1": {
+    "sha256": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+    "unchanged": true
+  },
+  "nativeSelfTest": {
+    "passed": true,
+    "requiredFiles": {
+      "Section_Studio.html": true,
+      "section_studio_server.py": true,
+      "assembly_audit.py": true,
+      "assembly_repair.py": true,
+      "surface_tools.py": true,
+      "native_projection.py": true,
+      "native/mesh.vspscript": true
+    },
+    "http": true,
+    "native": {
+      "available": true,
+      "version": "OpenVSP 3.51.0",
+      "scriptReadWrite": true,
+      "supported": true
+    }
+  },
+  "limitations": [
+    "Windows BAT and native Windows execution were not run in this environment; Check_Setup.bat is supplied.",
+    "MQ-20 engine trimming does not match the supported unique rib/cap layout: 576 faces unknown and smoothness incomplete; auto repair is blocked.",
+    "Native triangle minima are valid for the exported TRI; analytic CAD tessellation error is not bounded.",
+    "The color field samples triangle centroids in a distance band and cannot replace whole-triangle pair minima.",
+    "Native normal and finite-curvature probes do not certify C2 smoothness or predict Cp.",
+    "Bidirectional projection is a finite surface-shape sample, not material motion or a certified Hausdorff bound.",
+    "Surface-role topology needs physical end-face interpretation. Physical external wetted area remains null; categorized TRI areas and qualified estimates are separate.",
+    "Active parent attachments, unsupported section transforms and arbitrary engine-trim layouts restrict editing/fitting; per-section pitch/yaw fitting is rejected.",
+    "Resource limits and failed/incomplete checks do not permit automatic Apply.",
+    "Some baseline smoothness warnings remain; auto repair is checked for worsening, not a promise to remove all pre-existing warnings."
+  ]
+}

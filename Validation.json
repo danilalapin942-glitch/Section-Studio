@@ -1,1188 +1,1016 @@
 {
-  "program": "Section Studio 1.0",
-  "date_utc": "2026-10-11",
-  "native_runtime": "OpenVSP 3.51.0 Linux",
-  "browser": "Chromium 131",
-  "upstream_machline_commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
-  "appFlowSolverRun": false,
-  "appCpCalculated": false,
-  "experimentalDataUsed": false,
-  "checks": {
-    "portablePythonTests": {
-      "passed": 42,
-      "command": "python -m unittest discover -s tests -v"
+  "program": "Section Studio",
+  "version": "1.2.1",
+  "date_utc": "2026-11-01",
+  "stage": "1.2.1 reliability",
+  "releaseStatus": "Linux validated; Windows launch paths prepared, target Windows check required",
+  "scopeCompleted": [
+    "Startup diagnostics, atomic settings with valid backup, single-instance reuse and OS lock cleanup",
+    "Native source-range correspondence for ordinary To Lip / To Face engine trimming, including fractional U",
+    "Three verified disk recovery generations, large project recovery across process crash and localhost port change",
+    "Structural frame/end-closure comparison independent of JSON key order; native text I/O explicitly UTF-8",
+    "Completed native HTTP jobs release busy state before sending their final response"
+  ],
+  "environment": {
+    "os": "Linux x86_64",
+    "python": "3.12.14",
+    "openVSP": "3.51.0",
+    "browser": "Chromium headless shell 131.0.6778.204",
+    "windowsNativeExecuted": false,
+    "cmdBatExecuted": false,
+    "flowSolverExecuted": false,
+    "repairMachIntegrationAdded": false
+  },
+  "automatedTests": {
+    "python": {
+      "command": "python -m unittest discover -s tests -v",
+      "count": 98,
+      "passed": true,
+      "newReliabilityTests": 16,
+      "logSha256": "032098fec21919cf7eb0fe17a16abe8db41a20e7b409b45ad747a56cae2f4b85"
     },
-    "javascriptContracts": {
-      "pressureRepairPassed": true,
-      "machlineRepairPassed": true,
-      "commands": [
-        "node tests/test_pressure_repair.js",
-        "node tests/test_machline_repair.js"
-      ]
+    "javascript": {
+      "suites": [
+        {
+          "suite": "test_pressure_repair.js",
+          "passed": true,
+          "output": "Pressure indicator, bounded repair and protected-zone checks passed."
+        },
+        {
+          "suite": "test_machline_repair.js",
+          "passed": true,
+          "output": "MachLine regime, bounded repair, invariant and protection contracts passed."
+        },
+        {
+          "suite": "test_v11_core.js",
+          "passed": true,
+          "output": "1.1 Free paths, topology-preserving insertion, bounded region repair and surface protection passed."
+        },
+        {
+          "suite": "test_v12_core.js",
+          "passed": true,
+          "output": "1.2 component pool, pair switching, rigid frames and intentional-edge protection passed."
+        }
+      ],
+      "allJavaScriptSyntax": true,
+      "allPythonCompile": true
     },
-    "vspaeroRegressionUI": {
-      "version": "1.0",
-      "nativeOpenVSP": "3.51.0 Linux",
-      "boundedRepairPreview": true,
-      "previewDoesNotMutateProject": true,
-      "nativeRepairVerified": true,
-      "nativeMaxMoveFt": 0.045084610968596235,
-      "outsideZoneMoveFt": 0,
-      "applyUndoExact": true,
-      "unselectedWingXMLUnchanged": true,
-      "protectedStationBlocksRepair": true,
-      "stalePreviewBlocksApply": true,
-      "staleNativeResponseDiscarded": true,
-      "actualMQ28Mesh": {
-        "nodes": 1752,
-        "panels": 1696,
-        "parts": 7,
-        "thickParts": 3,
-        "thinParts": 4,
-        "minAreaFt2": 0.006419892066052764,
-        "maxAspect": 89.33378714606923,
-        "refinementLevels": 1,
-        "errors": 0,
-        "warnings": 3,
-        "info": 0,
-        "proximityPairsTested": 4068,
-        "proximityCandidateVisits": 27358,
-        "proximityLimited": false
+    "htmlMatchesSources": true,
+    "windowsBatLineEndingsCRLF": true
+  },
+  "startupSelfTest": {
+    "program": "Section Studio",
+    "version": "1.2.1",
+    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "pythonSupported": true,
+    "requiredFiles": {
+      "Section_Studio.html": true,
+      "section_studio_server.py": true,
+      "studio_bootstrap.py": true,
+      "local_storage.py": true,
+      "instance_guard.py": true,
+      "version.py": true,
+      "assembly_audit.py": true,
+      "assembly_repair.py": true,
+      "surface_tools.py": true,
+      "native_projection.py": true,
+      "native/mesh.vspscript": true
+    },
+    "http": true,
+    "native": {
+      "available": true,
+      "version": "OpenVSP 3.51.0",
+      "scriptReadWrite": true,
+      "supported": true
+    },
+    "passed": true,
+    "recoveryRoundtrip": true,
+    "instanceLock": true,
+    "instanceReuse": true
+  },
+  "nativeGeometry": {
+    "CH1": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 59168,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "TMCWTAJLFF": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 7.105427357601002e-15,
+          "validatedPlaneCount": 21,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 21.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            17
+          ],
+          "runs": [
+            [
+              0,
+              17
+            ],
+            [
+              17,
+              21
+            ]
+          ]
+        },
+        "VVMDVQXEAY": {
+          "verified": true,
+          "frontCaps": 1,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 7.105427357601002e-15,
+          "validatedPlaneCount": 33,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 32.0,
+            "supported": true
+          },
+          "outer": [
+            3,
+            32
+          ],
+          "runs": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              32
+            ]
+          ]
+        }
       },
-      "offlineVSPApplyBlocked": true,
-      "responsive": [
-        {
-          "width": 850,
-          "overflow": false
-        },
-        {
-          "width": 390,
-          "overflow": false
-        }
-      ],
-      "pageErrors": []
+      "sha256": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17"
     },
-    "machlineUI": {
-      "version": "1.0",
-      "sourceCommit": "d62befad9d2d62e30106440e29862ebac7dc362c",
-      "machlineLiveRisk": true,
-      "numericEditBeforeBlur": true,
-      "liveEditMS": 163,
-      "nativeTriChecked": true,
-      "externalTriChecked": true,
-      "automaticRepairVerified": true,
-      "nominalOffsetChecks": true,
-      "cpCalculated": false,
-      "inclinationBefore": 54.0092555939083,
-      "inclinationAfter": 47.760872946996514,
-      "previewBefore": 58.75050174815458,
-      "previewAfter": 53.24636077974793,
-      "nativeMaxMoveFt": 0.045084610968596235,
-      "outsideZoneMoveFt": 0,
-      "wingXMLPreserved": true,
-      "secondBodyUnchanged": true,
-      "applyUndoExact": true,
-      "sonicStopShown": true,
-      "settingsInvalidateMesh": true,
-      "staleNativeDiscarded": true,
-      "triExportMatchesReport": true,
-      "jsonSettingsMatch": true,
-      "jsonDecimalMantissaCompatibility": true,
-      "offlineApplyBlocked": true,
-      "responsive": [
-        {
-          "width": 850,
-          "overflow": false
-        },
-        {
-          "width": 390,
-          "overflow": false
-        }
-      ],
-      "pageErrors": []
-    },
-    "nativeGeometryPreflight": {
-      "models": 6,
-      "flowCases": 18,
-      "allSourceFilesUnchanged": true,
-      "allOffsetAndProximityChecksComplete": true,
-      "results": [
-        {
-          "model": "MQ28_body_B.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 2622,
-                "panels": 5216,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 7,
-                "warnings": 13,
-                "info": 0,
-                "proximityPairsTested": 7008,
-                "proximityCandidateVisits": 106926,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 115881,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 340,
-                "characteristicPanels": 0,
-                "minQ": -1.25,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 2622,
-                "panels": 5216,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 11,
-                "info": 0,
-                "proximityPairsTested": 7008,
-                "proximityCandidateVisits": 106926,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 115881,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.75,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 2622,
-                "panels": 5216,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 7,
-                "warnings": 14,
-                "info": 0,
-                "proximityPairsTested": 7008,
-                "proximityCandidateVisits": 106926,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 115881,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 420,
-                "characteristicPanels": 0,
-                "minQ": -3.0,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "7b88f468d35c67fb04fcab369b488b245831bf8e594d540dc325d8ea2363dd8a",
-          "cpCalculated": false,
-          "seconds": 3.347590356999717
-        },
-        {
-          "model": "MQ20_repaired_v01.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 2160,
-                "panels": 4296,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 8.606687118699521e-05,
-                "maxAspect": 498.3182387103687,
-                "refinementLevels": 1,
-                "errors": 6,
-                "warnings": 14,
-                "info": 0,
-                "proximityPairsTested": 19024,
-                "proximityCandidateVisits": 113902,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 105480,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 286,
-                "characteristicPanels": 0,
-                "minQ": -1.25,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_near_characteristic",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_sliver"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 2160,
-                "panels": 4296,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 8.606687118699521e-05,
-                "maxAspect": 498.3182387103687,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 13,
-                "info": 0,
-                "proximityPairsTested": 19024,
-                "proximityCandidateVisits": 113902,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 105480,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.75,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_sliver"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 2160,
-                "panels": 4296,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 8.606687118699521e-05,
-                "maxAspect": 498.3182387103687,
-                "refinementLevels": 1,
-                "errors": 6,
-                "warnings": 14,
-                "info": 0,
-                "proximityPairsTested": 19024,
-                "proximityCandidateVisits": 113902,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 105480,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 312,
-                "characteristicPanels": 0,
-                "minQ": -3.0,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_near_characteristic",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_sliver"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
-          "cpCalculated": false,
-          "seconds": 3.2441332939997665
-        },
-        {
-          "model": "SAAB_FCAS_checked_v02.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 2364,
-                "panels": 4704,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 1.636874027119834e-05,
-                "maxAspect": 62.08932095267785,
-                "refinementLevels": 1,
-                "errors": 2,
-                "warnings": 11,
-                "info": 0,
-                "proximityPairsTested": 1634,
-                "proximityCandidateVisits": 110234,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 111795,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 96,
-                "characteristicPanels": 0,
-                "minQ": -1.25,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 2364,
-                "panels": 4704,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 1.636874027119834e-05,
-                "maxAspect": 62.08932095267785,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 11,
-                "info": 0,
-                "proximityPairsTested": 1634,
-                "proximityCandidateVisits": 110234,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 111795,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.75,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 2364,
-                "panels": 4704,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 1.636874027119834e-05,
-                "maxAspect": 62.08932095267785,
-                "refinementLevels": 1,
-                "errors": 2,
-                "warnings": 11,
-                "info": 0,
-                "proximityPairsTested": 1634,
-                "proximityCandidateVisits": 110234,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 111795,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 96,
-                "characteristicPanels": 0,
-                "minQ": -3.0,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "4eee9206644a4731c69e0215978f45ed39f5b4b414a5aa1661f5f0bc91bc3b4a",
-          "cpCalculated": false,
-          "seconds": 3.6701098139965325
-        },
-        {
-          "model": "YFQ44_repaired_v01.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 2006,
-                "panels": 3984,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 8.421717056976512e-06,
-                "maxAspect": 66.31545474247383,
-                "refinementLevels": 1,
-                "errors": 2,
-                "warnings": 13,
-                "info": 0,
-                "proximityPairsTested": 6772,
-                "proximityCandidateVisits": 90286,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 81105,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 96,
-                "characteristicPanels": 0,
-                "minQ": -1.25,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 2006,
-                "panels": 3984,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 8.421717056976512e-06,
-                "maxAspect": 66.31545474247383,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 13,
-                "info": 0,
-                "proximityPairsTested": 6772,
-                "proximityCandidateVisits": 90286,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 81105,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.75,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 2006,
-                "panels": 3984,
-                "parts": 7,
-                "thickParts": 7,
-                "thinParts": 0,
-                "minAreaFt2": 8.421717056976512e-06,
-                "maxAspect": 66.31545474247383,
-                "refinementLevels": 1,
-                "errors": 2,
-                "warnings": 13,
-                "info": 0,
-                "proximityPairsTested": 6772,
-                "proximityCandidateVisits": 90286,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 81105,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 98,
-                "characteristicPanels": 0,
-                "minQ": -3.0,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_near_centers",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "0df595dc9553b2f3fe1e7cd1438e02b215930f7507d97f09aeb36eaa3a703b27",
-          "cpCalculated": false,
-          "seconds": 2.4050065689989424
-        },
-        {
-          "model": "Spirit_Mosquito_wingfit_v02.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 19756,
-                "panels": 39488,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 3.800578049516541e-05,
-                "maxAspect": 193.68070355738757,
-                "refinementLevels": 1,
-                "errors": 6,
-                "warnings": 21,
-                "info": 0,
-                "proximityPairsTested": 60440,
-                "proximityCandidateVisits": 1005092,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 673668,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 2934,
-                "characteristicPanels": 0,
-                "minQ": -1.25,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_sliver",
-                "mesh_sliver",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 19756,
-                "panels": 39488,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 3.800578049516541e-05,
-                "maxAspect": 193.68070355738757,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 17,
-                "info": 0,
-                "proximityPairsTested": 60440,
-                "proximityCandidateVisits": 1005092,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 673668,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.75,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_sliver",
-                "mesh_sliver",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 19756,
-                "panels": 39488,
-                "parts": 6,
-                "thickParts": 6,
-                "thinParts": 0,
-                "minAreaFt2": 3.800578049516541e-05,
-                "maxAspect": 193.68070355738757,
-                "refinementLevels": 1,
-                "errors": 6,
-                "warnings": 18,
-                "info": 0,
-                "proximityPairsTested": 60440,
-                "proximityCandidateVisits": 1005092,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 673668,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 3018,
-                "characteristicPanels": 0,
-                "minQ": -3.0,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "machline_near_characteristic",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_sliver",
-                "mesh_sliver",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "fb53c4a4cac6ee4fc5aad2e2df0edd0c2180269acc1eb5605089d920e7f1f08f",
-          "cpCalculated": false,
-          "seconds": 22.567698145998293
-        },
-        {
-          "model": "OKRUG_prepared.vsp3",
-          "variants": [
-            {
-              "mach": 1.5,
-              "summary": {
-                "nodes": 4130,
-                "panels": 8224,
-                "parts": 9,
-                "thickParts": 9,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 7,
-                "warnings": 27,
-                "info": 0,
-                "proximityPairsTested": 83904,
-                "proximityCandidateVisits": 227186,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 180043,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 236,
-                "characteristicPanels": 0,
-                "minQ": -1.2344673169813594,
-                "machAngleDeg": 41.810314895778596,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 0.5,
-              "summary": {
-                "nodes": 4130,
-                "panels": 8224,
-                "parts": 9,
-                "thickParts": 9,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 0,
-                "warnings": 21,
-                "info": 0,
-                "proximityPairsTested": 83904,
-                "proximityCandidateVisits": 227186,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 180043,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 0,
-                "characteristicPanels": 0,
-                "minQ": 0.7517258536687379,
-                "machAngleDeg": null,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            },
-            {
-              "mach": 2.0,
-              "summary": {
-                "nodes": 4130,
-                "panels": 8224,
-                "parts": 9,
-                "thickParts": 9,
-                "thinParts": 0,
-                "minAreaFt2": 1.3830052645618408e-05,
-                "maxAspect": 89.33378714606923,
-                "refinementLevels": 1,
-                "errors": 9,
-                "warnings": 24,
-                "info": 0,
-                "proximityPairsTested": 83904,
-                "proximityCandidateVisits": 227186,
-                "proximityLimited": false,
-                "mergedNodes": 0,
-                "offsetLimited": false,
-                "offsetCandidateTests": 180043,
-                "maxOffsetFt": 1e-07,
-                "normalFailures": 0,
-                "superinclinedPanels": 434,
-                "characteristicPanels": 0,
-                "minQ": -2.972386341300194,
-                "machAngleDeg": 30.000000000000004,
-                "offsetStatus": "nominal-checked"
-              },
-              "codes": [
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "machline_superinclined",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_near_centers",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "machline_near_characteristic",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_area_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump",
-                "mesh_normal_jump"
-              ]
-            }
-          ],
-          "sourceUnchanged": true,
-          "sourceHash": "8e10c3b29abd13073152ec3fbace1763b0cea4a201350c91053ee5ae4c1ed9ca",
-          "cpCalculated": false,
-          "seconds": 5.165164267000364
-        }
-      ]
-    },
-    "unmodifiedMachLineRuntime": {
-      "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
-      "unmodifiedUpstream": true,
-      "compiler": "gfortran 13.3, -O2 -fdefault-real-8 -fopenmp",
-      "os": "Linux",
-      "experimentalDataUsed": false,
-      "cases": [
-        {
-          "fixture": "zero_area",
-          "mach": 0.5,
-          "expectedStop": "has zero area",
-          "observedStop": true,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "mesh_degenerate",
-            "machline_zero_area",
-            "mesh_open_thick_boundary"
-          ]
-        },
-        {
-          "fixture": "sonic",
-          "mach": 1.0,
-          "expectedStop": "1.0 is not allowed",
-          "observedStop": true,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "machline_sonic",
-            "mesh_open_thick_boundary"
-          ]
-        },
-        {
-          "fixture": "characteristic",
-          "mach": 2.0,
-          "expectedStop": "is Mach-inclined",
-          "observedStop": true,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "machline_characteristic",
-            "mesh_open_thick_boundary"
-          ]
-        },
-        {
-          "fixture": "superinclined",
-          "mach": 2.0,
-          "expectedStop": "is superinclined",
-          "observedStop": true,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "machline_superinclined",
-            "mesh_open_thick_boundary"
-          ]
-        },
-        {
-          "fixture": "subsonic_toy",
-          "mach": 0.5,
-          "expectedStop": null,
-          "observedStop": false,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "mesh_normal_jump"
-          ],
-          "solverStatusCode": 0,
-          "mesh": {
-            "N_body_panels": 8,
-            "N_body_vertices": 6,
-            "N_wake_panels": 0,
-            "average_characteristic_length": 2.38304602259383,
-            "max_flow_turning_angle": 90.0
+    "MQ28": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 5216,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "VJUKNWEOLP": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 0,
+          "maximumPlaneResidualFt": 3.552713678800501e-15,
+          "validatedPlaneCount": 6,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 7.0,
+            "supported": true
           },
-          "offsetRead": 1e-07
-        },
-        {
-          "fixture": "supersonic_toy",
-          "mach": 2.0,
-          "expectedStop": null,
-          "observedStop": false,
-          "returnCode": 0,
-          "sourcePreflightCodes": [
-            "mesh_normal_jump"
+          "outer": [
+            0,
+            7
           ],
-          "solverStatusCode": 0,
-          "mesh": {
-            "N_body_panels": 8,
-            "N_body_vertices": 6,
-            "N_wake_panels": 0,
-            "average_characteristic_length": 2.38304602259383,
-            "max_flow_turning_angle": 90.0
+          "runs": [
+            [
+              0,
+              7
+            ]
+          ]
+        },
+        "LQJAIQLUIN": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 0,
+          "maximumPlaneResidualFt": 3.552713678800501e-15,
+          "validatedPlaneCount": 4,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
           },
-          "offsetRead": 1e-07
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
         }
-      ]
+      },
+      "sha256": "987c8fc3df331171e20b81224fc9a994734f5eefff3b0cd93449c95fe1d23239"
+    },
+    "MQ20": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4296,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": true,
+          "frontCaps": 1,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 4.052314039881821e-15,
+          "validatedPlaneCount": 4,
+          "sourceRange": {
+            "start": 1.0,
+            "end": 4.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        }
+      },
+      "sha256": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb"
+    },
+    "Spirit_Mosquito": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 39488,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "DHVJMQQHWJ": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 0,
+          "maximumPlaneResidualFt": 3.552713678800501e-15,
+          "validatedPlaneCount": 18,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 19.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            19
+          ],
+          "runs": [
+            [
+              0,
+              19
+            ]
+          ]
+        },
+        "RXBIXDEBGK": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 0,
+          "maximumPlaneResidualFt": 3.552713678800501e-15,
+          "validatedPlaneCount": 7,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 8.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            8
+          ],
+          "runs": [
+            [
+              0,
+              8
+            ]
+          ]
+        }
+      },
+      "sha256": "fb53c4a4cac6ee4fc5aad2e2df0edd0c2180269acc1eb5605089d920e7f1f08f"
+    },
+    "MQ20_face_trim": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4552,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": true,
+          "frontCaps": 1,
+          "backCaps": 2,
+          "maximumPlaneResidualFt": 4.052314039881821e-15,
+          "validatedPlaneCount": 4,
+          "sourceRange": {
+            "start": 1.0,
+            "end": 4.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        }
+      }
+    },
+    "MQ20_fractional_U": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4232,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": true,
+          "frontCaps": 1,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 3.635980405647388e-15,
+          "validatedPlaneCount": 2,
+          "sourceRange": {
+            "start": 1.2,
+            "end": 3.8,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        }
+      }
+    },
+    "MQ20_rotated_pivot": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4296,
+      "semanticComplete": true,
+      "coverage": 1.0,
+      "unknownFaces": 0,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": true,
+          "frontCaps": 1,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 5.190292640122607e-15,
+          "validatedPlaneCount": 4,
+          "sourceRange": {
+            "start": 1.0,
+            "end": 4.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        }
+      }
+    },
+    "MQ20_negative": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4488,
+      "semanticComplete": false,
+      "coverage": 0.8288770053475936,
+      "unknownFaces": 768,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": false,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 4.0,
+            "supported": false
+          },
+          "reason": "Отрицательные дополнительные поверхности, удлинение или поворот интегрального тракта пока не сопоставляются автоматически. Исходная геометрия сохраняется; категории и плавность требуют отдельной проверки."
+        }
+      }
+    },
+    "MQ20_extended": {
+      "openVSP": "OpenVSP 3.51.0",
+      "faces": 4776,
+      "semanticComplete": false,
+      "coverage": 0.7788944723618091,
+      "unknownFaces": 1056,
+      "layouts": {
+        "OOGDGRQXEU": {
+          "verified": true,
+          "frontCaps": 0,
+          "backCaps": 1,
+          "maximumPlaneResidualFt": 1.7763568394002505e-15,
+          "validatedPlaneCount": 5,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 5.0,
+            "supported": true
+          },
+          "outer": [
+            0,
+            5
+          ],
+          "runs": [
+            [
+              0,
+              5
+            ]
+          ]
+        },
+        "XCDIQYNZAG": {
+          "verified": false,
+          "sourceRange": {
+            "start": 0.0,
+            "end": 4.0,
+            "supported": false
+          },
+          "reason": "Отрицательные дополнительные поверхности, удлинение или поворот интегрального тракта пока не сопоставляются автоматически. Исходная геометрия сохраняется; категории и плавность требуют отдельной проверки."
+        }
+      }
     }
   },
-  "repairExample": {
-    "ok": true,
-    "verified": true,
-    "reasons": [],
-    "nativeMaxMoveFt": 0.045084610968596235,
-    "nativeOutsideMoveFt": 0,
-    "protectedMoveFt": 0,
-    "sampling": {
-      "u": 321,
-      "w": 65,
-      "points": 20865,
-      "limit": "Конечная выборка; тонкие изменения между отсчётами могут быть пропущены."
+  "nativeRepair": {
+    "CH1_positive": {
+      "passed": true,
+      "initial": {
+        "complete": true,
+        "passed": false,
+        "pairs": [
+          {
+            "nameA": "Fuselage",
+            "nameB": "Gondola",
+            "minimumGapFt": 0.003,
+            "toleranceFt": 0.0001,
+            "distanceFt": 0.0018604672708525723,
+            "crossing": false,
+            "contained": false,
+            "complete": true,
+            "state": "below-limit",
+            "passed": false
+          },
+          {
+            "nameA": "Gondola",
+            "nameB": "Wing",
+            "minimumGapFt": 0.006,
+            "toleranceFt": 0.0001,
+            "distanceFt": 0.005999999999999339,
+            "crossing": false,
+            "contained": false,
+            "complete": true,
+            "state": "clear",
+            "passed": true
+          }
+        ],
+        "semanticCoverage": 1.0,
+        "nativeSmoothnessComplete": true
+      },
+      "final": {
+        "complete": true,
+        "passed": true,
+        "pairs": [
+          {
+            "nameA": "Fuselage",
+            "nameB": "Gondola",
+            "minimumGapFt": 0.003,
+            "toleranceFt": 0.0001,
+            "distanceFt": 0.004321715688662813,
+            "crossing": false,
+            "contained": false,
+            "complete": true,
+            "state": "clear",
+            "passed": true
+          },
+          {
+            "nameA": "Gondola",
+            "nameB": "Wing",
+            "minimumGapFt": 0.006,
+            "toleranceFt": 0.0001,
+            "distanceFt": 0.005999999999999339,
+            "crossing": false,
+            "contained": false,
+            "complete": true,
+            "state": "clear",
+            "passed": true
+          }
+        ],
+        "semanticCoverage": 1.0,
+        "nativeSmoothnessComplete": true
+      },
+      "preservation": {
+        "format": "section-studio-preservation",
+        "version": "1.2.1",
+        "sourceHash": "10be1a6af773448d9aab73d7ed3d817865b25cbf361b3ba188f0408e8c4e67e7",
+        "originalHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
+        "components": [
+          {
+            "id": "NFAYAEXLTA",
+            "name": "Wing",
+            "parametersUnchanged": true,
+            "complete": true,
+            "maximumMoveFt": 0.0,
+            "rmsMoveFt": 0.0,
+            "sampleCount": 8450,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          },
+          {
+            "id": "TMCWTAJLFF",
+            "name": "Fuselage",
+            "parametersUnchanged": true,
+            "complete": true,
+            "maximumMoveFt": 0.0,
+            "rmsMoveFt": 0.0,
+            "sampleCount": 66625,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          },
+          {
+            "id": "VVMDVQXEAY",
+            "name": "Gondola",
+            "parametersUnchanged": false,
+            "complete": true,
+            "maximumMoveFt": 0.0015302461644393084,
+            "rmsMoveFt": 0.00010089839207677598,
+            "sampleCount": 133250,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          }
+        ],
+        "complete": true,
+        "locksPassed": true,
+        "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+        "reopenedInOpenVSP": true,
+        "scope": "all-components",
+        "solverRun": false
+      },
+      "history": [
+        {
+          "iteration": 1,
+          "score": 0.0,
+          "controlBoundFt": 0.0015959816264528026,
+          "pairs": [
+            {
+              "a": "TMCWTAJLFF",
+              "b": "VVMDVQXEAY",
+              "distanceFt": 0.003360014662408289,
+              "state": "clear",
+              "passed": true
+            },
+            {
+              "a": "VVMDVQXEAY",
+              "b": "NFAYAEXLTA",
+              "distanceFt": 0.005999999999999339,
+              "state": "clear",
+              "passed": true
+            }
+          ]
+        }
+      ],
+      "changedStationIds": [
+        "VDQCEROLQC"
+      ],
+      "budgetFt": 0.05,
+      "zoneFt": [
+        0,
+        60
+      ],
+      "reasons": [],
+      "worsenedSmoothness": [],
+      "solverRun": false
     },
-    "introduced": [],
-    "candidateHash": "ce3738e55285919163c5de27371b7a087c04044b8baa369498ad4b18faea1811",
-    "solver": "MachLine",
-    "inclinationBefore": 54.0092555939083,
-    "inclinationAfter": 47.760872946996514
+    "MQ20_stricter_gap_rejected": {
+      "ok": true,
+      "passed": false,
+      "history": [
+        {
+          "iteration": 1,
+          "score": 0.03859943459620251,
+          "controlBoundFt": 0.006388693549195912,
+          "pairs": [
+            {
+              "a": "OOGDGRQXEU",
+              "b": "XCDIQYNZAG",
+              "distanceFt": 0.01998831529690407,
+              "state": "below-limit",
+              "passed": false
+            }
+          ]
+        }
+      ],
+      "changedStationIds": [
+        "CGPQDMWQMA",
+        "RPVAPWSUPC"
+      ],
+      "budgetFt": 0.05,
+      "zoneFt": [
+        0,
+        60
+      ],
+      "reasons": [
+        "Все заданные зазоры в пределах бюджета получить не удалось."
+      ],
+      "worsenedSmoothness": [],
+      "solverRun": false,
+      "elapsed": 5.623672841000371,
+      "pairs": [
+        {
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.025,
+          "toleranceFt": 0.0001,
+          "distanceFt": 0.01815463984598616,
+          "crossing": false,
+          "contained": false,
+          "complete": true,
+          "state": "below-limit",
+          "passed": false
+        }
+      ],
+      "nativeSmoothnessComplete": true,
+      "preservation": {
+        "format": "section-studio-preservation",
+        "version": "1.2.1",
+        "sourceHash": "681de380ee595ddd1ba6fd7513c7d7c04fe0c6c3a927cd1d2630ae03ff5ac77a",
+        "originalHash": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
+        "components": [
+          {
+            "id": "OOGDGRQXEU",
+            "name": "Fuselage",
+            "parametersUnchanged": true,
+            "complete": true,
+            "maximumMoveFt": 0.0,
+            "rmsMoveFt": 0.0,
+            "sampleCount": 66625,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          },
+          {
+            "id": "XCDIQYNZAG",
+            "name": "Gondola",
+            "parametersUnchanged": false,
+            "complete": true,
+            "maximumMoveFt": 0.006388679988253357,
+            "rmsMoveFt": 0.0010199070287059252,
+            "sampleCount": 66625,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          },
+          {
+            "id": "NWOXDWQXXZ",
+            "name": "Wing",
+            "parametersUnchanged": true,
+            "complete": true,
+            "maximumMoveFt": 0.0,
+            "rmsMoveFt": 0.0,
+            "sampleCount": 8450,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          },
+          {
+            "id": "FYOSNYXTSM",
+            "name": "GO",
+            "parametersUnchanged": true,
+            "complete": true,
+            "maximumMoveFt": 0.0,
+            "rmsMoveFt": 0.0,
+            "sampleCount": 8450,
+            "skippedSampleCount": 0,
+            "correspondence": "same-native-parameter",
+            "locks": []
+          }
+        ],
+        "complete": true,
+        "locksPassed": true,
+        "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+        "reopenedInOpenVSP": true,
+        "scope": "all-components",
+        "solverRun": false
+      },
+      "expectedOutcome": "Rejected: requested gap was not achieved in final refined check; no Apply permission.",
+      "applyAllowed": false
+    }
   },
-  "limitations": [
-    "The application evaluates risks and never runs a flow solver for user geometry; it does not calculate Cp or aerodynamic coefficients.",
-    "Live preview facets and finite native surface sampling can miss geometry between samples.",
-    "Control points are nominal before MachLine wake vertex cloning and iterative reorientation.",
-    "Cart3D export is diagnostic; it is not an intersection-conforming final CFD mesh.",
-    "External TRI tags are not associated with the current VSP3 and cannot verify a VSP3 repair.",
-    "No full mesh intersection search, AIC conditioning, wake validation or GMRES preflight.",
-    "Local improvement can leave STOP criteria elsewhere and in the repaired zone; remaining risks are displayed.",
-    "Windows BAT launchers and Windows system file dialog were not executed; native tests ran on Linux.",
-    "Previous 0.8 and 0.8.1 complete test suites were not rerun for 1.0; their historical reports are included separately."
-  ]
+  "changedStationCountProjection": {
+    "result": {
+      "format": "section-studio-preservation",
+      "version": "1.2.1",
+      "sourceHash": "a612461506f5a1fc16665de3ba784437028de12d73a3a2dc027ee536d403ec57",
+      "originalHash": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
+      "components": [
+        {
+          "id": "OOGDGRQXEU",
+          "name": "Fuselage",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0.0,
+          "rmsMoveFt": 0.0,
+          "sampleCount": 66625,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "XCDIQYNZAG",
+          "name": "Gondola",
+          "parametersUnchanged": false,
+          "complete": true,
+          "maximumMoveFt": 0.047496366613375,
+          "rmsMoveFt": 0.0070805979802928245,
+          "sampleCount": 8778,
+          "skippedSampleCount": 0,
+          "correspondence": "bidirectional-native-surface-projection",
+          "anchorsUsed": 4,
+          "directions": 2,
+          "locks": [],
+          "note": "Отклонение формы по двусторонней выборке 129×33 плюс параметры видимых исходных сечений. Это не перемещение материальных точек; нативная проекция и конечная выборка не дают строгой границы между отсчётами."
+        },
+        {
+          "id": "NWOXDWQXXZ",
+          "name": "Wing",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0.0,
+          "rmsMoveFt": 0.0,
+          "sampleCount": 8450,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        },
+        {
+          "id": "FYOSNYXTSM",
+          "name": "GO",
+          "parametersUnchanged": true,
+          "complete": true,
+          "maximumMoveFt": 0.0,
+          "rmsMoveFt": 0.0,
+          "sampleCount": 8450,
+          "skippedSampleCount": 0,
+          "correspondence": "same-native-parameter",
+          "locks": []
+        }
+      ],
+      "complete": true,
+      "locksPassed": true,
+      "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
+      "reopenedInOpenVSP": true,
+      "scope": "all-components",
+      "solverRun": false
+    },
+    "test": "Diagnostic insertion of a hidden pre-inlet source station; diagnostic model not supplied as a repaired production model.",
+    "interpretation": "Four shared visible source anchors used. Inserting a hidden source station still changed the visible native surface by up to 0.047496366613375 ft; this is measured shape deviation, not a zero-change claim."
+  },
+  "browserRecovery": {
+    "noOp": [
+      {
+        "file": "Prepared_models/CH1.vsp3",
+        "same": true,
+        "errors": []
+      },
+      {
+        "file": "Prepared_models/MQ28_for_wingfit.vsp3",
+        "same": true,
+        "errors": []
+      },
+      {
+        "file": "Prepared_models/MQ20_repaired_v01.vsp3",
+        "same": true,
+        "errors": []
+      },
+      {
+        "file": "Prepared_models/Spirit_Mosquito_wingfit_v02.vsp3",
+        "same": true,
+        "errors": []
+      }
+    ],
+    "mq20": {
+      "coverage": 1,
+      "smoothnessComplete": true,
+      "pairs": [
+        {
+          "nameA": "Fuselage",
+          "nameB": "Gondola",
+          "minimumGapFt": 0.001,
+          "toleranceFt": 0.0001,
+          "distanceFt": 0.01937224524942947,
+          "crossing": false,
+          "contained": false,
+          "complete": true,
+          "state": "clear",
+          "passed": true
+        }
+      ],
+      "flowFaceCount": 96
+    },
+    "copies": {
+      "A": {
+        "id": "snapshot-01793543236705273337-11522d0b.json",
+        "name": "Recovery_CH1_A",
+        "savedAt": "2026-11-01T14:27:16.705247+00:00",
+        "sha256": "99a4378d4827f31bc0ef7323ea1851a3b4d088248818818f30eefe01cde3ed6e",
+        "version": "1.2.1",
+        "sourceName": "CH1.vsp3"
+      },
+      "B": {
+        "id": "snapshot-01793543248565963187-0bdef519.json",
+        "name": "Recovery_CH1_B",
+        "savedAt": "2026-11-01T14:27:28.565941+00:00",
+        "sha256": "9c7fcca44c87b93bf714cb62fe4a37166794c82e766737cad9a05122ac56f44d",
+        "version": "1.2.1",
+        "sourceName": "CH1.vsp3"
+      },
+      "C": {
+        "id": "snapshot-01793543254596728491-6c9ec970.json",
+        "name": "Recovery_CH1_C",
+        "savedAt": "2026-11-01T14:27:34.596708+00:00",
+        "sha256": "f092a98a7331a79fe05d5440e2023705263c4257cd66d5aa05d2b016591864d6",
+        "version": "1.2.1",
+        "sourceName": "CH1.vsp3"
+      }
+    },
+    "largeProjectBytes": 4411289,
+    "autoSaved": true,
+    "phase1Errors": [],
+    "restoredAfterCrashAndNewPort": true,
+    "phase2Errors": [],
+    "settingsBackupRecovered": true,
+    "corruptLatestFallsBackToPrevious": true,
+    "phase3Errors": [],
+    "serverOrigins": [
+      "http://127.0.0.1:44481",
+      "http://127.0.0.1:36633",
+      "http://127.0.0.1:41763"
+    ],
+    "secondLaunchReusesServer": true
+  },
+  "jsonAndRecoveryFinalChecks": {
+    "sortedTest": {
+      "same": true,
+      "frameRejected": true,
+      "closureRejected": true,
+      "closures": 1
+    },
+    "recoveryRestore": true,
+    "semanticCoverage": 1,
+    "errors": []
+  },
+  "nativeUtf8": {
+    "explicitUtf8NativeReadWrite": true,
+    "defaultEncodingWarningsAsErrors": true,
+    "semanticComplete": true,
+    "selfProjectionMaximumFt": 8e-15
+  },
+  "repeat": {
+    "python": "python -m unittest discover -s tests -v",
+    "javascript": [
+      "node tests/test_pressure_repair.js",
+      "node tests/test_machline_repair.js",
+      "node tests/test_v11_core.js",
+      "node tests/test_v12_core.js"
+    ],
+    "startup": "Check_Setup.bat, or python studio_bootstrap.py --self-test --vspscript /path/to/vspscript",
+    "manualNative": "Open Prepared_models in the local application and run the native assembly check; MQ20_1.2.1_ready.json includes the selected body pair.",
+    "browserScenario": "Open model, verify no-op export, save three distinct full projects, force server exit, restart on a new port, restore; corrupt newest snapshot and primary settings separately, verify fallback."
+  },
+  "knownLimits": [
+    "Windows and BAT scripts were not executed in this Linux preparation environment; Check_Setup.bat checks the actual target machine.",
+    "Negative additional engine surfaces, extended flowpaths and cyclically rolled integral ducts remain explicitly unsupported for complete automatic correspondence; incomplete validation blocks automatic repair.",
+    "Automatic source-station editing at between-station engine U remains blocked; native diagnosis of fractional U is supported.",
+    "Source-role classification does not prove absence of overlapping physical skin or validate wetted area.",
+    "Finite mesh/surface samples cannot establish an analytic bound between samples; repair convergence for arbitrary gap/budget is not guaranteed.",
+    "Recovery keeps three recent valid generations, is limited to 60 MiB per project and cannot preserve edits made after the latest completed write.",
+    "Recovery restores editable project state, not completed native jobs or Apply permission; rerun native validation.",
+    "No VSPAERO/MachLine flow solve or Cp/ADH validation was performed; this is a geometry/editor reliability release."
+  ],
+  "historicalValidation": "Validation_1.2_baseline.json preserves the previous release report."
 }

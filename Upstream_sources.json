@@ -49,13 +49,6 @@
     "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/vsp_aero/Solver/vspaero.C"
   },
   {
-    "file": "ScriptMgr.cpp",
-    "path": "src/geom_core/ScriptMgr.cpp",
-    "tag": "OpenVSP_3.51.0",
-    "sha256": "25a015511dba6ad287ff91136dfbce6c25e4cf64cbb1a92630ffda003b7098d4",
-    "url": "https://github.com/OpenVSP/OpenVSP/blob/OpenVSP_3.51.0/src/geom_core/ScriptMgr.cpp"
-  },
-  {
     "repository": "usuaero/MachLine",
     "version": "v4.0",
     "commit": "d62befad9d2d62e30106440e29862ebac7dc362c",
@@ -244,5 +237,93 @@
     "path": "common/sort.f90",
     "sha256": "e8590d075ae1ec3af5546a4bbad07e3b698b85b1667a30cde92ee62591f460f2",
     "url": "https://github.com/usuaero/MachLine/blob/d62befad9d2d62e30106440e29862ebac7dc362c/common/sort.f90"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "Geom.cpp",
+    "path": "src/geom_core/Geom.cpp",
+    "sha256": "3c06f3be346a5d88556a6b793e8556050250111838ed4e1570b823fc86b48aa7",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_core/Geom.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "Active REL/ABS transforms, native rotation pivot and Rx Ry Rz order"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "GeomEngine.cpp",
+    "path": "src/geom_core/GeomEngine.cpp",
+    "sha256": "4b88e8d727ed7776515b9262d79550136ff3448ee54e217fcca5cfbdb4051b9e",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_core/GeomEngine.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "Engine trimming, flow paths, cap construction and engine station modes"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "FuselageGeom.cpp",
+    "path": "src/geom_core/FuselageGeom.cpp",
+    "sha256": "639a2bba0f562ea69c1d1564dd51223255a305f9ca08b276077b60a183c5e866",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_core/FuselageGeom.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "Native section ordering, skinning and length"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "XSec.cpp",
+    "path": "src/geom_core/XSec.cpp",
+    "sha256": "1ed64aa397e1efe5d15e01afa70f0a1ff9997da05318ec6ad1ce442bcb088484",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_core/XSec.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "Native FuseXSec translation and section rotation"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "VspSurf.cpp",
+    "path": "src/util/VspSurf.cpp",
+    "sha256": "aac29f2d762e638c939ed3f2e107bb705ea20ade248affb54c09f576cf08ae56",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/util/VspSurf.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "Tessellation, normalized parameters and one-sided normals"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "VSP_Geom_API.cpp",
+    "path": "src/geom_api/VSP_Geom_API.cpp",
+    "sha256": "ef4652e832fd20879677c39be570cad3358406c584d3769dae03bf2134a403db",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_api/VSP_Geom_API.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "GetUWTess01, CompPnt01, CompNorm01, ProjPnt01 and ProjPnt01Guess"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "ScriptMgr.cpp",
+    "path": "src/geom_core/ScriptMgr.cpp",
+    "sha256": "25a015511dba6ad287ff91136dfbce6c25e4cf64cbb1a92630ffda003b7098d4",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_core/ScriptMgr.cpp",
+    "usedInVersion": "1.2",
+    "purpose": "AngelScript registrations and native function signatures"
+  },
+  {
+    "repository": "OpenVSP/OpenVSP",
+    "tag": "OpenVSP_3.51.0",
+    "commit": "458d26ad88cf0167dcb3d7c70846e771cbf0e841",
+    "file": "APIDefines.h",
+    "path": "src/geom_api/APIDefines.h",
+    "url": "https://github.com/OpenVSP/OpenVSP/blob/458d26ad88cf0167dcb3d7c70846e771cbf0e841/src/geom_api/APIDefines.h",
+    "sha256": "0f6a4394493c1a84cb443d7962bb893ddcb4981a4ede514338ac9b2b1f27ddc7",
+    "usedInVersion": "1.2.1",
+    "purpose": "Pinned native engine mode enumerations and trim semantics, verified on 3.51.0"
   }
 ]
