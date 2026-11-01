@@ -1,0 +1,5 @@
+Pressure indicator, bounded repair and protected-zone checks passed.
+MachLine regime, bounded repair, invariant and protection contracts passed.
+1.1 Free paths, topology-preserving insertion, bounded region repair and surface protection passed.
+1.2 component pool, pair switching, rigid frames and intentional-edge protection passed.
+Contour split, mirrored/multiple deletion, inverse recovery, closure, 3D displacement bound and limits passed.

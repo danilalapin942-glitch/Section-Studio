@@ -1,0 +1,37 @@
+{
+  "program": "Section Studio",
+  "version": "1.2.2",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "pythonSupported": true,
+  "requiredFiles": {
+    "Section_Studio.html": true,
+    "section_studio_server.py": true,
+    "studio_bootstrap.py": true,
+    "local_storage.py": true,
+    "instance_guard.py": true,
+    "version.py": true,
+    "assembly_audit.py": true,
+    "assembly_repair.py": true,
+    "surface_tools.py": true,
+    "native_projection.py": true,
+    "native/mesh.vspscript": true,
+    "calculation.py": true,
+    "Run_Calculations.py": true,
+    "engine_control.py": true,
+    "source/contour.js": true,
+    "source/sectioneditor.js": true,
+    "source/engineui.js": true
+  },
+  "http": true,
+  "native": {
+    "available": true,
+    "version": "OpenVSP 3.51.0",
+    "scriptReadWrite": true,
+    "supported": true
+  },
+  "passed": true,
+  "recoveryRoundtrip": true,
+  "instanceLock": true,
+  "instanceReuse": true
+}

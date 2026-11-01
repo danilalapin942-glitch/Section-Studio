@@ -24,6 +24,8 @@ from setup_checks import discover_executables,self_test
 from local_storage import RecoveryStore,read_settings,write_settings
 from version import VERSION
 from instance_guard import InstanceGuard
+from calculation import recover_interrupted, run_pipeline, normalize_plan, solver_path, discover_machline, listing as calculation_listing, load_report as calculation_report, bundle as calculation_bundle
+from engine_control import engine_update
 
 ROOT = Path(__file__).resolve().parent
 MAX_INPUT = 64 * 1024 * 1024
@@ -111,11 +113,16 @@ class Studio(ThreadingHTTPServer):
         self.busy = threading.Lock()
         self.jobs = Jobs(self.busy,self.run_job)
         self.executable = None
+        self.calculations = self.config_path.parent/'Calculations'
+        interrupted=recover_interrupted(self.calculations)
+        if interrupted:self.startup_warnings.append('Прерванных расчётных серий: '+str(len(interrupted))+'. Допуск не выдан.')
+        stored,settings_warnings=read_settings(self.config_path)
+        self.startup_warnings.extend(settings_warnings)
+        self.machline=stored.get('machline') or discover_machline(ROOT)
         if executable:
             self.executable = validate_executable(executable)
         else:
             try:
-                stored,self.startup_warnings=read_settings(self.config_path)
                 self.executable = validate_executable(stored.get('executable'))
             except (OSError, ValueError, TypeError):
                 candidates=discover_executables()
@@ -133,6 +140,7 @@ class Studio(ThreadingHTTPServer):
             progress('Нативная сетка и карта пространственных зазоров',.1)
             return assembly(self.executable,ROOT,data)
         if kind=='autofit':return repair_assembly(self.executable,ROOT,data,geoms,progress)
+        if kind=='calculation':return run_pipeline(self.executable,self.machline,ROOT,self.calculations,data,progress)
         raise ValueError('Неизвестный вид фоновой проверки.')
 
     def audit(self, data, repair=False):
@@ -251,7 +259,23 @@ class Handler(BaseHTTPRequestHandler):
             html = html.replace('<head>', '<head><script>window.SectionStudioLocalConfig=' + config + ';</script>', 1)
             return self.send(200, html.encode('utf-8'), 'text/html; charset=utf-8')
         if self.path == '/api/status':
-            return self.send(200, {'ok': True, 'executable': self.server.executable, 'busy': self.server.busy.locked(), 'version': VERSION,'warnings':self.server.startup_warnings})
+            return self.send(200, {'ok': True, 'executable': self.server.executable, 'machline':self.server.machline, 'busy': self.server.busy.locked(), 'version': VERSION,'warnings':self.server.startup_warnings})
+        if self.path == '/api/calculation-list':
+            return self.send(200, {'ok':True,'reports':calculation_listing(self.server.calculations)})
+        if self.path == '/api/calculation-demo':
+            try:
+                folder=ROOT/'Demonstrators/Body_control'
+                return self.send(200,{'ok':True,'project':json.loads((folder/'project.json').read_text(encoding='utf-8')),'report':json.loads((folder/'report.json').read_text(encoding='utf-8'))})
+            except (OSError,ValueError):return self.send(400,{'error':'Демонстратор отсутствует в этой сборке.'})
+        if self.path == '/api/calculation-demo-bundle':
+            p=ROOT/'Demonstrators/Body_control/Calculation_bundle.zip'
+            if not p.is_file():return self.send(404,{'error':'Комплект демонстратора не найден.'})
+            return self.send(200,p.read_bytes(),'application/zip')
+        if self.path.startswith('/api/calculation-bundle/'):
+            try:
+                p=calculation_bundle(self.server.calculations,self.path.rsplit('/',1)[-1])
+                return self.send(200,p.read_bytes(),'application/zip')
+            except (OSError,ValueError) as exc:return self.send(400,{'error':str(exc)})
         if self.path == '/api/recovery-list':
             try:return self.send(200,self.server.recovery.listing())
             except OSError as exc:return self.send(400,{'error':'Автовосстановление недоступно: '+str(exc)})
@@ -272,15 +296,30 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('Нужен объект JSON.')
             if self.path=='/api/recovery-save':return self.send(200,self.server.recovery.save(data.get('project')))
             if self.path=='/api/recovery-load':return self.send(200,self.server.recovery.load(data.get('id')))
+            if self.path=='/api/calculation-report':return self.send(200,{'ok':True,'report':calculation_report(self.server.calculations,data.get('id'))})
+            if self.path=='/api/engine':
+                geoms(data.get('xml'))
+                if not self.server.executable:raise ValueError('Сначала подключи OpenVSP 3.51.')
+                if not self.server.busy.acquire(blocking=False):raise ValueError('OpenVSP занят. Дождись завершения задачи.')
+                try:r=engine_update(self.server.executable,data['xml'],data.get('geomId'),data.get('changes'))
+                finally:self.server.busy.release()
+                return self.send(200,r)
+            if self.path=='/api/configure-machline':
+                if self.server.busy.locked():raise ValueError('Дождись завершения текущей задачи.')
+                path=solver_path(data.get('executable'))
+                if Path(path).name.lower() not in ('machline','machline.exe'):raise ValueError('Нужен исполняемый файл MachLine.')
+                settings,_=read_settings(self.server.config_path);settings['machline']=path;write_settings(self.server.config_path,settings);self.server.machline=path
+                return self.send(200,{'ok':True,'executable':path})
             if self.path in('/api/job-poll','/api/job-cancel'):
                 ident=data.get('id')
                 if not isinstance(ident,str)or not re.fullmatch(r'[a-f0-9]{24}',ident):raise ValueError('Неверный ID проверки.')
                 return self.send(200,self.server.jobs.poll(ident)if self.path=='/api/job-poll'else self.server.jobs.cancel(ident))
             if self.path=='/api/job-start':
                 kind,payload=data.get('kind'),data.get('payload')
-                if kind not in('assembly','autofit')or not isinstance(payload,dict):raise ValueError('Неверная фоновая задача.')
+                if kind not in('assembly','autofit','calculation')or not isinstance(payload,dict):raise ValueError('Неверная фоновая задача.')
                 geoms(payload.get('xml'))
                 if payload.get('units')not in FACTORS:raise ValueError('Проверь единицы модели.')
+                if kind=='calculation':normalize_plan(payload.get('plan'),payload['xml'])
                 return self.send(200,self.server.jobs.start(kind,payload))
             if self.path == '/api/configure':
                 if self.server.busy.locked():
@@ -348,6 +387,7 @@ class Handler(BaseHTTPRequestHandler):
 def main(argv=None):
     parser = argparse.ArgumentParser(description='Section Studio '+VERSION+' — local OpenVSP bridge')
     parser.add_argument('--vspscript')
+    parser.add_argument('--machline')
     parser.add_argument('--port', type=int, default=0)
     parser.add_argument('--no-browser', action='store_true')
     parser.add_argument('--self-test',action='store_true')
@@ -356,6 +396,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.self_test:
         server=Studio(args.config,args.vspscript,args.port)
+        if args.machline:server.machline=solver_path(args.machline)
         result=self_test(ROOT,server);server.server_close();path=Path(args.config).parent/'Setup_check.json';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8');print(json.dumps(result,ensure_ascii=False,indent=2));print('Report:',path);return 0 if result['passed']else 1
     with InstanceGuard(Path(args.config).parent/'instance.lock')as guard:
         if not guard.acquired:
@@ -363,6 +404,7 @@ def main(argv=None):
             if not args.no_browser:webbrowser.open(origin)
             return 0
         server=Studio(args.config,args.vspscript,args.port);server.instance_id=guard.ident
+        if args.machline:server.machline=solver_path(args.machline)
         guard.publish({'instanceId':guard.ident,'origin':server.origin,'version':VERSION,'pid':os.getpid()})
         print(f'Section Studio {VERSION}: {server.origin}',flush=True)
         print('Keep this window open. Ctrl+C stops the application.',flush=True)

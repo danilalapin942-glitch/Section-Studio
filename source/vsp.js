@@ -52,7 +52,7 @@ function readBody(g,all,role,units){
  // but omit it from the single-valued axial preview instead of moving geometry.
  if(sections.length>3&&sections.at(-1).shape==='point'&&Math.abs(sections.at(-1).x-sections.at(-2).x)<EPS)endClosures.push(sections.pop());
  const orderPolicy=val(n,'ParmContainer/Design/OrderPolicy');
- const body={id:role,name:g.name,enabled:true,strength:.7,preserveSkin:true,mirrorY:val(n,'ParmContainer/Sym/Sym_Planar_Flag')===2,orderPolicy,activeBranch:'outer',referenceFrame:{x:x0*mul,y:y0*mul,z:z0*mul,length:L*mul,...(originFraction?{originFraction}:{})},rotation:['X','Y','Z'].map(k=>relative?val(n,'ParmContainer/XForm/'+k+'_Rel_Rotation',val(n,'ParmContainer/XForm/'+k+'_Rotation')):val(n,'ParmContainer/XForm/'+k+'_Rotation')),engineIO,sourceId:g.id,sections,...(endClosures.length?{endClosures}:{})};const err=C.validateBody(body,false);if(err.length)throw new Error(g.name+': '+err[0]);return body;
+ const body={id:role,name:g.name,enabled:true,strength:.7,preserveSkin:true,mirrorY:val(n,'ParmContainer/Sym/Sym_Planar_Flag')===2,orderPolicy,activeBranch:'outer',referenceFrame:{x:x0*mul,y:y0*mul,z:z0*mul,length:L*mul,...(originFraction?{originFraction}:{})},rotation:['X','Y','Z'].map(k=>relative?val(n,'ParmContainer/XForm/'+k+'_Rel_Rotation',val(n,'ParmContainer/XForm/'+k+'_Rotation')):val(n,'ParmContainer/XForm/'+k+'_Rotation')),engineIO,engineSettings:engineFromNode(n),sourceId:g.id,sections,...(endClosures.length?{endClosures}:{})};const err=C.validateBody(body,false);if(err.length)throw new Error(g.name+': '+err[0]);return body;
 }
 function scan(xml,units='ft'){const p=parse(xml),candidates=p.all.filter(g=>g.type.toLowerCase()==='fuselage'&&at(g.node,'FuselageGeom'));let f=candidates.filter(g=>/^(fuselage|фюзеляж)(?:[ _\d-]|$)/i.test(g.name)),g=candidates.filter(g=>/^(gondola|nacelle|мотогондола|гондола)(?:[ _\d-]|$)/i.test(g.name));
  const length=g=>{try{return val(g.node,'ParmContainer/Design/Length');}catch{return null;}};
@@ -73,6 +73,8 @@ function verifySource(project){
   const valid=new Set(old.sections.map(s=>s.sourceId)),used=new Set();for(const s of b.sections){if(!s.sourceId)continue;if(!valid.has(s.sourceId)||used.has(s.sourceId))throw new Error('JSON: неверная или повторная ссылка на сечение VSP3.');used.add(s.sourceId);}
   if(!!b.mirrorY!==!!old.mirrorY)throw new Error('JSON: зеркальная копия отличается от исходной модели.');
   if(b.engineIO!==undefined&&b.engineIO!==old.engineIO)throw new Error('JSON: режим двигателя отличается от исходного VSP3.');b.engineIO=old.engineIO;
+  if(b.engineSettings===undefined)b.engineSettings=C.clone(old.engineSettings);
+  else if(identity(b.engineSettings)!==identity(old.engineSettings))throw new Error('JSON: настройки Engine Model отличаются от исходного VSP3.');
   if((b.orderPolicy||0)!==old.orderPolicy)throw new Error('JSON: порядок сечений отличается от исходного VSP3.');
   const legacyFrame={x:val(g.node,'ParmContainer/XForm/X_Location')*factor(src.units),y:val(g.node,'ParmContainer/XForm/Y_Location')*factor(src.units),z:val(g.node,'ParmContainer/XForm/Z_Location')*factor(src.units),length:old.referenceFrame.length};
   if(project.editorVersion!=='1.2'&&(!b.referenceFrame||identity(b.referenceFrame)===identity(legacyFrame))){const delta=['x','y','z'].map(k=>old.referenceFrame[k]-legacyFrame[k]);for(const s of [...b.sections,...(b.endClosures||[])]){s.x+=delta[0];s.y=(s.y||0)+delta[1];s.z+=delta[2];}b.referenceFrame=old.referenceFrame;}
@@ -152,7 +154,7 @@ function write(project){
  for(const id of before)if(!after.has(id)&&/^[A-Za-z][A-Za-z0-9_]{5,40}$/.test(id)&&new RegExp('(?:^|[^A-Za-z0-9_])'+id+'(?=$|[^A-Za-z0-9_])').test(xml))throw new Error('Удаляемый параметр или сечение используется связью в исходном VSP3. Сохрани JSON и сначала измени эту связь в OpenVSP.');
  return xml;
 }
-function geometryKey(b){return JSON.stringify({name:b.name,rotation:b.rotation||[0,0,0],preserveSkin:b.preserveSkin!==false,strength:b.preserveSkin===false?b.strength:null,orderPolicy:b.orderPolicy||0,sections:b.sections.map(s=>({sourceId:s.sourceId,x:s.x,y:s.y||0,z:s.z,width:s.width,height:s.height,roll:s.roll||0,pitch:s.pitch||0,yaw:s.yaw||0,shape:s.shape,points:s.points,knots:s.knots}))});}
+function geometryKey(b){return JSON.stringify({name:b.name,rotation:b.rotation||[0,0,0],preserveSkin:b.preserveSkin!==false,strength:b.preserveSkin===false?b.strength:null,orderPolicy:b.orderPolicy||0,engineSettings:b.engineSettings||{},sections:b.sections.map(s=>({sourceId:s.sourceId,x:s.x,y:s.y||0,z:s.z,width:s.width,height:s.height,roll:s.roll||0,pitch:s.pitch||0,yaw:s.yaw||0,shape:s.shape,points:s.points,knots:s.knots}))});}
 function adoptGeometry(project,xml,changedIds){
  const q=C.clone(project),parsed=parse(xml),ids=new Set(changedIds),items=root.SectionWorkspace.allBodies(q),updated=new Map();
  for(const old of items){if(!ids.has(old.sourceId))continue;const g=parsed.all.find(g=>g.id===old.sourceId);if(!g)throw Error('В результате отсутствует изменяемый корпус.');const body=readBody(g,parsed.all,old.id,q.source.units);if(body.sections.length!==old.sections.length)throw Error('Автодоводка не должна менять число станций.');
@@ -166,5 +168,11 @@ function zipStore(files){const enc=new TextEncoder(),chunks=[],central=[],table=
  const size=central.reduce((s,a)=>s+a.length,0),end=new Uint8Array(22),v=new DataView(end.buffer);u32(v,0,0x06054b50);u16(v,8,central.length);u16(v,10,central.length);u32(v,12,size);u32(v,16,offset);chunks.push(...central,end);const out=new Uint8Array(offset+size+22);let pos=0;chunks.forEach(c=>{out.set(c,pos);pos+=c.length;});return out;
 }
 function preparation(xml,selection){parse(xml);return zipStore({'Source.vsp3':xml,'Prepare_sections.vspscript':prepareScript(selection),'README.txt':'Extract this ZIP. Drag Prepare_sections.vspscript onto Run_OpenVSP.bat from Section Studio. Select your OpenVSP executable. Open Source_prepared.vsp3 in Section Studio. Conversion is performed by OpenVSP; compare the converted curves with the original before editing. Unsupported rotations, offsets, engine modes and attachments are not removed.\n'});}
-root.VSPImport={scan,open,write,preparation,prepareScript,parse,readBody,verifySource,zipStore,geometryKey,adoptGeometry};
+
+const ENGINE_NAMES=['GeomIOType','GeomInType','GeomOutType','InletFaceMode','InletLipMode','OutletFaceMode','OutletLipMode','InletFaceIndex','InletLipIndex','InletFaceU','InletLipU','OutletFaceIndex','OutletLipIndex','OutletFaceU','OutletLipU','EngineShowStationsFlag','InletModeType','OutletModeType','RotExtensionFlag','ExtensionDistance','AutoExtensionSet','AutoExtensionFlag'];
+function engineFromNode(n){return Object.fromEntries(ENGINE_NAMES.slice().sort().map(k=>[k,val(n,'ParmContainer/EngineModel/'+k)]));}
+function engineParameters(xml,gid){const g=parse(xml).all.find(g=>g.id===gid);if(!g||g.type!=='Fuselage')throw Error('Нужен корпус Fuselage.');return {values:engineFromNode(g.node),sectionIds:Array.from(at(g.node,'FuselageGeom/XSecSurf').children).filter(n=>n.tagName==='XSec').map(n=>txt(n,'ParmContainer/ID'))};}
+function withEngineValues(xml,gid,values){const p=parse(xml),g=p.all.find(g=>g.id===gid);if(!g||g.type!=='Fuselage')throw Error('Не найден корпус Engine Model.');const n=g.node.cloneNode(true);for(const [k,v]of Object.entries(values)){if(!ENGINE_NAMES.includes(k)||!Number.isFinite(v))throw Error('Неверный параметр Engine Model.');put(n,'ParmContainer/EngineModel/'+k,v);}return xml.slice(0,g.range.start)+new XMLSerializer().serializeToString(n)+xml.slice(g.range.end);}
+
+root.VSPImport={scan,open,write,engineParameters,withEngineValues,preparation,prepareScript,parse,readBody,verifySource,zipStore,geometryKey,adoptGeometry};
 })(typeof globalThis!=='undefined'?globalThis:this);

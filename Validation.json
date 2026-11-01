@@ -1,1016 +1,129 @@
 {
   "program": "Section Studio",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "date_utc": "2026-11-01",
-  "stage": "1.2.1 reliability",
-  "releaseStatus": "Linux validated; Windows launch paths prepared, target Windows check required",
+  "releaseStatus": "New editing features verified on Linux; complete aircraft calculation demonstrator remains unfinished",
   "scopeCompleted": [
-    "Startup diagnostics, atomic settings with valid backup, single-instance reuse and OS lock cleanup",
-    "Native source-range correspondence for ordinary To Lip / To Face engine trimming, including fractional U",
-    "Three verified disk recovery generations, large project recovery across process crash and localhost port change",
-    "Structural frame/end-closure comparison independent of JSON key order; native text I/O explicitly UTF-8",
-    "Completed native HTTP jobs release busy state before sending their final response"
+    "OpenVSP 3.51 native Engine Model parameter bridge (all 22 fields, native limits and dependent updates)",
+    "Per-section draft editor with cubic insertion, mirrored/multiple node deletion, tangent alignment, local Undo/Redo and global transaction",
+    "Self-intersection rejection, curve displacement bound, source comparison and disk recovery",
+    "Real VSPAERO/MachLine three-grid pipeline, process cancellation, durable history, CSV, artifact hashes and stale-report checks"
+  ],
+  "scopeNotCompleted": [
+    "MQ-20 full calculation admission",
+    "An aircraft passing both solvers and all mesh convergence checks",
+    "Full RepairMach kernel integration",
+    "Native Windows/cmd testing"
   ],
   "environment": {
     "os": "Linux x86_64",
     "python": "3.12.14",
     "openVSP": "3.51.0",
+    "machlineCommit": "d62befad9d2d62e30106440e29862ebac7dc362c",
     "browser": "Chromium headless shell 131.0.6778.204",
     "windowsNativeExecuted": false,
     "cmdBatExecuted": false,
-    "flowSolverExecuted": false,
-    "repairMachIntegrationAdded": false
+    "flowSolverExecuted": true
   },
   "automatedTests": {
     "python": {
-      "command": "python -m unittest discover -s tests -v",
-      "count": 98,
+      "count": 126,
       "passed": true,
-      "newReliabilityTests": 16,
-      "logSha256": "032098fec21919cf7eb0fe17a16abe8db41a20e7b409b45ad747a56cae2f4b85"
+      "skipped": 0,
+      "nativeEngineIntegrationCount": 2,
+      "command": "OPENVSP_TEST_EXE=<vspscript> python -m unittest discover -s tests -p test_*.py",
+      "log": "Validation_1.2.2/Python_tests.txt"
     },
     "javascript": {
       "suites": [
-        {
-          "suite": "test_pressure_repair.js",
-          "passed": true,
-          "output": "Pressure indicator, bounded repair and protected-zone checks passed."
-        },
-        {
-          "suite": "test_machline_repair.js",
-          "passed": true,
-          "output": "MachLine regime, bounded repair, invariant and protection contracts passed."
-        },
-        {
-          "suite": "test_v11_core.js",
-          "passed": true,
-          "output": "1.1 Free paths, topology-preserving insertion, bounded region repair and surface protection passed."
-        },
-        {
-          "suite": "test_v12_core.js",
-          "passed": true,
-          "output": "1.2 component pool, pair switching, rigid frames and intentional-edge protection passed."
-        }
+        "test_pressure_repair.js",
+        "test_machline_repair.js",
+        "test_v11_core.js",
+        "test_v12_core.js",
+        "test_contour.js"
       ],
-      "allJavaScriptSyntax": true,
-      "allPythonCompile": true
-    },
-    "htmlMatchesSources": true,
-    "windowsBatLineEndingsCRLF": true
+      "passed": true,
+      "log": "Validation_1.2.2/Javascript_tests.txt"
+    }
   },
-  "startupSelfTest": {
-    "program": "Section Studio",
-    "version": "1.2.1",
-    "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
-    "python": "3.12.14",
-    "pythonSupported": true,
-    "requiredFiles": {
-      "Section_Studio.html": true,
-      "section_studio_server.py": true,
-      "studio_bootstrap.py": true,
-      "local_storage.py": true,
-      "instance_guard.py": true,
-      "version.py": true,
-      "assembly_audit.py": true,
-      "assembly_repair.py": true,
-      "surface_tools.py": true,
-      "native_projection.py": true,
-      "native/mesh.vspscript": true
-    },
-    "http": true,
-    "native": {
-      "available": true,
-      "version": "OpenVSP 3.51.0",
-      "scriptReadWrite": true,
-      "supported": true
-    },
+  "browserEditor": {
     "passed": true,
-    "recoveryRoundtrip": true,
-    "instanceLock": true,
-    "instanceReuse": true
+    "browser": "131.0.6778.204",
+    "checks": [
+      "isolated draft",
+      "invalid self-intersection blocks apply",
+      "insert/delete",
+      "local undo/redo",
+      "global undo",
+      "VSP3 contour roundtrip",
+      "native Engine U/index roundtrip",
+      "disk recovery includes edited Engine Model",
+      "unchanged other components",
+      "Extend and Auto Extension dependencies",
+      "cancel modal without changes",
+      "decimal-comma calculation profile"
+    ],
+    "consoleErrors": []
   },
-  "nativeGeometry": {
-    "CH1": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 59168,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "TMCWTAJLFF": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 7.105427357601002e-15,
-          "validatedPlaneCount": 21,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 21.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            17
-          ],
-          "runs": [
-            [
-              0,
-              17
-            ],
-            [
-              17,
-              21
-            ]
-          ]
-        },
-        "VVMDVQXEAY": {
-          "verified": true,
-          "frontCaps": 1,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 7.105427357601002e-15,
-          "validatedPlaneCount": 33,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 32.0,
-            "supported": true
-          },
-          "outer": [
-            3,
-            32
-          ],
-          "runs": [
-            [
-              0,
-              3
-            ],
-            [
-              3,
-              32
-            ]
-          ]
-        }
-      },
+  "browserCalculations": {
+    "passed": true,
+    "checks": [
+      "standalone body import",
+      "demo SHA-256 match",
+      "failed mesh convergence remains rejected",
+      "source edit stales report",
+      "Undo restores report correspondence",
+      "real native calculation cancellation",
+      "cancelled series persisted without admission"
+    ],
+    "consoleErrors": []
+  },
+  "nativeContourRead": {
+    "width": 5.4,
+    "height": 3.584796402860092,
+    "points": 19,
+    "knots": 19
+  },
+  "setupPassed": true,
+  "bodyControl": {
+    "sourceHash": "37665a67eb0dca8b0b1a8390b410d376883dde9f05632579956e78592644fe63",
+    "geometryChecked": true,
+    "solverCompleted": true,
+    "iterationConverged": true,
+    "meshConverged": false,
+    "pressureReviewPassed": true,
+    "passed": false
+  },
+  "bodyControlCases": 12,
+  "bodyControlIdentity": "One axisymmetric body, 6 ft long, 2 ft max diameter; not MQ-20 or a complete aircraft",
+  "preservedAircraftSources": [
+    {
+      "file": "Prepared_models/CH1.vsp3",
       "sha256": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17"
     },
-    "MQ28": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 5216,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "VJUKNWEOLP": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 0,
-          "maximumPlaneResidualFt": 3.552713678800501e-15,
-          "validatedPlaneCount": 6,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 7.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            7
-          ],
-          "runs": [
-            [
-              0,
-              7
-            ]
-          ]
-        },
-        "LQJAIQLUIN": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 0,
-          "maximumPlaneResidualFt": 3.552713678800501e-15,
-          "validatedPlaneCount": 4,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        }
-      },
-      "sha256": "987c8fc3df331171e20b81224fc9a994734f5eefff3b0cd93449c95fe1d23239"
-    },
-    "MQ20": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4296,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": true,
-          "frontCaps": 1,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 4.052314039881821e-15,
-          "validatedPlaneCount": 4,
-          "sourceRange": {
-            "start": 1.0,
-            "end": 4.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        }
-      },
+    {
+      "file": "Prepared_models/MQ20_repaired_v01.vsp3",
       "sha256": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb"
     },
-    "Spirit_Mosquito": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 39488,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "DHVJMQQHWJ": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 0,
-          "maximumPlaneResidualFt": 3.552713678800501e-15,
-          "validatedPlaneCount": 18,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 19.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            19
-          ],
-          "runs": [
-            [
-              0,
-              19
-            ]
-          ]
-        },
-        "RXBIXDEBGK": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 0,
-          "maximumPlaneResidualFt": 3.552713678800501e-15,
-          "validatedPlaneCount": 7,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 8.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            8
-          ],
-          "runs": [
-            [
-              0,
-              8
-            ]
-          ]
-        }
-      },
+    {
+      "file": "Prepared_models/MQ28_for_wingfit.vsp3",
+      "sha256": "987c8fc3df331171e20b81224fc9a994734f5eefff3b0cd93449c95fe1d23239"
+    },
+    {
+      "file": "Prepared_models/OKRUG_prepared.vsp3",
+      "sha256": "8e10c3b29abd13073152ec3fbace1763b0cea4a201350c91053ee5ae4c1ed9ca"
+    },
+    {
+      "file": "Prepared_models/Spirit_Mosquito_wingfit_v02.vsp3",
       "sha256": "fb53c4a4cac6ee4fc5aad2e2df0edd0c2180269acc1eb5605089d920e7f1f08f"
-    },
-    "MQ20_face_trim": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4552,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": true,
-          "frontCaps": 1,
-          "backCaps": 2,
-          "maximumPlaneResidualFt": 4.052314039881821e-15,
-          "validatedPlaneCount": 4,
-          "sourceRange": {
-            "start": 1.0,
-            "end": 4.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        }
-      }
-    },
-    "MQ20_fractional_U": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4232,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": true,
-          "frontCaps": 1,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 3.635980405647388e-15,
-          "validatedPlaneCount": 2,
-          "sourceRange": {
-            "start": 1.2,
-            "end": 3.8,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        }
-      }
-    },
-    "MQ20_rotated_pivot": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4296,
-      "semanticComplete": true,
-      "coverage": 1.0,
-      "unknownFaces": 0,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": true,
-          "frontCaps": 1,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 5.190292640122607e-15,
-          "validatedPlaneCount": 4,
-          "sourceRange": {
-            "start": 1.0,
-            "end": 4.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        }
-      }
-    },
-    "MQ20_negative": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4488,
-      "semanticComplete": false,
-      "coverage": 0.8288770053475936,
-      "unknownFaces": 768,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": false,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 4.0,
-            "supported": false
-          },
-          "reason": "Отрицательные дополнительные поверхности, удлинение или поворот интегрального тракта пока не сопоставляются автоматически. Исходная геометрия сохраняется; категории и плавность требуют отдельной проверки."
-        }
-      }
-    },
-    "MQ20_extended": {
-      "openVSP": "OpenVSP 3.51.0",
-      "faces": 4776,
-      "semanticComplete": false,
-      "coverage": 0.7788944723618091,
-      "unknownFaces": 1056,
-      "layouts": {
-        "OOGDGRQXEU": {
-          "verified": true,
-          "frontCaps": 0,
-          "backCaps": 1,
-          "maximumPlaneResidualFt": 1.7763568394002505e-15,
-          "validatedPlaneCount": 5,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 5.0,
-            "supported": true
-          },
-          "outer": [
-            0,
-            5
-          ],
-          "runs": [
-            [
-              0,
-              5
-            ]
-          ]
-        },
-        "XCDIQYNZAG": {
-          "verified": false,
-          "sourceRange": {
-            "start": 0.0,
-            "end": 4.0,
-            "supported": false
-          },
-          "reason": "Отрицательные дополнительные поверхности, удлинение или поворот интегрального тракта пока не сопоставляются автоматически. Исходная геометрия сохраняется; категории и плавность требуют отдельной проверки."
-        }
-      }
     }
-  },
-  "nativeRepair": {
-    "CH1_positive": {
-      "passed": true,
-      "initial": {
-        "complete": true,
-        "passed": false,
-        "pairs": [
-          {
-            "nameA": "Fuselage",
-            "nameB": "Gondola",
-            "minimumGapFt": 0.003,
-            "toleranceFt": 0.0001,
-            "distanceFt": 0.0018604672708525723,
-            "crossing": false,
-            "contained": false,
-            "complete": true,
-            "state": "below-limit",
-            "passed": false
-          },
-          {
-            "nameA": "Gondola",
-            "nameB": "Wing",
-            "minimumGapFt": 0.006,
-            "toleranceFt": 0.0001,
-            "distanceFt": 0.005999999999999339,
-            "crossing": false,
-            "contained": false,
-            "complete": true,
-            "state": "clear",
-            "passed": true
-          }
-        ],
-        "semanticCoverage": 1.0,
-        "nativeSmoothnessComplete": true
-      },
-      "final": {
-        "complete": true,
-        "passed": true,
-        "pairs": [
-          {
-            "nameA": "Fuselage",
-            "nameB": "Gondola",
-            "minimumGapFt": 0.003,
-            "toleranceFt": 0.0001,
-            "distanceFt": 0.004321715688662813,
-            "crossing": false,
-            "contained": false,
-            "complete": true,
-            "state": "clear",
-            "passed": true
-          },
-          {
-            "nameA": "Gondola",
-            "nameB": "Wing",
-            "minimumGapFt": 0.006,
-            "toleranceFt": 0.0001,
-            "distanceFt": 0.005999999999999339,
-            "crossing": false,
-            "contained": false,
-            "complete": true,
-            "state": "clear",
-            "passed": true
-          }
-        ],
-        "semanticCoverage": 1.0,
-        "nativeSmoothnessComplete": true
-      },
-      "preservation": {
-        "format": "section-studio-preservation",
-        "version": "1.2.1",
-        "sourceHash": "10be1a6af773448d9aab73d7ed3d817865b25cbf361b3ba188f0408e8c4e67e7",
-        "originalHash": "30eb6b7e8b36a0ac9471a20628094846f2e44997badf322b5fe878befce27f17",
-        "components": [
-          {
-            "id": "NFAYAEXLTA",
-            "name": "Wing",
-            "parametersUnchanged": true,
-            "complete": true,
-            "maximumMoveFt": 0.0,
-            "rmsMoveFt": 0.0,
-            "sampleCount": 8450,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          },
-          {
-            "id": "TMCWTAJLFF",
-            "name": "Fuselage",
-            "parametersUnchanged": true,
-            "complete": true,
-            "maximumMoveFt": 0.0,
-            "rmsMoveFt": 0.0,
-            "sampleCount": 66625,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          },
-          {
-            "id": "VVMDVQXEAY",
-            "name": "Gondola",
-            "parametersUnchanged": false,
-            "complete": true,
-            "maximumMoveFt": 0.0015302461644393084,
-            "rmsMoveFt": 0.00010089839207677598,
-            "sampleCount": 133250,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          }
-        ],
-        "complete": true,
-        "locksPassed": true,
-        "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
-        "reopenedInOpenVSP": true,
-        "scope": "all-components",
-        "solverRun": false
-      },
-      "history": [
-        {
-          "iteration": 1,
-          "score": 0.0,
-          "controlBoundFt": 0.0015959816264528026,
-          "pairs": [
-            {
-              "a": "TMCWTAJLFF",
-              "b": "VVMDVQXEAY",
-              "distanceFt": 0.003360014662408289,
-              "state": "clear",
-              "passed": true
-            },
-            {
-              "a": "VVMDVQXEAY",
-              "b": "NFAYAEXLTA",
-              "distanceFt": 0.005999999999999339,
-              "state": "clear",
-              "passed": true
-            }
-          ]
-        }
-      ],
-      "changedStationIds": [
-        "VDQCEROLQC"
-      ],
-      "budgetFt": 0.05,
-      "zoneFt": [
-        0,
-        60
-      ],
-      "reasons": [],
-      "worsenedSmoothness": [],
-      "solverRun": false
-    },
-    "MQ20_stricter_gap_rejected": {
-      "ok": true,
-      "passed": false,
-      "history": [
-        {
-          "iteration": 1,
-          "score": 0.03859943459620251,
-          "controlBoundFt": 0.006388693549195912,
-          "pairs": [
-            {
-              "a": "OOGDGRQXEU",
-              "b": "XCDIQYNZAG",
-              "distanceFt": 0.01998831529690407,
-              "state": "below-limit",
-              "passed": false
-            }
-          ]
-        }
-      ],
-      "changedStationIds": [
-        "CGPQDMWQMA",
-        "RPVAPWSUPC"
-      ],
-      "budgetFt": 0.05,
-      "zoneFt": [
-        0,
-        60
-      ],
-      "reasons": [
-        "Все заданные зазоры в пределах бюджета получить не удалось."
-      ],
-      "worsenedSmoothness": [],
-      "solverRun": false,
-      "elapsed": 5.623672841000371,
-      "pairs": [
-        {
-          "nameA": "Fuselage",
-          "nameB": "Gondola",
-          "minimumGapFt": 0.025,
-          "toleranceFt": 0.0001,
-          "distanceFt": 0.01815463984598616,
-          "crossing": false,
-          "contained": false,
-          "complete": true,
-          "state": "below-limit",
-          "passed": false
-        }
-      ],
-      "nativeSmoothnessComplete": true,
-      "preservation": {
-        "format": "section-studio-preservation",
-        "version": "1.2.1",
-        "sourceHash": "681de380ee595ddd1ba6fd7513c7d7c04fe0c6c3a927cd1d2630ae03ff5ac77a",
-        "originalHash": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
-        "components": [
-          {
-            "id": "OOGDGRQXEU",
-            "name": "Fuselage",
-            "parametersUnchanged": true,
-            "complete": true,
-            "maximumMoveFt": 0.0,
-            "rmsMoveFt": 0.0,
-            "sampleCount": 66625,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          },
-          {
-            "id": "XCDIQYNZAG",
-            "name": "Gondola",
-            "parametersUnchanged": false,
-            "complete": true,
-            "maximumMoveFt": 0.006388679988253357,
-            "rmsMoveFt": 0.0010199070287059252,
-            "sampleCount": 66625,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          },
-          {
-            "id": "NWOXDWQXXZ",
-            "name": "Wing",
-            "parametersUnchanged": true,
-            "complete": true,
-            "maximumMoveFt": 0.0,
-            "rmsMoveFt": 0.0,
-            "sampleCount": 8450,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          },
-          {
-            "id": "FYOSNYXTSM",
-            "name": "GO",
-            "parametersUnchanged": true,
-            "complete": true,
-            "maximumMoveFt": 0.0,
-            "rmsMoveFt": 0.0,
-            "sampleCount": 8450,
-            "skippedSampleCount": 0,
-            "correspondence": "same-native-parameter",
-            "locks": []
-          }
-        ],
-        "complete": true,
-        "locksPassed": true,
-        "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
-        "reopenedInOpenVSP": true,
-        "scope": "all-components",
-        "solverRun": false
-      },
-      "expectedOutcome": "Rejected: requested gap was not achieved in final refined check; no Apply permission.",
-      "applyAllowed": false
-    }
-  },
-  "changedStationCountProjection": {
-    "result": {
-      "format": "section-studio-preservation",
-      "version": "1.2.1",
-      "sourceHash": "a612461506f5a1fc16665de3ba784437028de12d73a3a2dc027ee536d403ec57",
-      "originalHash": "986c4b9d6e0a2c29b2afba0c749cabe76cf5fe6467f51612aa4792eddca1dfcb",
-      "components": [
-        {
-          "id": "OOGDGRQXEU",
-          "name": "Fuselage",
-          "parametersUnchanged": true,
-          "complete": true,
-          "maximumMoveFt": 0.0,
-          "rmsMoveFt": 0.0,
-          "sampleCount": 66625,
-          "skippedSampleCount": 0,
-          "correspondence": "same-native-parameter",
-          "locks": []
-        },
-        {
-          "id": "XCDIQYNZAG",
-          "name": "Gondola",
-          "parametersUnchanged": false,
-          "complete": true,
-          "maximumMoveFt": 0.047496366613375,
-          "rmsMoveFt": 0.0070805979802928245,
-          "sampleCount": 8778,
-          "skippedSampleCount": 0,
-          "correspondence": "bidirectional-native-surface-projection",
-          "anchorsUsed": 4,
-          "directions": 2,
-          "locks": [],
-          "note": "Отклонение формы по двусторонней выборке 129×33 плюс параметры видимых исходных сечений. Это не перемещение материальных точек; нативная проекция и конечная выборка не дают строгой границы между отсчётами."
-        },
-        {
-          "id": "NWOXDWQXXZ",
-          "name": "Wing",
-          "parametersUnchanged": true,
-          "complete": true,
-          "maximumMoveFt": 0.0,
-          "rmsMoveFt": 0.0,
-          "sampleCount": 8450,
-          "skippedSampleCount": 0,
-          "correspondence": "same-native-parameter",
-          "locks": []
-        },
-        {
-          "id": "FYOSNYXTSM",
-          "name": "GO",
-          "parametersUnchanged": true,
-          "complete": true,
-          "maximumMoveFt": 0.0,
-          "rmsMoveFt": 0.0,
-          "sampleCount": 8450,
-          "skippedSampleCount": 0,
-          "correspondence": "same-native-parameter",
-          "locks": []
-        }
-      ],
-      "complete": true,
-      "locksPassed": true,
-      "limit": "Конечная нативная выборка. При изменении числа станций используются исходные ID для начальных параметров и двусторонняя проекция на поверхности OpenVSP, включая торцы с постоянным X. Измеряется отклонение формы; между отсчётами возможны пропуски.",
-      "reopenedInOpenVSP": true,
-      "scope": "all-components",
-      "solverRun": false
-    },
-    "test": "Diagnostic insertion of a hidden pre-inlet source station; diagnostic model not supplied as a repaired production model.",
-    "interpretation": "Four shared visible source anchors used. Inserting a hidden source station still changed the visible native surface by up to 0.047496366613375 ft; this is measured shape deviation, not a zero-change claim."
-  },
-  "browserRecovery": {
-    "noOp": [
-      {
-        "file": "Prepared_models/CH1.vsp3",
-        "same": true,
-        "errors": []
-      },
-      {
-        "file": "Prepared_models/MQ28_for_wingfit.vsp3",
-        "same": true,
-        "errors": []
-      },
-      {
-        "file": "Prepared_models/MQ20_repaired_v01.vsp3",
-        "same": true,
-        "errors": []
-      },
-      {
-        "file": "Prepared_models/Spirit_Mosquito_wingfit_v02.vsp3",
-        "same": true,
-        "errors": []
-      }
-    ],
-    "mq20": {
-      "coverage": 1,
-      "smoothnessComplete": true,
-      "pairs": [
-        {
-          "nameA": "Fuselage",
-          "nameB": "Gondola",
-          "minimumGapFt": 0.001,
-          "toleranceFt": 0.0001,
-          "distanceFt": 0.01937224524942947,
-          "crossing": false,
-          "contained": false,
-          "complete": true,
-          "state": "clear",
-          "passed": true
-        }
-      ],
-      "flowFaceCount": 96
-    },
-    "copies": {
-      "A": {
-        "id": "snapshot-01793543236705273337-11522d0b.json",
-        "name": "Recovery_CH1_A",
-        "savedAt": "2026-11-01T14:27:16.705247+00:00",
-        "sha256": "99a4378d4827f31bc0ef7323ea1851a3b4d088248818818f30eefe01cde3ed6e",
-        "version": "1.2.1",
-        "sourceName": "CH1.vsp3"
-      },
-      "B": {
-        "id": "snapshot-01793543248565963187-0bdef519.json",
-        "name": "Recovery_CH1_B",
-        "savedAt": "2026-11-01T14:27:28.565941+00:00",
-        "sha256": "9c7fcca44c87b93bf714cb62fe4a37166794c82e766737cad9a05122ac56f44d",
-        "version": "1.2.1",
-        "sourceName": "CH1.vsp3"
-      },
-      "C": {
-        "id": "snapshot-01793543254596728491-6c9ec970.json",
-        "name": "Recovery_CH1_C",
-        "savedAt": "2026-11-01T14:27:34.596708+00:00",
-        "sha256": "f092a98a7331a79fe05d5440e2023705263c4257cd66d5aa05d2b016591864d6",
-        "version": "1.2.1",
-        "sourceName": "CH1.vsp3"
-      }
-    },
-    "largeProjectBytes": 4411289,
-    "autoSaved": true,
-    "phase1Errors": [],
-    "restoredAfterCrashAndNewPort": true,
-    "phase2Errors": [],
-    "settingsBackupRecovered": true,
-    "corruptLatestFallsBackToPrevious": true,
-    "phase3Errors": [],
-    "serverOrigins": [
-      "http://127.0.0.1:44481",
-      "http://127.0.0.1:36633",
-      "http://127.0.0.1:41763"
-    ],
-    "secondLaunchReusesServer": true
-  },
-  "jsonAndRecoveryFinalChecks": {
-    "sortedTest": {
-      "same": true,
-      "frameRejected": true,
-      "closureRejected": true,
-      "closures": 1
-    },
-    "recoveryRestore": true,
-    "semanticCoverage": 1,
-    "errors": []
-  },
-  "nativeUtf8": {
-    "explicitUtf8NativeReadWrite": true,
-    "defaultEncodingWarningsAsErrors": true,
-    "semanticComplete": true,
-    "selfProjectionMaximumFt": 8e-15
-  },
-  "repeat": {
-    "python": "python -m unittest discover -s tests -v",
-    "javascript": [
-      "node tests/test_pressure_repair.js",
-      "node tests/test_machline_repair.js",
-      "node tests/test_v11_core.js",
-      "node tests/test_v12_core.js"
-    ],
-    "startup": "Check_Setup.bat, or python studio_bootstrap.py --self-test --vspscript /path/to/vspscript",
-    "manualNative": "Open Prepared_models in the local application and run the native assembly check; MQ20_1.2.1_ready.json includes the selected body pair.",
-    "browserScenario": "Open model, verify no-op export, save three distinct full projects, force server exit, restart on a new port, restore; corrupt newest snapshot and primary settings separately, verify fallback."
-  },
-  "knownLimits": [
-    "Windows and BAT scripts were not executed in this Linux preparation environment; Check_Setup.bat checks the actual target machine.",
-    "Negative additional engine surfaces, extended flowpaths and cyclically rolled integral ducts remain explicitly unsupported for complete automatic correspondence; incomplete validation blocks automatic repair.",
-    "Automatic source-station editing at between-station engine U remains blocked; native diagnosis of fractional U is supported.",
-    "Source-role classification does not prove absence of overlapping physical skin or validate wetted area.",
-    "Finite mesh/surface samples cannot establish an analytic bound between samples; repair convergence for arbitrary gap/budget is not guaranteed.",
-    "Recovery keeps three recent valid generations, is limited to 60 MiB per project and cannot preserve edits made after the latest completed write.",
-    "Recovery restores editable project state, not completed native jobs or Apply permission; rerun native validation.",
-    "No VSPAERO/MachLine flow solve or Cp/ADH validation was performed; this is a geometry/editor reliability release."
   ],
-  "historicalValidation": "Validation_1.2_baseline.json preserves the previous release report."
+  "limits": [
+    "Contour self-intersection and curvature checks are sampled; no global native loft guarantee",
+    "Curve displacement bound is not a whole-surface budget",
+    "Engine parameters are geometry only; no powered jet/mass-flow model",
+    "Cp admission applies only to MachLine extrema, not VSPAERO Cp fields",
+    "No experimental aerodynamic accuracy validation",
+    "No claim that rejected examples are calculation ready"
+  ]
 }

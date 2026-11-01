@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "browser": "131.0.6778.204",
+  "checks": [
+    "isolated draft",
+    "invalid self-intersection blocks apply",
+    "insert/delete",
+    "local undo/redo",
+    "global undo",
+    "VSP3 contour roundtrip",
+    "native Engine U/index roundtrip",
+    "disk recovery includes edited Engine Model",
+    "unchanged other components",
+    "Extend and Auto Extension dependencies",
+    "cancel modal without changes",
+    "decimal-comma calculation profile"
+  ],
+  "consoleErrors": []
+}

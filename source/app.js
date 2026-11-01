@@ -1,7 +1,7 @@
 'use strict';
 (() => {
 const C=SectionCore,$=id=>document.getElementById(id),COL=['#117a91','#b76a22'],LIGHT=['#e8f3f6','#fcf0e3'],EDIT=[0,1,2,3,4,5,19,20,21,22,23];
-let fitUI=null,riskUI=null,reviewUI=null,recoveryUI=null;const T=SectionTemplates;let appTab='editor',templateId=T.data.templates[0]?.id||null;
+let fitUI=null,riskUI=null,reviewUI=null,recoveryUI=null,calculationUI=null,engineUI=null,detailUI=null;const T=SectionTemplates;let appTab='editor',templateId=T.data.templates[0]?.id||null;
 let project=C.demo(),cursor=12,active=0,history=[],dirty=false,meshes=[],frame=0,dragPoint=null,dragCamera=null,sectionMap=null,handles=[],planeMaps={},sectionZoom=1,gap={state:'unavailable'},camera={a:-.88,e:.48,zoom:1},vspDraft=null;
 let inputDraft=null,auditReport=null,auditEpoch=0,auditRevision=0,auditFullTimer=0,auditLocalTimer=0,auditLocalWorker=null,auditFullWorker=null,auditLocalBusy=false,auditLocalPending=false,auditLastKey='',auditLastXML=null,auditCachedMeta={},auditUpdating=false,auditFallback=false,loadRequest=0;
 const fmt=n=>Number(n.toFixed(5)).toString();
@@ -70,7 +70,7 @@ function sync(rebuild=true){
  const e=C.validate(project,false);notice(e.length?e[0]:`Оба тела используют общие X / Y / Z, размеры — в футах. ${dirty?'Есть несохранённые изменения.':'Проект готов к редактированию.'}`,!!e.length);
  if(window.SectionAssemblyRepairUI?.current)SectionAssemblyRepairUI.current.refresh();
  if(window.SectionWorkspaceUI?.current)SectionWorkspaceUI.current.refresh();
- if(rebuild){meshes=project.bodies.map(b=>inputDraft?C.loft(b,32,32):C.loft(b));changedAuditGeometry();}paintStationRisks();riskUI?.refresh();reviewUI?.refresh();if(appTab==='library')renderTemplateTargets();if(appTab==='fit')fitUI?.refresh();schedule();
+ if(rebuild){meshes=project.bodies.map(b=>inputDraft?C.loft(b,32,32):C.loft(b));changedAuditGeometry();}paintStationRisks();riskUI?.refresh();reviewUI?.refresh();calculationUI?.refresh();if(appTab==='library')renderTemplateTargets();if(appTab==='fit')fitUI?.refresh();schedule();
 }
 for(let i=0;i<2;i++){
  $('branch'+i).onchange=()=>{project.bodies[i].activeBranch=$('branch'+i).value;const p=C.paths(project.bodies[i]).find(p=>p.key===$('branch'+i).value);if(p)cursor=p.sections[Math.floor(p.sections.length/2)].x;active=i;sync(false);};
@@ -105,8 +105,8 @@ function templateSVG(t,large=false){
 }
 function setAppTab(tab){
  appTab=tab;
- for(const [key,id] of [['editor','editor'],['library','template'],['fit','fit'],['review','review']]){const selected=key===tab;$(id+'Pane').classList.toggle('hidden',!selected);$(id+'Tab').setAttribute('aria-selected',String(selected));$(id+'Tab').tabIndex=selected?0:-1;}
- if(tab==='library'){$('templateTarget').value=String(active);renderTemplateTargets(true);renderTemplateLibrary();}else if(tab==='fit')fitUI?.refresh();else if(tab==='review')reviewUI?.refresh();else schedule();
+ for(const [key,id] of [['editor','editor'],['library','template'],['fit','fit'],['review','review'],['calc','calc']]){const selected=key===tab;$(id+'Pane').classList.toggle('hidden',!selected);$(id+'Tab').setAttribute('aria-selected',String(selected));$(id+'Tab').tabIndex=selected?0:-1;}
+ if(tab==='library'){$('templateTarget').value=String(active);renderTemplateTargets(true);renderTemplateLibrary();}else if(tab==='fit')fitUI?.refresh();else if(tab==='review')reviewUI?.refresh();else if(tab==='calc')calculationUI?.refresh();else schedule();
 }
 function renderTemplateTargets(reset=false){
  const target=$('templateTarget'),old=$('templateStation').value;let body=Number(target.value);if(!project.bodies[body]?.enabled)body=0;target.value=String(body);
@@ -321,6 +321,13 @@ window.SectionStudio.getComponents=()=>SectionWorkspace.rows(project);
 window.SectionStudio.getGeometryXML=p=>VSPImport.write(p||project);
 recoveryUI=SectionRecoveryUI.init({getProject:()=>C.clone(project),restore:raw=>{const q=C.importProject(raw,false);VSPImport.verifySource(q);installProject(q);},hasChanges:()=>dirty,notice});
 window.SectionStudio.saveRecovery=()=>recoveryUI.save();window.SectionStudio.restoreRecovery=id=>recoveryUI.restore(id);window.SectionStudio.getRecoveryState=()=>recoveryUI.state();
-$('reviewTab').onclick=()=>setAppTab('review');
+$('reviewTab').onclick=()=>setAppTab('review');$('calcTab').onclick=()=>setAppTab('calc');
+calculationUI=SectionCalculationUI.init({getProject:()=>C.clone(project),commit,notice,download,exportVSP:p=>VSPImport.write(p),setProject:q=>{window.SectionStudio.setProject(q);}});
+window.SectionStudio.runCalculation=calculationUI.run;window.SectionStudio.getCalculation=calculationUI.getReport;
+engineUI=SectionEngineUI.init({getProject:()=>C.clone(project),commit,notice,exportVSP:p=>VSPImport.write(p),active:()=>active});
+detailUI=SectionDetailUI.init({getProject:()=>C.clone(project),commit,notice,active:()=>active,cursor:()=>cursor});
+window.SectionStudio.openEngine=engineUI.open;window.SectionStudio.getEngine=engineUI.getInfo;
+window.SectionStudio.openSectionEditor=detailUI.open;window.SectionStudio.getSectionDraft=detailUI.getDraft;
+
 sync();
 })();

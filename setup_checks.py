@@ -38,7 +38,7 @@ def discover_executables(roots=None):
 
 def self_test(root,server):
  report={'program':'Section Studio','version':VERSION,'platform':platform.platform(),'python':platform.python_version(),'pythonSupported':sys.version_info>=(3,10),'requiredFiles':{},'http':False,'native':{'available':bool(server.executable)},'passed':False}
- for name in ['Section_Studio.html','section_studio_server.py','studio_bootstrap.py','local_storage.py','instance_guard.py','version.py','assembly_audit.py','assembly_repair.py','surface_tools.py','native_projection.py','native/mesh.vspscript']:
+ for name in ['Section_Studio.html','section_studio_server.py','studio_bootstrap.py','local_storage.py','instance_guard.py','version.py','assembly_audit.py','assembly_repair.py','surface_tools.py','native_projection.py','native/mesh.vspscript','calculation.py','Run_Calculations.py','engine_control.py','source/contour.js','source/sectioneditor.js','source/engineui.js']:
   report['requiredFiles'][name]=(root/name).is_file()
  thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
  try:

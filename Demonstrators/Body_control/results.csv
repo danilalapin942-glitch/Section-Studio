@@ -1,0 +1,13 @@
+﻿level,solver,Mach,alpha_deg,beta_deg,CL,CD,CY,Cl,Cm,Cn,iteration_converged,pressure_review_passed,process_completed,force_model
+Coarse,vspaero,0.3,2.0,0.0,0.000947330842,-8.386159e-06,-0.00476969463,2.163486e-06,0.026082492767,3.344141e-06,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Coarse,vspaero,0.3,4.0,0.0,0.000947556563,-1.6625239e-05,-0.004795836996,5.63908e-07,0.052037919158,6.671317e-06,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Coarse,machline,0.3,2.0,0.0,-0.0005544051583662084,0.008448766443181675,-3.7520487741902e-05,3.330480657807305e-05,0.03015165795089512,1.0884801812793759e-05,True,True,True,isentropic pressure
+Coarse,machline,0.3,4.0,0.0,-0.0011053941962277957,0.008387142967589191,-7.47572142324573e-05,3.422841621650919e-05,0.06016216325514496,2.1636362835012555e-05,True,True,True,isentropic pressure
+Medium,vspaero,0.3,2.0,0.0,0.000106576563,8.71119e-05,0.000899351441,-2.3076e-07,0.026760259953,2.2026522e-05,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Medium,vspaero,0.3,4.0,0.0,9.5822942e-05,0.000173379335,0.001020505289,-1.120749e-05,0.053390263868,4.4328875e-05,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Medium,machline,0.3,2.0,0.0,-2.3360735768684362e-05,0.0013854984086628661,0.000218432216251948,2.610502176370821e-05,0.03095022454208103,0.0003406002420440497,True,True,True,isentropic pressure
+Medium,machline,0.3,4.0,0.0,-0.00010525672045138428,0.0013848697692625928,0.000227440291708698,2.6965033544900605e-05,0.06178392274161823,0.00034345635096381504,True,True,True,isentropic pressure
+Fine,vspaero,0.3,2.0,0.0,-0.001042526534,8.4905244e-05,0.013546473256,-5.238921e-06,0.027580822929,4.977748e-05,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Fine,vspaero,0.3,4.0,0.0,-0.001056135819,0.00016861899,0.013719365252,-2.1824829e-05,0.055027297966,9.9202375e-05,True,not checked,True,inviscid surface integration (CLi/CDi/CSi); moments use surface loads; viscous estimate retained separately
+Fine,machline,0.3,2.0,0.0,-4.198713339113668e-05,0.000740351981008714,-1.35510761096043e-05,5.960721369980212e-05,0.03118535131980664,4.112370560619342e-06,True,True,True,isentropic pressure
+Fine,machline,0.3,4.0,0.0,-8.422917167315617e-05,0.0007410459259723236,-2.70465182720589e-05,5.911505327853461e-05,0.06222443124947799,8.217105598773257e-06,True,True,True,isentropic pressure

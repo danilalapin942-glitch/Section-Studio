@@ -1,7 +1,7 @@
 /* Section Studio 1.2 — selected body pair, component frames and feet. */
 (function (root) {
   'use strict';
-  const VERSION = '1.2.1';
+  const VERSION = '1.2.2';
   const Frames=root.SectionFrames||(typeof require==='function'?require('./frames'):null);
   const clone = o => JSON.parse(JSON.stringify(o));
   const CHINE = [[.5,.22],[.44,.08],[.34,-.40],[.29,-.46],[.25,-.5],[.12,-.5],[0,-.5],[-.12,-.5],[-.25,-.5],[-.29,-.46],[-.34,-.40],[-.44,.08],[-.5,.22],[-.475,.32],[-.445,.47],[-.40,.5],[-.27,.5],[-.13,.5],[0,.5],[.13,.5],[.27,.5],[.40,.5],[.445,.47],[.475,.32],[.5,.22]];

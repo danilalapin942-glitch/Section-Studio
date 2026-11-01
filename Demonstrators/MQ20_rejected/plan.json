@@ -1,0 +1,38 @@
+{
+  "referenceWing": "NWOXDWQXXZ",
+  "alphas": [
+    0.0,
+    2.0,
+    4.0
+  ],
+  "machs": [
+    0.3
+  ],
+  "beta": 0.0,
+  "solvers": [
+    "machline"
+  ],
+  "momentReferenceFt": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "bodyRelation": "separate",
+  "minimumGapFt": 0.001,
+  "relativeTolerance": 0.05,
+  "wakeIterations": 10,
+  "threads": 2,
+  "formulation": "dirichlet-morino",
+  "offsetFt": 1e-05,
+  "wakeAngleDeg": 150.0,
+  "vspaeroModel": "hybrid",
+  "momentConvention": "v4.0-area-omitted",
+  "residualLimit": 1e-06,
+  "pressureLimit": 10.0,
+  "levels": [
+    "Coarse",
+    "Medium",
+    "Fine"
+  ],
+  "engineTreatment": "unpowered-native-boundaries"
+}

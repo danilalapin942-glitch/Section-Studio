@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "checks": [
+    "standalone body import",
+    "demo SHA-256 match",
+    "failed mesh convergence remains rejected",
+    "source edit stales report",
+    "Undo restores report correspondence",
+    "real native calculation cancellation",
+    "cancelled series persisted without admission"
+  ],
+  "consoleErrors": []
+}

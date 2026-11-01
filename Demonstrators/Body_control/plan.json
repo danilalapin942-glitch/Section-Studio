@@ -1,0 +1,50 @@
+{
+  "referenceWing": null,
+  "referenceMode": "manual",
+  "manualReferences": {
+    "areaFt2": 3.141592653589793,
+    "spanFt": 2.0,
+    "lengthFt": 6.0
+  },
+  "alphas": [
+    2.0,
+    4.0
+  ],
+  "machs": [
+    0.3
+  ],
+  "beta": 0.0,
+  "solvers": [
+    "vspaero",
+    "machline"
+  ],
+  "momentReferenceFt": [
+    3.0,
+    0.0,
+    0.0
+  ],
+  "bodyRelation": "separate",
+  "minimumGapFt": 0.001,
+  "relativeTolerance": 0.05,
+  "wakeIterations": 15,
+  "threads": 1,
+  "formulation": "dirichlet-morino",
+  "offsetFt": 1e-05,
+  "wakeAngleDeg": 150.0,
+  "vspaeroModel": "hybrid",
+  "momentConvention": "v4.0-area-omitted",
+  "meshMethod": "cfd",
+  "vspaeroWake": "frozen",
+  "vspaeroForces": "surface",
+  "singularityOrder": "lower",
+  "caseTimeoutSeconds": 300,
+  "matrixLimitMiB": 4096.0,
+  "residualLimit": 1e-06,
+  "pressureLimit": 10.0,
+  "levels": [
+    "Coarse",
+    "Medium",
+    "Fine"
+  ],
+  "engineTreatment": "unpowered-native-boundaries"
+}
